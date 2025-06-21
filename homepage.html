@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Physics Simulations</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Style for a smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8 md:py-16">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+                Interactive Physics Lab
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
+                Select an experiment to begin your simulation.
+            </p>
+        </header>
+
+        <!-- Grid of Experiment Links -->
+        <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Card 1: EMF and Internal Resistance -->
+            <a href="emf_and_internal_resistance.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">EMF & Internal Resistance</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Explore the relationship between electromotive force (EMF), terminal voltage, and internal resistance in a circuit.</p>
+                </div>
+            </a>
+
+            <!-- Card 2: Free Fall Experiment -->
+            <a href="free_fall_experiment.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Free Fall Experiment</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Measure the acceleration due to gravity (g) by simulating an object in free fall.</p>
+                </div>
+            </a>
+
+            <!-- Card 3: I-V Characteristics -->
+            <a href="iv_characteristics_wire_bulb.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">I-V Characteristics</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Investigate the current-voltage (I-V) characteristics of a metallic wire and a filament bulb.</p>
+                </div>
+            </a>
+
+            <!-- Card 4: Magnetic Field of a Wire -->
+            <a href="magnetic_field_wire.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Magnetic Field of a Wire</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Visualize and measure the magnetic field produced by a current-carrying straight wire.</p>
+                </div>
+            </a>
+
+            <!-- Card 5: Motion with Friction -->
+            <a href="motion_with_friction.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Motion with Friction</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Study the effects of static and kinetic friction on the motion of an object on a surface.</p>
+                </div>
+            </a>
+
+            <!-- Card 6: Spring Energy -->
+            <a href="spring_energy_experiment.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Conservation of Energy in a Spring</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Verify the principle of conservation of energy by analyzing a mass-spring system.</p>
+                </div>
+            </a>
+            
+            <!-- Card 7: Tangent Galvanometer -->
+            <a href="tangent_galvanometer.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Tangent Galvanometer</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Understand how a tangent galvanometer works to measure electric current.</p>
+                </div>
+            </a>
+
+        </main>
+
+        <!-- Iframe container for displaying the chosen experiment -->
+        <section id="experiment-view" class="mt-16">
+            <div id="placeholder" class="text-center p-10 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">Your selected simulation will appear here.</h2>
+            </div>
+            <iframe id="experiment-frame" title="Physics Simulation" class="w-full h-[600px] md:h-[800px] rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-700 hidden" src="about:blank"></iframe>
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="text-center mt-16">
+            <p class="text-gray-500 dark:text-gray-400">Created for educational purposes.</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript to handle iframe loading -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get all the experiment links
+            const experimentLinks = document.querySelectorAll('main a');
+            // Get the iframe and its container elements
+            const iframe = document.getElementById('experiment-frame');
+            const placeholder = document.getElementById('placeholder');
+            const viewSection = document.getElementById('experiment-view');
+
+            // Add a click listener to each experiment link
+            experimentLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    // Prevent the default link behavior (navigating to a new page)
+                    event.preventDefault();
+
+                    const url = link.getAttribute('href');
+                    
+                    if (url) {
+                        // Hide the placeholder and show the iframe
+                        placeholder.classList.add('hidden');
+                        iframe.classList.remove('hidden');
+
+                        // Set the iframe source to the clicked link's href
+                        iframe.src = url;
+                        
+                        // Scroll the iframe into view so the user can see it
+                        viewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

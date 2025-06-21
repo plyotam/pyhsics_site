@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: A Tale of Two Resistors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #001219;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 40vh;
+            max-height: 450px;
+        }
+        .flow-arrow {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-top: 3px solid #0a9396;
+            border-right: 3px solid #0a9396;
+            transform: rotate(45deg);
+        }
+         .flow-arrow-down {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-bottom: 3px solid #0a9396;
+            border-right: 3px solid #0a9396;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <main class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black text-white">A Tale of Two Resistors</h1>
+            <p class="mt-4 text-lg md:text-xl text-[#94d2bd]">Ohm's Law Under the Microscope</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-[#005f73]">The Rulebook: Ohm's Law</h2>
+                        <p class="mt-4 text-lg">In the world of electricity, Ohm's Law is the fundamental principle. It states that for many materials, the voltage applied is directly proportional to the current that flows through it, as long as physical conditions like temperature remain constant.</p>
+                        <p class="mt-4 text-center text-3xl font-bold bg-[#e9d8a6] text-[#001219] py-4 rounded-lg shadow-inner">V = I × R</p>
+                        <p class="mt-4 text-base">Here, <span class="font-bold">Voltage (V)</span> is the electrical pressure, <span class="font-bold">Current (I)</span> is the flow of charge, and <span class="font-bold">Resistance (R)</span> is the opposition to that flow.</p>
+                    </div>
+                     <div class="chart-container mx-auto max-w-lg">
+                        <canvas id="ohmicChart"></canvas>
+                    </div>
+                </div>
+                 <div class="mt-6 border-t pt-4">
+                    <h3 class="font-bold text-xl text-[#0a9396]">The Ohmic Conductor: A Metallic Wire</h3>
+                    <p class="mt-2 text-base">The experiment first tests a Nichrome wire, an ideal "ohmic" conductor. As you can see in the graph, the relationship between Voltage and Current is a perfect straight line. This constant slope signifies a <span class="font-bold">constant resistance</span>, meaning the wire perfectly follows Ohm's Law. It's predictable and linear.</p>
+                </div>
+            </section>
+            
+            <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6">The Four Factors of Resistance</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="bg-gray-50 p-4 rounded-lg shadow">
+                        <p class="text-4xl">🔬</p>
+                        <h3 class="font-bold mt-2">Material</h3>
+                        <p class="text-sm">Intrinsic property (resistivity). Copper has low resistance; Nichrome is higher.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg shadow">
+                        <p class="text-4xl">📏</p>
+                        <h3 class="font-bold mt-2">Length</h3>
+                        <p class="text-sm">Longer wires have more resistance. More path for electrons to travel.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg shadow">
+                        <p class="text-4xl">🔘</p>
+                        <h3 class="font-bold mt-2">Cross-Sectional Area</h3>
+                        <p class="text-sm">Thicker wires have less resistance. More room for electrons to flow.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg shadow">
+                        <p class="text-4xl">🌡️</p>
+                        <h3 class="font-bold mt-2">Temperature</h3>
+                        <p class="text-sm">For most metals, higher temperatures mean more resistance.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="order-2 md:order-1">
+                        <h2 class="text-3xl font-bold text-[#005f73]">The Rule-Breaker: A Light Bulb</h2>
+                        <p class="mt-4 text-base">Next, the experiment tests an incandescent light bulb. Its thin tungsten filament is designed to get incredibly hot to produce light. This heat dramatically changes its properties. The V-I graph is no longer a straight line, but a curve. This reveals the bulb is <span class="font-bold">non-ohmic</span>.</p>
+                        <p class="mt-2 text-base">The slope of the graph gets steeper, which proves that its <span class="font-bold">resistance is increasing</span> as more current flows and the filament heats up. For every additional volt of pressure, you get less and less additional current.</p>
+                    </div>
+                     <div class="chart-container mx-auto max-w-lg order-1 md:order-2">
+                        <canvas id="nonOhmicChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="font-bold text-xl text-center text-[#0a9396]">Why Does The Bulb's Resistance Increase?</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 mt-4">
+                        <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
+                            <p class="font-bold">More Current</p>
+                        </div>
+                        <div class="flow-arrow-down md:flow-arrow"></div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
+                            <p class="font-bold">Filament Heats Up</p>
+                        </div>
+                        <div class="flow-arrow-down md:flow-arrow"></div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
+                            <p class="font-bold">Atoms Vibrate More</p>
+                        </div>
+                        <div class="flow-arrow-down md:flow-arrow"></div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
+                            <p class="font-bold">More Electron Collisions</p>
+                        </div>
+                         <div class="flow-arrow-down md:flow-arrow"></div>
+                        <div class="text-center p-3 bg-red-100 border border-red-400 rounded-lg shadow">
+                            <p class="font-bold text-red-700">Resistance Increases</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6">The Tools of the Trade</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="border-2 border-[#0a9396] p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold text-center">Ammeter</h3>
+                        <p class="text-6xl text-center my-4">🇦</p>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li><span class="font-semibold">Function:</span> Measures Current (Amps).</li>
+                            <li><span class="font-semibold">Connection:</span> Must be in <span class="font-bold">SERIES</span> with the component.</li>
+                            <li><span class="font-semibold">Internal Resistance:</span> Very <span class="font-bold">LOW</span>, to not impede the current it measures.</li>
+                        </ul>
+                    </div>
+                     <div class="border-2 border-[#0a9396] p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold text-center">Voltmeter</h3>
+                        <p class="text-6xl text-center my-4">⚡</p>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li><span class="font-semibold">Function:</span> Measures Voltage (Volts).</li>
+                            <li><span class="font-semibold">Connection:</span> Must be in <span class="font-bold">PARALLEL</span> with the component.</li>
+                            <li><span class="font-semibold">Internal Resistance:</span> Very <span class="font-bold">HIGH</span>, to not draw current from the circuit.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="lg:col-span-3 bg-red-800 text-white rounded-xl shadow-2xl p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center mb-6">Critical Error: Swapping the Meters</h2>
+                <p class="text-center text-red-200 mb-8">Connecting the meters incorrectly leads to catastrophic failure. Understanding why is key.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-red-900/50 p-6 rounded-lg text-center">
+                        <h3 class="text-2xl font-bold text-yellow-300">Ammeter in Parallel</h3>
+                         <p class="text-6xl text-center my-4">☠️</p>
+                        <p class="font-black text-3xl text-white my-4">SHORT CIRCUIT!</p>
+                        <p class="text-red-200">The ammeter's low resistance provides an "easy path". Almost all current bypasses the component and rushes through the meter, likely blowing its fuse or destroying it.</p>
+                    </div>
+                     <div class="bg-red-900/50 p-6 rounded-lg text-center">
+                        <h3 class="text-2xl font-bold text-yellow-300">Voltmeter in Series</h3>
+                         <p class="text-6xl text-center my-4">⚠️</p>
+                        <p class="font-black text-3xl text-white my-4">OPEN CIRCUIT!</p>
+                        <p class="text-red-200">The voltmeter's high resistance is added to the circuit, blocking almost all current flow. The circuit effectively stops working, and readings are meaningless.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        const brilliantBlues = {
+            primary: '#005f73',
+            secondary: '#0a9396',
+            accent: '#94d2bd',
+            highlight: '#e9d8a6',
+            text: '#001219'
+        };
+
+        function processLabel(label) {
+            const maxLen = 16;
+            if (typeof label !== 'string' || label.length <= maxLen) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).length > maxLen && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = currentLine ? currentLine + ' ' + word : word;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            }
+            return label;
+        };
+        
+        const sharedChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: brilliantBlues.text,
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Current (A)',
+                        color: brilliantBlues.text,
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        color: brilliantBlues.text
+                    },
+                    grid: {
+                        color: brilliantBlues.accent
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Voltage (V)',
+                        color: brilliantBlues.text,
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        color: brilliantBlues.text
+                    },
+                    grid: {
+                        color: brilliantBlues.accent
+                    }
+                }
+            }
+        };
+
+        const ohmicData = {
+            labels: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+            datasets: [{
+                label: 'Ohmic Wire (Constant Resistance)',
+                data: [0, 1, 2, 3, 4, 5],
+                borderColor: brilliantBlues.primary,
+                backgroundColor: brilliantBlues.secondary,
+                borderWidth: 4,
+                tension: 0.1,
+                pointRadius: 5
+            }]
+        };
+
+        const nonOhmicData = {
+            labels: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.1],
+            datasets: [{
+                label: 'Non-Ohmic Bulb (Increasing Resistance)',
+                data: [0, 0.5, 1.2, 2.3, 3.8, 5.5, 6.8],
+                borderColor: brilliantBlues.secondary,
+                backgroundColor: brilliantBlues.primary,
+                borderWidth: 4,
+                tension: 0.4,
+                pointRadius: 5,
+                fill: {
+                    target: 'origin',
+                    above: 'rgba(148, 210, 189, 0.3)',
+                },
+            }]
+        };
+
+        new Chart(document.getElementById('ohmicChart'), {
+            type: 'line',
+            data: ohmicData,
+            options: sharedChartOptions
+        });
+
+        new Chart(document.getElementById('nonOhmicChart'), {
+            type: 'line',
+            data: nonOhmicData,
+            options: sharedChartOptions
+        });
+    </script>
+</body>
+</html>

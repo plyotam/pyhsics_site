@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Experiment Infographic: Mechanics of Springs & Friction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!--
+    Infographic Plan & Narrative Structure:
+    1.  Introduction: Title and a brief overview of the experiment's two primary goals: finding the spring constant 'k' and the coefficient of kinetic friction 'μk'.
+    2.  Section 1 - Static Analysis (Part I): Focus on determining the spring constant 'k'.
+        -   Explain the principle: Hooke's Law in static equilibrium.
+        -   Visualize the experimental setup using HTML/CSS.
+        -   Present a line chart of Force vs. Elongation to find 'k' from the slope.
+    3.  Section 2 - Dynamic Analysis (Part II): Focus on determining the friction coefficient 'μk'.
+        -   Explain the principle: The Work-Energy Theorem.
+        -   Detail the energy transformation from potential to kinetic to dissipated heat.
+        -   Present a line chart of Distance (x) vs. Elongation Squared ((Δl)²) to find 'μk'.
+    4.  Section 3 - Synthesis & Process Flow: Connect the two parts.
+        -   Create a flowchart using HTML/CSS to show the dependency of Part II on the result of Part I.
+        -   Display the key equations side-by-side for comparison.
+    5.  Conclusion: A summary of the findings and the physics principles demonstrated.
+
+    Color Palette Selection: "Brilliant Blues"
+    -   Primary: #00A1E4
+    -   Secondary: #0077C0
+    -   Dark Accent: #005082
+    -   Background: #F2F2F2
+    -   Text: #333333
+
+    Visualization Choices & Justification (NO SVG / NO MERMAID JS):
+    1.  Part I Data (Force vs. Elongation):
+        -   Goal: Show relationship, find a constant.
+        -   Choice: Line Chart (Chart.js).
+        -   Justification: Perfectly shows the linear relationship F = kΔl. The slope is the spring constant 'k'. Implemented with Canvas via Chart.js.
+    2.  Part II Data (Distance vs. Elongation²):
+        -   Goal: Show relationship, find a constant from a linearized equation.
+        -   Choice: Line Chart (Chart.js).
+        -   Justification: Shows the linear relationship x = M(Δl)². The slope 'M' is used to calculate μk. Implemented with Canvas via Chart.js.
+    3.  Experimental Setups:
+        -   Goal: Inform, visualize the physical apparatus.
+        -   Choice: Structured HTML/CSS with Tailwind.
+        -   Justification: Creates clear, simple diagrams without relying on image files or SVG, using borders, backgrounds, and Unicode characters.
+    4.  Process Flow Diagram:
+        -   Goal: Organize, show dependency.
+        -   Choice: Structured HTML/CSS with Tailwind (Flexbox/Grid).
+        -   Justification: Effectively illustrates the flow of the experiment (k → μk) without Mermaid JS or SVG, using styled divs and arrows.
+
+    Confirmation: NEITHER Mermaid JS NOR SVG were used in this output. All visualizations are rendered using Chart.js (Canvas) or structured HTML/CSS.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F2F2F2;
+            color: #333333;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #00A1E4, #005082);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight gradient-text">The Mechanics of Springs & Friction</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">An interactive guide to understanding the physics of elastic potential energy, static forces, and energy dissipation through work done by friction.</p>
+        </header>
+
+        <main>
+            <section id="part1" class="mb-12">
+                <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 border-l-4 border-[#00A1E4] pl-4 mb-6">Part I: Characterizing the Spring (Static Analysis)</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="prose max-w-none text-gray-700">
+                            <p>The first goal is to find the <strong>spring constant (k)</strong>, a measure of a spring's stiffness. We do this by applying a known force (hanging weights) and measuring the resulting stretch (elongation). The experiment relies on two key principles:</p>
+                            <ul>
+                                <li><strong>Newton's First Law:</strong> In a state of static equilibrium (when the weights are hanging still), the net force is zero. This means the upward pull of the spring perfectly balances the downward pull of gravity.</li>
+                                <li><strong>Hooke's Law:</strong> For an ideal spring, the force it exerts ($F$) is directly proportional to its elongation ($\Delta l$). The formula is $F = k\Delta l$.</li>
+                            </ul>
+                            <p>By measuring the force applied by different masses and the corresponding elongation, we can create a graph to find a precise value for 'k'.</p>
+                            
+                            <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 class="font-bold text-[#005082]">Experimental Setup</h4>
+                                <div class="flex justify-center items-start mt-4 space-x-4 text-center">
+                                    <div>
+                                        <div class="h-8 w-px bg-gray-500 mx-auto"></div>
+                                        <div class="w-16 h-12 border-2 border-gray-500 border-b-0 rounded-t-lg mx-auto flex items-center justify-center text-sm font-mono">Stand</div>
+                                    </div>
+                                    <div>
+                                        <div class="w-px h-16 bg-gray-400 mx-auto"></div>
+                                        <div class="font-mono text-sm text-[#0077C0]">Spring (k=?)</div>
+                                        <div class="w-1 h-12 bg-gray-400 mx-auto relative">
+                                            <div class="absolute -left-1 w-3 h-1 bg-gray-400 top-1"></div>
+                                            <div class="absolute -left-1 w-3 h-1 bg-gray-400 top-4"></div>
+                                            <div class="absolute -left-1 w-3 h-1 bg-gray-400 top-7"></div>
+                                        </div>
+                                        <div class="w-8 h-8 bg-[#00A1E4] rounded-md mx-auto flex items-center justify-center text-white font-bold">m</div>
+                                        <p class="text-xs mt-1">Weight ($F=mg$)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                             <h3 class="text-xl font-bold text-center text-[#005082] mb-2">Finding 'k' with a Graph</h3>
+                             <p class="text-center text-sm text-gray-600 mb-4">By plotting Force vs. Elongation, the slope of the best-fit line gives us the spring constant, $k = \frac{\Delta F}{\Delta (\Delta l)}$.</p>
+                            <div class="chart-container">
+                                <canvas id="hookesLawChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="part2" class="mb-12">
+                <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                     <h2 class="text-3xl font-bold text-gray-800 border-l-4 border-[#00A1E4] pl-4 mb-6">Part II: Measuring Friction (Dynamic Analysis)</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-center text-[#005082] mb-2">The Energy Transformation Story</h3>
+                            <p class="text-center text-sm text-gray-600 mb-4">Plotting distance vs. elongation squared reveals a linear relationship, whose slope is used to calculate $\mu_k$.</p>
+                            <div class="chart-container">
+                                <canvas id="workEnergyChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="prose max-w-none text-gray-700">
+                            <p>The second goal is to find the <strong>coefficient of kinetic friction ($\mu_k$)</strong> between a box and a surface. This part uses a more advanced principle:</p>
+                            <ul>
+                                <li><strong>Work-Energy Theorem:</strong> The net work done on an object equals its change in kinetic energy ($W_{net} = \Delta KE$). Since the box starts and ends at rest, its $\Delta KE$ is zero. Therefore, the total work done on it must also be zero.</li>
+                            </ul>
+                            <p>This creates an energy balance: the positive work done by the spring (converting stored potential energy into motion) is exactly cancelled out by the negative work done by friction (dissipating energy as heat).</p>
+                             <div class="mt-8 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h4 class="font-bold text-green-800">Energy Flow</h4>
+                                <div class="flex items-center justify-around mt-4 text-center font-semibold">
+                                    <div class="p-3 bg-[#00A1E4] text-white rounded-lg shadow">1. Potential Energy<br><span class="text-xs font-normal">($\frac{1}{2}k(\Delta l)^2$)</span></div>
+                                    <div class="text-2xl font-black text-green-600">→</div>
+                                    <div class="p-3 bg-yellow-400 text-gray-800 rounded-lg shadow">2. Kinetic Energy<br><span class="text-xs font-normal">($\frac{1}{2}mv^2$)</span></div>
+                                     <div class="text-2xl font-black text-red-600">→</div>
+                                    <div class="p-3 bg-red-500 text-white rounded-lg shadow">3. Heat<br><span class="text-xs font-normal">(Work by Friction)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="synthesis" class="mb-12">
+                <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 border-l-4 border-[#00A1E4] pl-4 mb-6">Synthesis: Connecting the Concepts</h2>
+                    <p class="text-gray-600 mb-8 max-w-4xl">This experiment is designed in two sequential parts because the result from the first part is essential for the second. You cannot find the coefficient of friction without first knowing the stiffness of the spring you are using.</p>
+                    
+                    <div class="w-full bg-gray-50 p-6 rounded-lg border">
+                        <h3 class="text-xl font-bold text-center text-[#005082] mb-6">Experimental Process Flow</h3>
+                        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                            
+                            <div class="text-center p-4 border-2 border-dashed border-[#00A1E4] rounded-lg bg-white shadow-sm">
+                                <h4 class="font-bold text-[#0077C0]">Part I: Statics</h4>
+                                <p class="text-sm">Apply Force ($F=mg$),<br>Measure Elongation ($\Delta l$).</p>
+                                <div class="text-2xl mt-2">↓</div>
+                                <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">Graph F vs. $\Delta l$</p>
+                            </div>
+                            
+                            <div class="text-4xl font-light text-gray-400 transform md:rotate-0 rotate-90">➔</div>
+                            
+                            <div class="text-center p-4 bg-[#0077C0] text-white rounded-lg shadow-lg">
+                                <h4 class="font-bold">Key Result: 'k'</h4>
+                                <p class="text-2xl font-black">k = Slope₁</p>
+                            </div>
+
+                            <div class="text-4xl font-light text-gray-400 transform md:rotate-0 rotate-90">➔</div>
+
+                            <div class="text-center p-4 border-2 border-dashed border-[#00A1E4] rounded-lg bg-white shadow-sm">
+                                <h4 class="font-bold text-[#0077C0]">Part II: Dynamics</h4>
+                                <p class="text-sm">Stretch by $\Delta l$,<br>Measure Distance ($x$).</p>
+                                <div class="text-2xl mt-2">↓</div>
+                                <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">Graph x vs. $(\Delta l)^2$</p>
+                            </div>
+
+                             <div class="text-4xl font-light text-gray-400 transform md:rotate-0 rotate-90">➔</div>
+
+                            <div class="text-center p-4 bg-[#005082] text-white rounded-lg shadow-lg">
+                                <h4 class="font-bold">Final Result: 'μk'</h4>
+                                 <p class="text-lg font-mono">$\mu_k = \frac{k}{2 \cdot \text{Slope₂} \cdot mg}$</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function wrapLabel(str, max_width) {
+            if (str.length <= max_width) {
+                return str;
+            }
+            const words = str.split(' ');
+            const lines = [];
+            let current_line = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (current_line.length + words[i].length + 1 < max_width) {
+                    current_line += ' ' + words[i];
+                } else {
+                    lines.push(current_line);
+                    current_line = words[i];
+                }
+            }
+            lines.push(current_line);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        const sharedChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                },
+                y: {
+                    grid: {
+                        color: '#e0e0e0',
+                        borderDash: [2, 4],
+                    },
+                    title: {
+                        display: true,
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    beginAtZero: true
+                }
+            }
+        };
+        
+        const hookeData = {
+            labels: [0.00, 0.05, 0.10, 0.15, 0.20, 0.25],
+            datasets: [{
+                label: 'Force (N)',
+                data: [0, 2.45, 4.90, 7.35, 9.80, 12.25],
+                borderColor: '#00A1E4',
+                backgroundColor: 'rgba(0, 161, 228, 0.1)',
+                fill: true,
+                tension: 0.1,
+                pointBackgroundColor: '#0077C0',
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        };
+
+        const ctxHooke = document.getElementById('hookesLawChart').getContext('2d');
+        new Chart(ctxHooke, {
+            type: 'line',
+            data: hookeData,
+            options: {
+                ...sharedChartOptions,
+                scales: {
+                    ...sharedChartOptions.scales,
+                    x: { ...sharedChartOptions.scales.x, title: { ...sharedChartOptions.scales.x.title, text: 'Elongation, Δl (m)' } },
+                    y: { ...sharedChartOptions.scales.y, title: { ...sharedChartOptions.scales.y.title, text: 'Force, F (N)' } }
+                }
+            }
+        });
+
+        const workEnergyData = {
+            labels: [0, 0.01, 0.0225, 0.04, 0.0625, 0.09],
+            datasets: [{
+                label: 'Distance (m)',
+                data: [0, 0.25, 0.56, 1.00, 1.56, 2.25],
+                borderColor: '#0077C0',
+                backgroundColor: 'rgba(0, 119, 192, 0.1)',
+                fill: true,
+                tension: 0.1,
+                pointBackgroundColor: '#005082',
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        };
+
+        const ctxWorkEnergy = document.getElementById('workEnergyChart').getContext('2d');
+        new Chart(ctxWorkEnergy, {
+            type: 'line',
+            data: workEnergyData,
+            options: {
+                ...sharedChartOptions,
+                scales: {
+                    ...sharedChartOptions.scales,
+                    x: { ...sharedChartOptions.scales.x, title: { ...sharedChartOptions.scales.x.title, text: 'Elongation Squared, (Δl)² (m²)' } },
+                    y: { ...sharedChartOptions.scales.y, title: { ...sharedChartOptions.scales.y.title, text: 'Distance Traveled, x (m)' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

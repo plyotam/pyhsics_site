@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Infographic: The Physics of a Real Battery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; 
+        }
+        .chart-container {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 800px;
+            width: 100%;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .brilliant-blues-bg { background-color: #004AAD; }
+        .brilliant-blues-text { color: #004AAD; }
+        .brilliant-blues-accent-bg { background-color: #4194F2; }
+        .brilliant-blues-accent-text { color: #4194F2; }
+        .brilliant-blues-light-bg { background-color: #B4D5F7; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="brilliant-blues-bg text-white p-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-2">The Real Battery</h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto text-blue-200">Why a 1.5V battery doesn't always deliver 1.5 volts. An interactive guide to your physics experiment.</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="concepts" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text">Deconstructing the Battery: The Three Key Players</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="stat-card">
+                    <h3 class="text-xl font-bold mb-2">Electromotive Force (ε)</h3>
+                    <p class="text-6xl font-extrabold brilliant-blues-accent-text">1.55 V</p>
+                    <p class="mt-4 text-gray-600">The battery's <span class="font-semibold">ideal or maximum</span> possible voltage, measured when no current is flowing (open circuit). It's the true potential from the chemical reaction.</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-bold mb-2">Internal Resistance (r)</h3>
+                    <p class="text-6xl font-extrabold brilliant-blues-accent-text">0.4 Ω</p>
+                    <p class="mt-4 text-gray-600">The <span class="font-semibold">inevitable imperfection</span>. Resistance from the battery's own materials, causing it to heat up and lose voltage under load.</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-bold mb-2">Terminal Voltage (Vᴛ)</h3>
+                    <p class="text-6xl font-extrabold brilliant-blues-accent-text">&lt; 1.55 V</p>
+                    <p class="mt-4 text-gray-600">The <span class="font-semibold">actual, measured</span> voltage across the battery's terminals when it's powering a circuit. This is what you measure in the experiment.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="setup" class="mb-16 bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text">The Experimental Setup</h2>
+            <p class="text-center max-w-3xl mx-auto mb-10 text-gray-600">To investigate these concepts, you built a specific circuit. Each component has a critical role, and its connection method (series or parallel) is deliberate. This setup allows us to control the current and measure its effect on the battery's voltage.</p>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
+                <div class="p-4 border-2 border-gray-300 border-dashed rounded-lg">
+                    <div class="flex items-center justify-around space-x-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-full border-4 border-gray-700 flex items-center justify-center text-2xl font-bold bg-yellow-100">
+                                <span>&#9889;</span>
+                            </div>
+                            <span class="font-semibold mt-2">Battery (ε, r)</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-700"></div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-full border-4 border-blue-500 flex items-center justify-center text-2xl font-bold text-blue-500 bg-blue-100">A</div>
+                             <span class="font-semibold mt-2">Ammeter (in Series)</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-700"></div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-20 h-10 border-4 border-gray-700 flex items-center justify-center font-serif text-2xl italic">R</div>
+                            <span class="font-semibold mt-2">Rheostat (Load)</span>
+                        </div>
+                    </div>
+                    <div class="relative left-1/4 -top-8">
+                         <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center text-2xl font-bold text-green-500 bg-green-100">V</div>
+                         <span class="font-semibold mt-2 relative left-2">Voltmeter <br>(in Parallel)</span>
+                    </div>
+                </div>
+                <div class="max-w-md">
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 text-2xl font-bold mr-3">A</span>
+                            <div><strong class="text-gray-900">Ammeter:</strong> Connected in <span class="font-bold">series</span> to measure the current flowing *through* the circuit. It has very low internal resistance to avoid affecting the current it measures.</div>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-green-500 text-2xl font-bold mr-3">V</span>
+                            <div><strong class="text-gray-900">Voltmeter:</strong> Connected in <span class="font-bold">parallel</span> to measure the potential difference *across* the battery terminals. It has very high internal resistance so it doesn't draw current from the circuit.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-700 font-serif text-2xl font-bold mr-3 italic">R</span>
+                            <div><strong class="text-gray-900">Variable Resistor (Rheostat):</strong> Acts as the external load. By changing its resistance, you control the amount of current drawn from the battery, allowing you to collect multiple data points.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="v-vs-i" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text">The "Fingerprint" Graph: Voltage vs. Current</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600">This graph is the key to understanding the battery. It plots the Terminal Voltage (Vᴛ) against the Current (I). The result is a straight line, which perfectly confirms the master equation: <strong class="font-mono">Vᴛ = ε - Ir</strong>. We can extract the battery's core properties directly from this line.</p>
+            <div class="bg-white p-4 md:p-8 rounded-lg shadow-md">
+                <div class="chart-container">
+                    <canvas id="voltageVsCurrentChart"></canvas>
+                </div>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                    <div>
+                        <h4 class="text-lg font-semibold">The Y-Intercept is the EMF (ε)</h4>
+                        <p class="text-gray-600">Where the line hits the vertical axis (at zero current), the terminal voltage equals the EMF. This is the battery's ideal voltage.</p>
+                        <p class="text-2xl font-bold brilliant-blues-accent-text mt-2" id="emf-display">ε ≈ 1.55 V</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold">The Slope is the Internal Resistance (-r)</h4>
+                        <p class="text-gray-600">The steepness of the line shows how much voltage is "lost" per amp of current. The internal resistance is the <span class="font-bold">negative</span> of the slope.</p>
+                        <p class="text-2xl font-bold brilliant-blues-accent-text mt-2" id="r-display">r ≈ 0.40 Ω</p>
+                    </div>
+                </div>
+                 <div class="mt-8 text-center">
+                    <h4 class="text-lg font-semibold mb-3">What if the battery was different?</h4>
+                    <div class="flex justify-center space-x-2 md:space-x-4">
+                        <button onclick="updateBattery('normal')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Normal Battery</button>
+                        <button onclick="updateBattery('performance')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">High Performance</button>
+                        <button onclick="updateBattery('old')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Old / Cold</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="p-vs-i" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text">The Power Curve: Finding the Peak</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600">How much power can the battery actually deliver? By calculating Power (P = Vᴛ × I) and plotting it against Current (I), we see a parabola. This reveals the limits of the battery's performance and a critical concept: the Maximum Power Transfer Theorem.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-white p-4 md:p-8 rounded-lg shadow-md">
+                    <div class="chart-container">
+                        <canvas id="powerVsCurrentChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md flex flex-col justify-center text-center">
+                     <h4 class="text-lg font-semibold">The Peak: Maximum Power (Pₘₐₓ)</h4>
+                    <p class="text-gray-600 mt-2">The peak of the curve shows the absolute maximum power the battery can deliver to an external circuit. This occurs when the external resistance equals the internal resistance (Rₑₓₜ = r).</p>
+                    <p class="text-4xl font-extrabold brilliant-blues-accent-text mt-4">1.50 W</p>
+                    <div class="mt-8">
+                         <h4 class="text-lg font-semibold">The Efficiency Trap</h4>
+                         <p class="text-gray-600 mt-2">But there's a catch! At maximum power, efficiency is only 50%. Half the energy is wasted as heat inside the battery.</p>
+                         <div class="chart-container h-48 max-h-48 mt-4">
+                            <canvas id="efficiencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-gray-200 text-gray-600">
+        <p>An Interactive Infographic by Canvas Infographics. Use this guide to ace your verbal exam!</p>
+    </footer>
+
+    <script>
+        const brilliantBluesPalette = {
+            dark: '#004AAD',
+            main: '#0062D5',
+            accent: '#4194F2',
+            light: '#81B9F7',
+            lightest: '#B4D5F7'
+        };
+
+        const tooltipPlugin = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        function generateBatteryData(emf, r) {
+            const externalResistances = [20, 15, 10, 8, 6, 4, 3, 2, 1, 0.8, 0.6, 0.4, 0.2];
+            const data = {
+                currents: [],
+                voltages: [],
+                powers: []
+            };
+
+            data.currents.push(0);
+            data.voltages.push(emf);
+            data.powers.push(0);
+
+            externalResistances.forEach(R_ext => {
+                const current = emf / (R_ext + r);
+                const voltage = emf - current * r;
+                const power = voltage * current;
+                data.currents.push(current);
+                data.voltages.push(voltage);
+                data.powers.push(power);
+            });
+            return data;
+        }
+        
+        const batteryTypes = {
+            normal: { emf: 1.55, r: 0.4, color: brilliantBluesPalette.main },
+            performance: { emf: 1.55, r: 0.1, color: '#22c55e' },
+            old: { emf: 1.48, r: 1.2, color: '#ef4444' }
+        };
+
+        let vChart, pChart, efficiencyChart;
+        let currentBattery = 'normal';
+
+        function createCharts() {
+            const data = generateBatteryData(batteryTypes[currentBattery].emf, batteryTypes[currentBattery].r);
+
+            const vCtx = document.getElementById('voltageVsCurrentChart').getContext('2d');
+            vChart = new Chart(vCtx, {
+                type: 'line',
+                data: {
+                    labels: data.currents.map(c => c.toFixed(2)),
+                    datasets: [{
+                        label: 'Terminal Voltage (V)',
+                        data: data.voltages,
+                        borderColor: batteryTypes[currentBattery].color,
+                        backgroundColor: batteryTypes[currentBattery].color + '33',
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 4,
+                        pointBackgroundColor: batteryTypes[currentBattery].color
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Current (A)',
+                                font: { weight: 'bold' }
+                            },
+                            beginAtZero: true
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Terminal Voltage (V)',
+                                font: { weight: 'bold' }
+                            },
+                             beginAtZero: false
+                        }
+                    },
+                    ...tooltipPlugin
+                }
+            });
+
+            const pCtx = document.getElementById('powerVsCurrentChart').getContext('2d');
+            pChart = new Chart(pCtx, {
+                type: 'line',
+                data: {
+                    labels: data.currents.map(c => c.toFixed(2)),
+                    datasets: [{
+                        label: 'Power Delivered (W)',
+                        data: data.powers,
+                        borderColor: brilliantBluesPalette.accent,
+                        backgroundColor: brilliantBluesPalette.accent + '33',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: brilliantBluesPalette.accent
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Current (A)',
+                                font: { weight: 'bold' }
+                            },
+                            beginAtZero: true
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Power (W)',
+                                font: { weight: 'bold' }
+                            },
+                             beginAtZero: true
+                        }
+                    },
+                     ...tooltipPlugin
+                }
+            });
+            
+            const maxPower = Math.max(...data.powers);
+            document.querySelector('#p-vs-i .text-4xl').textContent = `${maxPower.toFixed(2)} W`;
+
+
+            const effCtx = document.getElementById('efficiencyChart').getContext('2d');
+            efficiencyChart = new Chart(effCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Useful Power to Load', 'Power Wasted as Heat'],
+                    datasets: [{
+                        data: [50, 50],
+                        backgroundColor: [
+                            brilliantBluesPalette.accent,
+                            '#ef4444' 
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 15 }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Efficiency at Max Power'
+                        },
+                         ...tooltipPlugin.plugins
+                    }
+                }
+            });
+        }
+
+        function updateBattery(type) {
+            currentBattery = type;
+            const config = batteryTypes[type];
+            const data = generateBatteryData(config.emf, config.r);
+
+            vChart.data.labels = data.currents.map(c => c.toFixed(2));
+            vChart.data.datasets[0].data = data.voltages;
+            vChart.data.datasets[0].borderColor = config.color;
+            vChart.data.datasets[0].backgroundColor = config.color + '33';
+            vChart.data.datasets[0].pointBackgroundColor = config.color;
+            vChart.update();
+            
+            document.getElementById('emf-display').textContent = `ε ≈ ${config.emf.toFixed(2)} V`;
+            document.getElementById('r-display').textContent = `r ≈ ${config.r.toFixed(2)} Ω`;
+            document.getElementById('emf-display').style.color = config.color;
+            document.getElementById('r-display').style.color = config.color;
+
+            pChart.data.labels = data.currents.map(c => c.toFixed(2));
+            pChart.data.datasets[0].data = data.powers;
+            pChart.update();
+            
+            const maxPower = Math.max(...data.powers);
+            document.querySelector('#p-vs-i .text-4xl').textContent = `${maxPower.toFixed(2)} W`;
+        }
+        
+        window.onload = function() {
+            createCharts();
+        };
+
+    </script>
+</body>
+</html>

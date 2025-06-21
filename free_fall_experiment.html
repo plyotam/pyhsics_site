@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Physics of Free Fall: An Interactive Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #003f5c;
+            color: #f1f1f1;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #ff6361, #ffa600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .data-card {
+            background-color: rgba(0, 50, 75, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #ffa600;
+        }
+        .paper-tape {
+            background: #fdf6e3;
+            width: 100px;
+            height: 300px;
+            margin: 1rem auto;
+            border: 1px solid #ddd;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        }
+        .tape-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">The Physics of Free Fall</h1>
+            <p class="text-xl md:text-2xl mt-2 text-gray-300">An Interactive Analysis of an Accelerating World</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">The Ideal vs. The Real</h2>
+                <p class="text-gray-300 mb-6">In a perfect world (a vacuum), all objects fall with the same constant acceleration due to gravity, denoted as '$g$'. This experiment explores how close we can get to this ideal in a real-world lab, where forces like friction and air resistance play a critical role.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold text-gray-200">Ideal Acceleration '$g$'</h3>
+                        <p class="text-6xl font-black my-2" style="color: #ffa600;">9.81</p>
+                        <p class="text-lg text-gray-400">m/s²</p>
+                        <p class="mt-2 text-sm">The theoretical value on Earth, independent of mass.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="forcesChart"></canvas>
+                    </div>
+                </div>
+                 <p class="text-center text-gray-400 mt-4 text-sm">The donut chart illustrates the forces acting on the weight in our real experiment. While gravity is the main driver, retarding forces actively work against it, reducing the net acceleration.</p>
+            </div>
+
+            <div class="lg:col-span-2 data-card rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">The Experimental Setup</h2>
+                <p class="text-gray-300 mb-6">The core of the experiment is the time recorder, a device that uses an electromagnet vibrating at 50 Hz to mark a dot on a paper tape every 0.02 seconds. As the weight falls, it pulls the tape through, creating a physical record of its motion.</p>
+                <div class="flex flex-col md:flex-row items-center justify-around">
+                    <div class="text-center p-4">
+                        <h3 class="text-lg font-semibold">Time Recorder</h3>
+                        <p class="text-gray-400 text-sm">Marks 50 dots/sec</p>
+                        <div class="text-4xl my-2">⏱️</div>
+                        <p class="font-bold text-2xl" style="color:#ff6361;">0.02s</p>
+                        <p class="text-gray-400 text-sm">Between each dot</p>
+                    </div>
+                    <div class="paper-tape" id="paper-tape-visual">
+                    </div>
+                    <div class="text-center p-4">
+                         <h3 class="text-lg font-semibold">Falling Weight</h3>
+                        <p class="text-gray-400 text-sm">Pulls the tape</p>
+                        <div class="text-4xl my-2">⚖️</div>
+                        <p class="font-bold text-2xl" style="color:#ff6361;">Gravity</p>
+                        <p class="text-gray-400 text-sm">Is the driving force</p>
+                    </div>
+                </div>
+                <p class="text-center text-gray-400 mt-4 text-sm">The dots on the paper tape get further apart, providing immediate visual evidence of acceleration.</p>
+            </div>
+            
+            <div class="data-card rounded-lg shadow-2xl p-6 flex flex-col justify-center">
+                 <h2 class="text-2xl font-bold mb-4 gradient-text">From Dots to Data</h2>
+                 <p class="text-gray-300 mb-6">The process transforms physical marks into graphs. By measuring the distance between dots, we can calculate velocity. This data then reveals the fundamental physics of the motion.</p>
+                <div class="flex items-center justify-center space-x-4">
+                    <span class="text-3xl">📍</span>
+                    <span class="flow-arrow">&rarr;</span>
+                     <span class="text-3xl">📏</span>
+                    <span class="flow-arrow">&rarr;</span>
+                     <span class="text-3xl">📈</span>
+                </div>
+                 <p class="text-center text-gray-400 mt-4 text-sm">Dots &rarr; Measurement &rarr; Graph</p>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
+                 <h2 class="text-2xl font-bold mb-4 gradient-text">The Story of Motion: Position vs. Time</h2>
+                 <p class="text-gray-300 mb-6">A graph of the weight's position over time reveals a parabolic curve. This shape is the classic signature of constant acceleration—the object covers more and more distance in each consecutive time interval, so the curve gets progressively steeper.</p>
+                <div class="chart-container mx-auto" style="height: 350px; max-width: 800px;">
+                    <canvas id="positionTimeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">Finding Acceleration: Velocity vs. Time</h2>
+                <p class="text-gray-300 mb-6">Plotting velocity versus time reveals a straight line. The slope of this line is the most important result of the experiment: the measured acceleration ($a_{exp}$). Because of friction and air resistance, this slope is slightly less than the ideal value of $g$.</p>
+                <div class="chart-container mx-auto" style="height: 350px; max-width: 800px;">
+                    <canvas id="velocityTimeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">The Effect of Mass: A Critical Comparison</h2>
+                <p class="text-gray-300 mb-6">While ideal free fall is independent of mass, our real-world experiment is not. Retarding forces (friction, air resistance) are relatively constant. A heavier mass has more inertia to overcome these forces, resulting in a measured acceleration ($a_{exp}$) that is higher and closer to the theoretical value of $g$.</p>
+                <div class="chart-container mx-auto" style="height: 350px; max-width: 700px;">
+                    <canvas id="massComparisonChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">"What If?" Thinking Corner</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                    <div class="bg-black bg-opacity-20 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-2">What if this experiment were on the Moon? 🌙</h3>
+                        <p class="text-gray-300">The Moon's gravity is much weaker (about 1/6th of Earth's) and it has no atmosphere (no air resistance). The weight would fall much slower, and the dots on the tape would be very close together. The measured acceleration would be close to:</p>
+                        <p class="text-5xl font-black my-3" style="color: #ffa600;">1.62 m/s²</p>
+                    </div>
+                    <div class="bg-black bg-opacity-20 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-2">Why not use the first few dots?  iniziale</h3>
+                        <p class="text-gray-300">The initial release can be shaky, and the first dots are often blurred or too close to measure accurately. By starting our analysis a few dots in, we ensure we are measuring the part of the fall that is smooth and steady, giving a more reliable result for acceleration.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>Infographic created to visualize the principles of the free-fall experiment.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const pallette = {
+                darkBlue: '#003f5c',
+                purple: '#58508d',
+                magenta: '#bc5090',
+                coral: '#ff6361',
+                orange: '#ffa600',
+                light: '#f1f1f1'
+            };
+
+            const globalChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    x: {
+                        ticks: { color: pallette.light },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    y: {
+                        ticks: { color: pallette.light },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: pallette.light }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                    return label.join(' ');
+                                } else {
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            
+            function wrapLabel(label, maxWidth = 16) {
+                if (label.length <= maxWidth) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).trim().length > maxWidth) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                }
+                if (currentLine) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            }
+
+            new Chart(document.getElementById('forcesChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Driving Force (Gravity)', 'Retarding Forces (Friction + Air)'],
+                    datasets: [{
+                        label: 'Force Contribution',
+                        data: [95, 5],
+                        backgroundColor: [pallette.coral, pallette.purple],
+                        borderColor: pallette.darkBlue,
+                        borderWidth: 4
+                    }]
+                },
+                options: { ...globalChartOptions,
+                    plugins: { ...globalChartOptions.plugins, legend: { position: 'bottom', labels: { color: pallette.light } } }
+                }
+            });
+            
+            const massComparisonLabels = ['Light Mass (e.g. 150g)', 'Heavy Mass (e.g. 300g)', 'Theoretical Ideal (g)'].map(l => wrapLabel(l));
+            new Chart(document.getElementById('massComparisonChart'), {
+                type: 'bar',
+                data: {
+                    labels: massComparisonLabels,
+                    datasets: [{
+                        label: 'Measured/Theoretical Acceleration (m/s²)',
+                        data: [9.2, 9.5, 9.81],
+                        backgroundColor: [pallette.purple, pallette.coral, pallette.orange],
+                    }]
+                },
+                options: { ...globalChartOptions,
+                    scales: { ...globalChartOptions.scales, y: { ...globalChartOptions.scales.y, beginAtZero: false, min: 8.5 } },
+                    plugins: { ...globalChartOptions.plugins, legend: { display: false } }
+                }
+            });
+
+            const timeData = Array.from({length: 15}, (_, i) => (i * 0.04).toFixed(2));
+            const a_exp = 9.5;
+            const v0 = 0.5;
+            const positionData = timeData.map(t => (v0 * t + 0.5 * a_exp * t * t).toFixed(3));
+            const velocityData = timeData.map(t => (v0 + a_exp * t).toFixed(2));
+
+            new Chart(document.getElementById('positionTimeChart'), {
+                type: 'line',
+                data: {
+                    labels: timeData,
+                    datasets: [{
+                        label: 'Position (m)',
+                        data: positionData,
+                        borderColor: pallette.coral,
+                        backgroundColor: 'rgba(255, 99, 97, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: { ...globalChartOptions,
+                    plugins: { ...globalChartOptions.plugins, legend: { display: false } },
+                    scales: { ...globalChartOptions.scales, 
+                        x: {...globalChartOptions.scales.x, title: { display: true, text: 'Time (s)', color: pallette.light }},
+                        y: {...globalChartOptions.scales.y, title: { display: true, text: 'Position (m)', color: pallette.light }}
+                    }
+                }
+            });
+            
+            new Chart(document.getElementById('velocityTimeChart'), {
+                type: 'line',
+                data: {
+                    labels: timeData,
+                    datasets: [{
+                        label: 'Velocity (m/s)',
+                        data: velocityData,
+                        borderColor: pallette.orange,
+                        backgroundColor: 'rgba(255, 166, 0, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: { ...globalChartOptions,
+                    plugins: { ...globalChartOptions.plugins, legend: { display: false } },
+                    scales: { ...globalChartOptions.scales, 
+                        x: {...globalChartOptions.scales.x, title: { display: true, text: 'Time (s)', color: pallette.light }},
+                        y: {...globalChartOptions.scales.y, title: { display: true, text: 'Velocity (m/s)', color: pallette.light }}
+                    }
+                }
+            });
+
+            const tapeContainer = document.getElementById('paper-tape-visual');
+            let accumulatedDistance = 5;
+            for(let i=0; i < 10; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'tape-dot';
+                dot.style.top = `${accumulatedDistance}px`;
+                tapeContainer.appendChild(dot);
+                accumulatedDistance += 5 + i * 2.5; 
+            }
+        });
+    </script>
+
+</body>
+</html>

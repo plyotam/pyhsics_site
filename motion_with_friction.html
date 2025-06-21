@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: The Physics of a Simple Push</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    Infographic Narrative Plan:
+    1. Introduction: Hook the user with the main goal - using motion to find hidden forces.
+    2. The Experiment in Two Acts: Visually separate the "Push" and "Slide" phases using a flowchart.
+    3. The Importance of Data Quality: Use a "Big Number" and icons to highlight key procedural steps (60fps, stability).
+    4. The Analytical Heart: A large, annotated Line Chart showing the velocity-time graph, as this is the core of the analysis.
+    5. Decoding the Forces: Use HTML/CSS to create Free-Body diagrams and formula cards to explain the calculations.
+    6. "What If?" Scenarios: Use a comparative Bar Chart to visualize how changing parameters affects the outcome.
+    7. Mastering Accuracy: Conclude with a clear table outlining experimental errors and their mitigation strategies.
+
+    Color Palette: Brilliant Blues
+
+    Visualization Choices:
+    - Flowchart (Two Acts): Goal: Organize. Method: HTML/CSS with Tailwind. Justification: Clearly shows the two-part process. NO SVG/Mermaid.
+    - Key Procedure Icons: Goal: Inform. Method: Unicode characters. Justification: Simple, effective visual cues without images. NO SVG.
+    - Velocity-Time Graph: Goal: Change. Method: Chart.js Line Chart. Justification: Perfectly represents acceleration as slope over time, the experiment's central data analysis tool. NO SVG.
+    - Free-Body Diagrams: Goal: Organize. Method: HTML/CSS with Tailwind. Justification: Essential for force analysis, easily built with styled divs. NO SVG.
+    - Scenario Comparison: Goal: Compare. Method: Chart.js Bar Chart. Justification: Best way to compare discrete outcomes across different experimental conditions. NO SVG.
+    - Error Table: Goal: Organize. Method: HTML Table. Justification: A clear, structured way to present error sources and solutions. NO SVG.
+
+    Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this document.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F2F2F2;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-arrow {
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #0077C0;
+        }
+    </style>
+</head>
+<body class="text-[#333333]">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-[#005082] mb-2">Uncovering Hidden Forces</h1>
+            <p class="text-lg md:text-xl text-[#0077C0] max-w-3xl mx-auto">An interactive guide to analyzing motion and calculating friction using video analysis and Newton's Second Law.</p>
+        </header>
+
+        <main class="space-y-12">
+            
+            <section id="the-play" class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center">The Experiment: A Two-Act Play</h2>
+                <p class="text-center max-w-2xl mx-auto mb-8">The entire motion isn't one event, but two distinct phases defined by the forces at play. Understanding this separation is the key to solving the physics problem.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                    <div class="text-center border-2 border-[#00A1E4] rounded-lg p-6 w-full md:w-1/3">
+                        <h3 class="text-2xl font-bold text-[#0077C0]">Act I: The Push</h3>
+                        <p class="mt-2">The object is actively pushed, causing it to speed up. The push force is stronger than friction.</p>
+                        <p class="font-mono mt-2 text-lg text-[#005082]">F_net = F_push - f_friction</p>
+                        <p class="font-bold text-2xl text-green-500 mt-2">Positive Acceleration</p>
+                    </div>
+                    <div class="flowchart-arrow">&#10140;</div>
+                    <div class="text-center border-2 border-[#00A1E4] rounded-lg p-6 w-full md:w-1/3">
+                        <h3 class="text-2xl font-bold text-[#0077C0]">Act II: The Slide</h3>
+                        <p class="mt-2">The hand is removed. Only friction acts on the object, causing it to slow down and stop.</p>
+                        <p class="font-mono mt-2 text-lg text-[#005082]">F_net = -f_friction</p>
+                         <p class="font-bold text-2xl text-red-500 mt-2">Negative Acceleration</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="data-quality" class="bg-white rounded-lg shadow-md p-6">
+                 <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center">Data Quality is Everything</h2>
+                 <p class="text-center max-w-3xl mx-auto mb-8">The experiment's success relies on a precise setup. The procedure is designed to eliminate common errors before they can affect the results.</p>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="text-6xl font-black text-[#00A1E4]">60</div>
+                        <h3 class="text-xl font-bold mt-2">Frames Per Second</h3>
+                        <p class="mt-1">High frame rate provides more data points and reduces motion blur, leading to more accurate tracking.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="text-6xl text-[#00A1E4]">&#128247;</div>
+                        <h3 class="text-xl font-bold mt-2">Stable & Parallel Camera</h3>
+                        <p class="mt-1">Prevents parallax and perspective errors, which can distort the perception of speed and distance.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                         <div class="text-6xl text-[#00A1E4]">&#128210;</div>
+                        <h3 class="text-xl font-bold mt-2">Horizontal Push</h3>
+                        <p class="mt-1">Ensures the normal force (and thus friction) remains constant, a key assumption for the calculations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analysis-heart" class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center">The Story in the Slopes</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8">The most powerful tool for analysis is the velocity-time graph. Its shape directly reveals the object's acceleration in each phase. The slope of this graph *is* the acceleration.</p>
+                <div class="chart-container">
+                    <canvas id="velocityTimeChart"></canvas>
+                </div>
+            </section>
+
+            <section id="detective-work">
+                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center">The Detective Work: From Motion to Forces</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8">With accelerations found from the graph's slopes, we can apply Newton's Second Law (`F_net = ma`) to each phase. We solve the simpler "Slide" phase first to find the friction, then use that to solve for the push.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center">Free-Body Diagrams</h3>
+                        <div class="flex justify-around">
+                             <div class="text-center">
+                                <p class="font-semibold mb-2">Push Phase</p>
+                                <div class="relative w-24 h-24 bg-gray-200 flex items-center justify-center font-bold text-gray-600 rounded">
+                                    <span>Body</span>
+                                    <div class="absolute -bottom-6 text-xs font-semibold">W=mg &#8595;</div>
+                                    <div class="absolute -top-6 text-xs font-semibold">&#8593; N</div>
+                                    <div class="absolute -left-12 text-xs font-semibold">&#8592; f_k</div>
+                                    <div class="absolute -right-16 text-xs font-semibold">F_push &#8594;</div>
+                                </div>
+                             </div>
+                             <div class="text-center">
+                                <p class="font-semibold mb-2">Slide Phase</p>
+                                <div class="relative w-24 h-24 bg-gray-200 flex items-center justify-center font-bold text-gray-600 rounded">
+                                    <span>Body</span>
+                                    <div class="absolute -bottom-6 text-xs font-semibold">W=mg &#8595;</div>
+                                    <div class="absolute -top-6 text-xs font-semibold">&#8593; N</div>
+                                    <div class="absolute -left-12 text-xs font-semibold">&#8592; f_k</div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 space-y-4">
+                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center">Key Formulas</h3>
+                        <div class="bg-[#00A1E4] text-white p-4 rounded-lg text-center font-mono text-lg shadow-sm">
+                            f_k = -m * a₂
+                        </div>
+                        <div class="bg-[#0077C0] text-white p-4 rounded-lg text-center font-mono text-lg shadow-sm">
+                            μ_k = -a₂ / g
+                        </div>
+                        <div class="bg-[#005082] text-white p-4 rounded-lg text-center font-mono text-lg shadow-sm">
+                            F_push = m * (a₁ - a₂)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="what-if" class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center">"What If?" Scenarios</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8">How would the motion change if we altered the experiment? Understanding these relationships is key to mastering the concepts.</p>
+                <div class="chart-container">
+                    <canvas id="scenarioChart"></canvas>
+                </div>
+                 <div class="mt-6 text-sm text-gray-600 max-w-3xl mx-auto">
+                    <p><span class="font-bold">Key Insight:</span> Notice that when you increase the mass, the deceleration during the slide (`a₂`) doesn't change! The greater friction force is perfectly cancelled out by the object's greater inertia. The rate of slowing down is independent of mass.</p>
+                </div>
+            </section>
+            
+            <section id="errors" class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center">Mastering Accuracy: The Anatomy of Error</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8">A good scientist understands not just the experiment, but what can go wrong. Here are the main sources of error and how the procedure is designed to stop them.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-max text-left">
+                        <thead class="border-b-2 border-[#0077C0]">
+                            <tr>
+                                <th class="p-2 text-lg font-bold">Source of Error</th>
+                                <th class="p-2 text-lg font-bold">Type</th>
+                                <th class="p-2 text-lg font-bold">Mitigation Strategy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold">Parallax / Perspective</td>
+                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded">Systematic</span></td>
+                                <td class="p-3">Keep camera stable, level, and far away. Ensure motion is parallel to camera.</td>
+                            </tr>
+                             <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold">Incorrect Scale Calibration</td>
+                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded">Systematic</span></td>
+                                <td class="p-3">Place ruler in the exact plane of motion and measure carefully.</td>
+                            </tr>
+                             <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold">Video File Compression</td>
+                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded">Systematic</span></td>
+                                <td class="p-3">Transfer video via email or USB, not messaging apps which alter frame rate.</td>
+                            </tr>
+                             <tr>
+                                <td class="p-3 font-semibold">Tracking Imprecision</td>
+                                <td class="p-3"><span class="font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded">Random</span></td>
+                                <td class="p-3">Use a clear marker on the object and a line of best fit to average out jitter.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <p class="text-gray-500">Infographic generated to aid in the study of classical mechanics.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const brilliantBlues = {
+            primary: '#00A1E4',
+            secondary: '#0077C0',
+            dark: '#005082',
+            light: '#F2F2F2',
+            text: '#333333'
+        };
+
+        const chartTooltipOptions = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        
+        function wrapLabel(str, maxWidth) {
+            if (str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxWidth) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        }
+
+
+        const vtCtx = document.getElementById('velocityTimeChart').getContext('2d');
+        new Chart(vtCtx, {
+            type: 'line',
+            data: {
+                labels: ['0s', '0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s', '0.7s', '0.8s', '0.9s', '1.0s', '1.1s'],
+                datasets: [{
+                    label: 'Velocity (m/s)',
+                    data: [0, 0.5, 1.0, 1.5, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8, 0.6],
+                    borderColor: brilliantBlues.primary,
+                    backgroundColor: 'rgba(0, 161, 228, 0.1)',
+                    fill: true,
+                    tension: 0,
+                    pointRadius: 4,
+                    pointBackgroundColor: brilliantBlues.primary
+                }]
+            },
+            options: {
+                ...chartTooltipOptions,
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Velocity (m/s)', font: { weight: 'bold' } }
+                    },
+                    x: {
+                        title: { display: true, text: 'Time (s)', font: { weight: 'bold' } }
+                    }
+                },
+                plugins: {
+                    ...chartTooltipOptions.plugins,
+                    title: { display: true, text: 'Example Velocity-Time Graph', font: { size: 16 } },
+                    legend: { display: false },
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                xMin: 1, xMax: 4, yMin: 0.5, yMax: 2.0,
+                                borderColor: 'green', borderWidth: 2
+                            },
+                            label1: {
+                                type: 'label',
+                                xValue: 2.5, yValue: 0.8,
+                                content: ['Slope = a₁ (Positive)'],
+                                font: { size: 14, weight: 'bold' },
+                                color: 'green'
+                            },
+                            line2: {
+                               type: 'line',
+                                xMin: 4, xMax: 11, yMin: 2.0, yMax: 0.6,
+                                borderColor: 'red', borderWidth: 2
+                            },
+                             label2: {
+                                type: 'label',
+                                xValue: 7.5, yValue: 1.8,
+                                content: ['Slope = a₂ (Negative)'],
+                                font: { size: 14, weight: 'bold' },
+                                color: 'red'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const scCtx = document.getElementById('scenarioChart').getContext('2d');
+        new Chart(scCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Baseline', 'Heavier Mass', 'Rougher Surface', 'Stronger Push'],
+                datasets: [{
+                    label: 'Push Acceleration (a₁)',
+                    data: [4.0, 3.0, 3.0, 6.0],
+                    backgroundColor: 'rgba(0, 161, 228, 0.7)',
+                }, {
+                    label: 'Slide Deceleration (a₂)',
+                    data: [-2.0, -2.0, -3.5, -2.0],
+                    backgroundColor: 'rgba(0, 119, 192, 0.7)',
+                }, {
+                    label: 'Max Velocity',
+                    data: [4.0, 3.0, 2.5, 6.0],
+                    backgroundColor: 'rgba(0, 80, 130, 0.7)',
+                }]
+            },
+            options: {
+                ...chartTooltipOptions,
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: { display: true, text: 'Value (m/s² or m/s)', font: { weight: 'bold' } }
+                    },
+                    x: {
+                        title: { display: true, text: 'Scenario', font: { weight: 'bold' } }
+                    }
+                },
+                plugins: {
+                    ...chartTooltipOptions.plugins,
+                    title: { display: true, text: 'Comparing Experimental Outcomes', font: { size: 16 } },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

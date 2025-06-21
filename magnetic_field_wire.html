@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: The Magnetic Field of a Current-Carrying Wire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 8rem;
+            height: 8rem;
+            border-radius: 50%;
+            font-weight: 600;
+            text-align: center;
+            padding: 1rem;
+        }
+        .flowchart-arrow {
+            font-size: 3rem;
+            line-height: 1;
+            color: #69A5F3;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    
+    <div class="container mx-auto p-4 md:p-8">
+
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#004AAD] mb-2">The Magnetic Field of a Wire</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">An interactive guide to understanding how electric currents create magnetic fields and how we measure them.</p>
+        </header>
+
+        
+        <section id="introduction" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-3 items-center gap-8 border-l-8 border-[#0062E4]">
+                <div class="md:col-span-2">
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">The Fundamental Connection</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        The core principle of this experiment, discovered by Oersted, is that electricity and magnetism are two sides of the same coin. A moving electric charge—an electric current ($I$)—generates a circular magnetic field ($B_{wire}$) in the space around it. This infographic breaks down how we can observe, measure, and verify this fundamental law of physics.
+                    </p>
+                </div>
+                <div class="text-5xl md:text-7xl font-black text-center text-[#0062E4] flex items-center justify-center space-x-4">
+                    <span>⚡️</span>
+                    <span class="text-[#69A5F3]">&rarr;</span>
+                    <span>🧲</span>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="setup" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8">The Experimental Procedure: A Step-by-Step Logic</h2>
+             <div class="bg-white rounded-2xl shadow-lg p-8">
+                <p class="text-center text-gray-600 mb-8">Each step in the setup is deliberate, designed to isolate the magnetic field from the wire and use the Earth's own magnetic field as a stable, perpendicular reference point.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    
+                    <div class="flex flex-col items-center text-center">
+                        <div class="flowchart-step bg-[#B8D5FA] text-[#004AAD]">1. Align Wire North-South</div>
+                        <p class="mt-2 text-sm max-w-xs">Aligns the wire with Earth's field ($B_H$).</p>
+                    </div>
+
+                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">&rarr;</div>
+                    
+                    <div class="flex flex-col items-center text-center">
+                        <div class="flowchart-step bg-[#69A5F3] text-white">2. Activate Current ($I$)</div>
+                        <p class="mt-2 text-sm max-w-xs">Generates the wire's field ($B_{wire}$) East-West.</p>
+                    </div>
+
+                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">&rarr;</div>
+                    
+                    <div class="flex flex-col items-center text-center">
+                        <div class="flowchart-step bg-[#0062E4] text-white">3. Measure Deflection ($\alpha$)</div>
+                        <p class="mt-2 text-sm max-w-xs">Compass aligns with the net field ($B_{net}$).</p>
+                    </div>
+
+                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">&rarr;</div>
+
+                    <div class="flex flex-col items-center text-center">
+                        <div class="flowchart-step bg-[#004AAD] text-white">4. Vary Distance ($r$)</div>
+                        <p class="mt-2 text-sm max-w-xs">Investigates how field strength changes with distance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        
+        <section id="physics" class="mb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-3 bg-white rounded-2xl shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">The Physics of Deflection: The Tangent Law</h2>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        The compass doesn't point to the wire's field or the Earth's field; it points along the vector sum of both. Because the setup makes these two fields perpendicular, they form a right-angled triangle. Basic trigonometry gives us the "Tangent Law," the key to our measurements. The measurable angle $\alpha$ directly links the invisible field from the wire to the known field of the Earth.
+                    </p>
+                    <div class="bg-gray-100 rounded-lg p-4 text-center">
+                        <code class="text-xl md:text-2xl font-mono text-[#0062E4]">tan(&alpha;) = B<sub>wire</sub> / B<sub>H</sub></code>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-[#004AAD] text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center">
+                    <h3 class="text-2xl font-bold mb-4 text-center">Vector Superposition</h3>
+                    <div class="relative w-full max-w-[250px] aspect-square">
+                        <div class="absolute bottom-0 left-0 w-full h-px bg-[#69A5F3]"></div>
+                        <div class="absolute bottom-0 left-0 h-full w-px bg-[#69A5F3]"></div>
+                        <div class="absolute bottom-0 left-0 text-[#B8D5FA] -mb-6">B<sub>H</sub> (North)</div>
+                        <div class="absolute bottom-0 left-0 text-[#B8D5FA] -ml-20 top-1/2 transform -translate-y-1/2 rotate-90">B<sub>wire</sub> (West)</div>
+                        <div class="absolute bottom-0 left-0 w-full h-full" style="transform-origin: bottom left; transform: rotate(-45deg);">
+                             <div class="w-full h-px bg-white"></div>
+                        </div>
+                        <div class="absolute text-white top-1/3 left-1/2">B<sub>net</sub></div>
+                        <div class="absolute bottom-0 left-0 text-yellow-300 text-lg ml-2 mb-1">&alpha;</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="data" class="mb-16">
+             <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8">Visualizing the Data</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="font-bold text-xl text-[#004AAD] mb-2">1. The Raw Relationship</h3>
+                    <p class="text-sm text-gray-600 mb-4">Plotting the raw data of deflection (tan α) versus distance (r) reveals a non-linear curve. This shows that the magnetic field weakens as distance increases, but not in a straight-line fashion.</p>
+                    <div class="chart-container">
+                        <canvas id="nonlinearChart"></canvas>
+                    </div>
+                </div>
+
+                
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="font-bold text-xl text-[#004AAD] mb-2">2. Linearization for Analysis</h3>
+                    <p class="text-sm text-gray-600 mb-4">Physics equations predict that tan(α) is proportional to 1/r. Plotting tan(α) vs 1/r linearizes the data, creating a straight line. The slope of this line is packed with physical meaning.</p>
+                     <div class="chart-container">
+                        <canvas id="linearChart"></canvas>
+                    </div>
+                </div>
+             </div>
+        </section>
+        
+        <section id="analysis" class="mb-16">
+             <div class="bg-white rounded-2xl shadow-lg p-8 text-center border-t-8 border-[#0062E4]">
+                <h2 class="text-3xl font-bold text-[#004AAD] mb-4">Unlocking Physics from the Slope</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mb-6">The slope ('m') of the linearized graph is not just a number; it's a combination of physical constants and experimental parameters. By rearranging the slope equation, we can use our measurements to calculate fundamental properties of our world.</p>
+                <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                    <code class="text-xl md:text-2xl font-mono text-[#0062E4]">Slope (m) = (&mu;<sub>0</sub> * I) / (2&pi; * B<sub>H</sub>)</code>
+                </div>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                     <div class="bg-[#B8D5FA] p-4 rounded-lg flex-1">
+                        <h4 class="font-bold text-[#004AAD]">Calculate Earth's Field</h4>
+                        <code class="font-mono text-lg text-[#004AAD]">B<sub>H</sub> = (&mu;<sub>0</sub> * I) / (2&pi; * m)</code>
+                     </div>
+                     <div class="bg-[#B8D5FA] p-4 rounded-lg flex-1">
+                        <h4 class="font-bold text-[#004AAD]">Calculate a Fundamental Constant</h4>
+                        <code class="font-mono text-lg text-[#004AAD]">&mu;<sub>0</sub> = (m * 2&pi; * B<sub>H</sub>) / I</code>
+                     </div>
+                </div>
+             </div>
+        </section>
+        
+        <section id="scenarios" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8">Mastering the "What If?" Scenarios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: Wire is oriented East-West.</h4>
+                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> No deflection. The wire's field is now parallel to Earth's field (North/South). The compass feels a stronger or weaker North-South pull, but no sideways torque. The tangent law is invalid.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: The current (I) is doubled.</h4>
+                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Deflection increases. Since B<sub>wire</sub> is proportional to I, the wire's field doubles. The value of tan(α) doubles, leading to a much larger angle α.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: The compass is placed *below* the wire.</h4>
+                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Deflection is in the opposite direction. The magnetic field forms circles. Below the wire, the field points East (instead of West), so the compass deflects to the East by the same amount.</p>
+                </div>
+                 <div class="bg-white rounded-xl shadow-md p-6">
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: Experiment is at the Magnetic North Pole.</h4>
+                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Experiment fails. At the pole, B<sub>H</sub> is zero. The compass has no North reference and would try to point 90 degrees, directly along B<sub>wire</sub> (East/West). </p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: Increase the variable resistor's value.</h4>
+                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Deflection decreases. By Ohm's Law (V=IR), increasing resistance decreases the current I. A smaller current means a weaker B<sub>wire</sub> and a smaller deflection angle α.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: A strong magnet is brought nearby.</h4>
+                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Corrupted results. The external magnet adds a third, uncontrolled magnetic field. Superposition applies, but the simple tangent law is no longer valid, and the readings are meaningless.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-sm text-gray-500 mt-12">
+            <p>Infographic designed as a conceptual study tool.</p>
+            <p>Color Palette: Brilliant Blues. No SVG or Mermaid JS were used in this document.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        
+        function formatLabel(str) {
+            const maxLength = 16;
+            if (typeof str !== 'string' || str.length <= maxLength) {
+                return str;
+            }
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).length > maxLength) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine ? ' ' : '') + word;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        
+        const B_H = 2.0e-5; 
+        const I = 3.0; 
+        const mu_0 = 4 * Math.PI * 1e-7; 
+
+        const r_values = [0.021, 0.031, 0.041, 0.051, 0.061, 0.071];
+        const one_over_r_values = r_values.map(r => 1 / r);
+        const tan_alpha_values = r_values.map(r => (mu_0 * I) / (2 * Math.PI * r * B_H));
+        
+        const nonlinearData = {
+            labels: r_values.map(r => r.toFixed(3)),
+            datasets: [{
+                label: 'tan(α)',
+                data: r_values.map(r => ({
+                    x: r,
+                    y: (mu_0 * I) / (2 * Math.PI * r * B_H)
+                })),
+                backgroundColor: '#0062E4',
+                borderColor: '#0062E4',
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                showLine: true,
+                tension: 0.1,
+                type: 'line',
+            }]
+        };
+
+        const slope = (mu_0 * I) / (2 * Math.PI * B_H);
+        const linearData = {
+            labels: one_over_r_values.map(val => val.toFixed(2)),
+            datasets: [{
+                label: 'Experimental Data',
+                data: one_over_r_values.map((val, index) => ({
+                    x: val,
+                    y: tan_alpha_values[index]
+                })),
+                backgroundColor: '#0062E4',
+                borderColor: '#0062E4',
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                type: 'scatter',
+                order: 2,
+            }, {
+                label: 'Linear Trendline (Ideal)',
+                data: [
+                    { x: one_over_r_values[one_over_r_values.length - 1], y: slope * one_over_r_values[one_over_r_values.length - 1] },
+                    { x: one_over_r_values[0], y: slope * one_over_r_values[0] }
+                ],
+                borderColor: '#69A5F3',
+                backgroundColor: '#69A5F3',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0,
+                type: 'line',
+                order: 1,
+            }]
+        };
+
+        
+        const sharedOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'tan(α)',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                },
+            }
+        };
+
+        
+        const ctxNonlinear = document.getElementById('nonlinearChart').getContext('2d');
+        new Chart(ctxNonlinear, {
+            type: 'scatter',
+            data: nonlinearData,
+            options: {
+                ...sharedOptions,
+                scales: {
+                    ...sharedOptions.scales,
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Distance r (m)',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const ctxLinear = document.getElementById('linearChart').getContext('2d');
+        new Chart(ctxLinear, {
+            type: 'scatter',
+            data: linearData,
+            options: {
+                ...sharedOptions,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                           title: tooltipTitleCallback
+                        }
+                    }
+                },
+                scales: {
+                     ...sharedOptions.scales,
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: '1 / r (m⁻¹)',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
