@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Experiment Infographic: Mechanics of Springs & Friction</title>
+    <title>The Mechanics of Springs & Friction / מכניקה של קפיצים וחיכוך</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Assistant:wght@400;700&display=swap" rel="stylesheet">
     <!--
     Infographic Plan & Narrative Structure:
     1.  Introduction: Title and a brief overview of the experiment's two primary goals: finding the spring constant 'k' and the coefficient of kinetic friction 'μk'.
@@ -53,6 +53,9 @@
     Confirmation: NEITHER Mermaid JS NOR SVG were used in this output. All visualizations are rendered using Chart.js (Canvas) or structured HTML/CSS.
     -->
     <style>
+        :lang(he) {
+            font-family: 'Assistant', sans-serif;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #F2F2F2;
@@ -77,54 +80,96 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .he-content { display: none; }
     </style>
 </head>
 <body class="antialiased">
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+    <div class="relative container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+        
+        <div class="absolute top-4 right-4 z-10 flex space-x-2 rtl:space-x-reverse">
+            <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-blue-100 text-blue-800 text-sm font-medium shadow-sm hover:bg-blue-200 transition">EN</button>
+            <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-blue-100 text-blue-800 text-sm font-medium shadow-sm hover:bg-blue-200 transition">עברית</button>
+        </div>
 
         <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-black tracking-tight gradient-text">The Mechanics of Springs & Friction</h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">An interactive guide to understanding the physics of elastic potential energy, static forces, and energy dissipation through work done by friction.</p>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight gradient-text">
+                <span class="en-content">The Mechanics of Springs & Friction</span>
+                <span class="he-content">מכניקה של קפיצים וחיכוך</span>
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                <span class="en-content">An interactive guide to understanding the physics of elastic potential energy, static forces, and energy dissipation through work done by friction.</span>
+                <span class="he-content">מדריך אינטראקטיבי להבנת הפיזיקה של אנרגיה פוטנציאלית אלסטית, כוחות סטטיים, ואיבוד אנרגיה באמצעות עבודת החיכוך.</span>
+            </p>
         </header>
 
         <main>
             <section id="part1" class="mb-12">
                 <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                    <h2 class="text-3xl font-bold text-gray-800 border-l-4 border-[#00A1E4] pl-4 mb-6">Part I: Characterizing the Spring (Static Analysis)</h2>
+                    <h2 class="text-3xl font-bold text-gray-800 border-l-4 rtl:border-l-0 rtl:border-r-4 border-[#00A1E4] pl-4 rtl:pl-0 rtl:pr-4 mb-6">
+                        <span class="en-content">Part I: Characterizing the Spring (Static Analysis)</span>
+                        <span class="he-content">חלק א': אפיון הקפיץ (ניתוח סטטי)</span>
+                    </h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div class="prose max-w-none text-gray-700">
-                            <p>The first goal is to find the <strong>spring constant (k)</strong>, a measure of a spring's stiffness. We do this by applying a known force (hanging weights) and measuring the resulting stretch (elongation). The experiment relies on two key principles:</p>
+                            <p>
+                                <span class="en-content">The first goal is to find the <strong>spring constant (k)</strong>, a measure of a spring's stiffness. We do this by applying a known force (hanging weights) and measuring the resulting stretch (elongation). The experiment relies on two key principles:</span>
+                                <span class="he-content">המטרה הראשונה היא למצוא את <strong>קבוע הקפיץ (k)</strong>, מדד לקשיחותו של הקפיץ. אנו עושים זאת על ידי הפעלת כוח ידוע (תליית משקולות) ומדידת ההתארכות התוצאתית. הניסוי מסתמך על שני עקרונות מרכזיים:</span>
+                            </p>
                             <ul>
-                                <li><strong>Newton's First Law:</strong> In a state of static equilibrium (when the weights are hanging still), the net force is zero. This means the upward pull of the spring perfectly balances the downward pull of gravity.</li>
-                                <li><strong>Hooke's Law:</strong> For an ideal spring, the force it exerts ($F$) is directly proportional to its elongation ($\Delta l$). The formula is $F = k\Delta l$.</li>
+                                <li>
+                                    <span class="en-content"><strong>Newton's First Law:</strong> In a state of static equilibrium (when the weights are hanging still), the net force is zero. This means the upward pull of the spring perfectly balances the downward pull of gravity.</span>
+                                    <span class="he-content"><strong>החוק הראשון של ניוטון:</strong> במצב של שיווי משקל סטטי (כאשר המשקולות תלויות ללא תנועה), סך הכוחות הוא אפס. משמעות הדבר היא שהכוח המושך של הקפיץ כלפי מעלה מאזן באופן מושלם את כוח המשיכה כלפי מטה.</span>
+                                </li>
+                                <li>
+                                    <span class="en-content"><strong>Hooke's Law:</strong> For an ideal spring, the force it exerts ($F$) is directly proportional to its elongation ($\Delta l$). The formula is $F = k\Delta l$.</span>
+                                    <span class="he-content"><strong>חוק הוק:</strong> עבור קפיץ אידיאלי, הכוח שהוא מפעיל ($F$) נמצא ביחס ישר להתארכותו ($\Delta l$). הנוסחה היא $F = k\Delta l$.</span>
+                                </li>
                             </ul>
-                            <p>By measuring the force applied by different masses and the corresponding elongation, we can create a graph to find a precise value for 'k'.</p>
+                            <p>
+                                <span class="en-content">By measuring the force applied by different masses and the corresponding elongation, we can create a graph to find a precise value for 'k'.</span>
+                                <span class="he-content">על ידי מדידת הכוח המופעל על ידי מסות שונות וההתארכות המתאימה, אנו יכולים ליצור גרף כדי למצוא ערך מדויק עבור 'k'.</span>
+                            </p>
                             
                             <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                                <h4 class="font-bold text-[#005082]">Experimental Setup</h4>
-                                <div class="flex justify-center items-start mt-4 space-x-4 text-center">
+                                <h4 class="font-bold text-[#005082]">
+                                    <span class="en-content">Experimental Setup</span>
+                                    <span class="he-content">מערך הניסוי</span>
+                                </h4>
+                                <div class="flex justify-center items-start mt-4 space-x-4 rtl:space-x-reverse text-center">
                                     <div>
                                         <div class="h-8 w-px bg-gray-500 mx-auto"></div>
-                                        <div class="w-16 h-12 border-2 border-gray-500 border-b-0 rounded-t-lg mx-auto flex items-center justify-center text-sm font-mono">Stand</div>
+                                        <div class="w-16 h-12 border-2 border-gray-500 border-b-0 rounded-t-lg mx-auto flex items-center justify-center text-sm font-mono">
+                                            <span class="en-content">Stand</span>
+                                            <span class="he-content">סטטיב</span>
+                                        </div>
                                     </div>
                                     <div>
                                         <div class="w-px h-16 bg-gray-400 mx-auto"></div>
-                                        <div class="font-mono text-sm text-[#0077C0]">Spring (k=?)</div>
+                                        <div class="font-mono text-sm text-[#0077C0]">
+                                            <span class="en-content">Spring (k=?)</span>
+                                            <span class="he-content">קפיץ (k=?)</span>
+                                        </div>
                                         <div class="w-1 h-12 bg-gray-400 mx-auto relative">
                                             <div class="absolute -left-1 w-3 h-1 bg-gray-400 top-1"></div>
                                             <div class="absolute -left-1 w-3 h-1 bg-gray-400 top-4"></div>
                                             <div class="absolute -left-1 w-3 h-1 bg-gray-400 top-7"></div>
                                         </div>
                                         <div class="w-8 h-8 bg-[#00A1E4] rounded-md mx-auto flex items-center justify-center text-white font-bold">m</div>
-                                        <p class="text-xs mt-1">Weight ($F=mg$)</p>
+                                        <p class="text-xs mt-1">
+                                            <span class="en-content">Weight ($F=mg$)</span>
+                                            <span class="he-content">משקולת ($F=mg$)</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                             <h3 class="text-xl font-bold text-center text-[#005082] mb-2">Finding 'k' with a Graph</h3>
-                             <p class="text-center text-sm text-gray-600 mb-4">By plotting Force vs. Elongation, the slope of the best-fit line gives us the spring constant, $k = \frac{\Delta F}{\Delta (\Delta l)}$.</p>
+                             <h3 class="text-xl font-bold text-center text-[#005082] mb-2" id="hookeChartTitle"></h3>
+                             <p class="text-center text-sm text-gray-600 mb-4">
+                                <span class="en-content">By plotting Force vs. Elongation, the slope of the best-fit line gives us the spring constant, $k = \frac{\Delta F}{\Delta (\Delta l)}$.</span>
+                                <span class="he-content">על ידי שרטוט גרף של כוח כנגד התארכות, שיפוע קו המגמה נותן לנו את קבוע הקפיץ, $k = \frac{\Delta F}{\Delta (\Delta l)}$.</span>
+                            </p>
                             <div class="chart-container">
                                 <canvas id="hookesLawChart"></canvas>
                             </div>
@@ -135,31 +180,58 @@
 
             <section id="part2" class="mb-12">
                 <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                     <h2 class="text-3xl font-bold text-gray-800 border-l-4 border-[#00A1E4] pl-4 mb-6">Part II: Measuring Friction (Dynamic Analysis)</h2>
+                     <h2 class="text-3xl font-bold text-gray-800 border-l-4 rtl:border-l-0 rtl:border-r-4 border-[#00A1E4] pl-4 rtl:pl-0 rtl:pr-4 mb-6">
+                        <span class="en-content">Part II: Measuring Friction (Dynamic Analysis)</span>
+                        <span class="he-content">חלק ב': מדידת חיכוך (ניתוח דינמי)</span>
+                    </h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         
                         <div>
-                            <h3 class="text-xl font-bold text-center text-[#005082] mb-2">The Energy Transformation Story</h3>
-                            <p class="text-center text-sm text-gray-600 mb-4">Plotting distance vs. elongation squared reveals a linear relationship, whose slope is used to calculate $\mu_k$.</p>
+                            <h3 class="text-xl font-bold text-center text-[#005082] mb-2" id="workEnergyChartTitle"></h3>
+                            <p class="text-center text-sm text-gray-600 mb-4">
+                                <span class="en-content">Plotting distance vs. elongation squared reveals a linear relationship, whose slope is used to calculate $\mu_k$.</span>
+                                <span class="he-content">שרטוט גרף של מרחק כנגד התארכות בריבוע חושף קשר לינארי, ששיפועו משמש לחישוב $\mu_k$.</span>
+                            </p>
                             <div class="chart-container">
                                 <canvas id="workEnergyChart"></canvas>
                             </div>
                         </div>
 
                         <div class="prose max-w-none text-gray-700">
-                            <p>The second goal is to find the <strong>coefficient of kinetic friction ($\mu_k$)</strong> between a box and a surface. This part uses a more advanced principle:</p>
+                            <p>
+                                <span class="en-content">The second goal is to find the <strong>coefficient of kinetic friction ($\mu_k$)</strong> between a box and a surface. This part uses a more advanced principle:</span>
+                                <span class="he-content">המטרה השנייה היא למצוא את <strong>מקדם החיכוך הקינטי ($\mu_k$)</strong> בין קופסה למשטח. חלק זה משתמש בעקרון מתקדם יותר:</span>
+                            </p>
                             <ul>
-                                <li><strong>Work-Energy Theorem:</strong> The net work done on an object equals its change in kinetic energy ($W_{net} = \Delta KE$). Since the box starts and ends at rest, its $\Delta KE$ is zero. Therefore, the total work done on it must also be zero.</li>
+                                <li>
+                                    <span class="en-content"><strong>Work-Energy Theorem:</strong> The net work done on an object equals its change in kinetic energy ($W_{net} = \Delta KE$). Since the box starts and ends at rest, its $\Delta KE$ is zero. Therefore, the total work done on it must also be zero.</span>
+                                    <span class="he-content"><strong>משפט עבודה-אנרגיה:</strong> העבודה הכוללת (העבודה נטו) שנעשית על גוף שווה לשינוי באנרגיה הקינטית שלו ($W_{net} = \Delta KE$). כיוון שהקופסה מתחילה ומסיימת במנוחה, השינוי באנרגיה הקינטית שלה הוא אפס. לכן, גם העבודה הכוללת שנעשתה עליה חייבת להיות אפס.</span>
+                                </li>
                             </ul>
-                            <p>This creates an energy balance: the positive work done by the spring (converting stored potential energy into motion) is exactly cancelled out by the negative work done by friction (dissipating energy as heat).</p>
+                            <p>
+                                <span class="en-content">This creates an energy balance: the positive work done by the spring (converting stored potential energy into motion) is exactly cancelled out by the negative work done by friction (dissipating energy as heat).</span>
+                                <span class="he-content">זה יוצר מאזן אנרגיה: העבודה החיובית שנעשית על ידי הקפיץ (המרת אנרגיה פוטנציאלית אצורה לתנועה) מתבטלת בדיוק על ידי העבודה השלילית שנעשית על ידי החיכוך (פיזור אנרגיה כחום).</span>
+                            </p>
                              <div class="mt-8 p-4 bg-green-50 rounded-lg border border-green-200">
-                                <h4 class="font-bold text-green-800">Energy Flow</h4>
+                                <h4 class="font-bold text-green-800">
+                                    <span class="en-content">Energy Flow</span>
+                                    <span class="he-content">מעבר אנרגיה</span>
+                                </h4>
                                 <div class="flex items-center justify-around mt-4 text-center font-semibold">
-                                    <div class="p-3 bg-[#00A1E4] text-white rounded-lg shadow">1. Potential Energy<br><span class="text-xs font-normal">($\frac{1}{2}k(\Delta l)^2$)</span></div>
+                                    <div class="p-3 bg-[#00A1E4] text-white rounded-lg shadow">
+                                        <span class="en-content">1. Potential Energy</span><span class="he-content">1. אנרגיה פוטנציאלית</span><br><span class="text-xs font-normal">($\frac{1}{2}k(\Delta l)^2$)</span>
+                                    </div>
                                     <div class="text-2xl font-black text-green-600">→</div>
-                                    <div class="p-3 bg-yellow-400 text-gray-800 rounded-lg shadow">2. Kinetic Energy<br><span class="text-xs font-normal">($\frac{1}{2}mv^2$)</span></div>
+                                    <div class="p-3 bg-yellow-400 text-gray-800 rounded-lg shadow">
+                                        <span class="en-content">2. Kinetic Energy</span><span class="he-content">2. אנרגיה קינטית</span><br><span class="text-xs font-normal">($\frac{1}{2}mv^2$)</span>
+                                    </div>
                                      <div class="text-2xl font-black text-red-600">→</div>
-                                    <div class="p-3 bg-red-500 text-white rounded-lg shadow">3. Heat<br><span class="text-xs font-normal">(Work by Friction)</span></div>
+                                    <div class="p-3 bg-red-500 text-white rounded-lg shadow">
+                                        <span class="en-content">3. Heat</span><span class="he-content">3. חום</span><br>
+                                        <span class="text-xs font-normal">
+                                            (<span class="en-content">Work by Friction</span><span class="he-content">עבודת החיכוך</span>)
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,41 +241,68 @@
             
             <section id="synthesis" class="mb-12">
                 <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                    <h2 class="text-3xl font-bold text-gray-800 border-l-4 border-[#00A1E4] pl-4 mb-6">Synthesis: Connecting the Concepts</h2>
-                    <p class="text-gray-600 mb-8 max-w-4xl">This experiment is designed in two sequential parts because the result from the first part is essential for the second. You cannot find the coefficient of friction without first knowing the stiffness of the spring you are using.</p>
+                    <h2 class="text-3xl font-bold text-gray-800 border-l-4 rtl:border-l-0 rtl:border-r-4 border-[#00A1E4] pl-4 rtl:pl-0 rtl:pr-4 mb-6">
+                        <span class="en-content">Synthesis: Connecting the Concepts</span>
+                        <span class="he-content">סינתזה: חיבור בין המושגים</span>
+                    </h2>
+                    <p class="text-gray-600 mb-8 max-w-4xl">
+                        <span class="en-content">This experiment is designed in two sequential parts because the result from the first part is essential for the second. You cannot find the coefficient of friction without first knowing the stiffness of the spring you are using.</span>
+                        <span class="he-content">ניסוי זה מתוכנן בשני חלקים עוקבים מכיוון שהתוצאה מהחלק הראשון חיונית לחלק השני. לא ניתן למצוא את מקדם החיכוך מבלי לדעת תחילה את קשיחות הקפיץ שבו משתמשים.</span>
+                    </p>
                     
                     <div class="w-full bg-gray-50 p-6 rounded-lg border">
-                        <h3 class="text-xl font-bold text-center text-[#005082] mb-6">Experimental Process Flow</h3>
-                        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                        <h3 class="text-xl font-bold text-center text-[#005082] mb-6">
+                            <span class="en-content">Experimental Process Flow</span>
+                            <span class="he-content">תרשים זרימה של הניסוי</span>
+                        </h3>
+                        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 rtl:md:space-x-reverse">
                             
                             <div class="text-center p-4 border-2 border-dashed border-[#00A1E4] rounded-lg bg-white shadow-sm">
-                                <h4 class="font-bold text-[#0077C0]">Part I: Statics</h4>
-                                <p class="text-sm">Apply Force ($F=mg$),<br>Measure Elongation ($\Delta l$).</p>
+                                <h4 class="font-bold text-[#0077C0]">
+                                    <span class="en-content">Part I: Statics</span><span class="he-content">חלק א': סטטיקה</span>
+                                </h4>
+                                <p class="text-sm">
+                                    <span class="en-content">Apply Force ($F=mg$),<br>Measure Elongation ($\Delta l$).</span>
+                                    <span class="he-content">הפעלת כוח ($F=mg$),<br>מדידת התארכות ($\Delta l$).</span>
+                                </p>
                                 <div class="text-2xl mt-2">↓</div>
-                                <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">Graph F vs. $\Delta l$</p>
+                                <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">
+                                    <span class="en-content">Graph F vs. $\Delta l$</span><span class="he-content">גרף F כנגד $\Delta l$</span>
+                                </p>
                             </div>
                             
                             <div class="text-4xl font-light text-gray-400 transform md:rotate-0 rotate-90">➔</div>
                             
                             <div class="text-center p-4 bg-[#0077C0] text-white rounded-lg shadow-lg">
-                                <h4 class="font-bold">Key Result: 'k'</h4>
-                                <p class="text-2xl font-black">k = Slope₁</p>
+                                <h4 class="font-bold">
+                                    <span class="en-content">Key Result: 'k'</span><span class="he-content">תוצאת מפתח: 'k'</span>
+                                </h4>
+                                <p class="text-2xl font-black">k = <span class="en-content">Slope₁</span><span class="he-content">שיפוע₁</span></p>
                             </div>
 
                             <div class="text-4xl font-light text-gray-400 transform md:rotate-0 rotate-90">➔</div>
 
                             <div class="text-center p-4 border-2 border-dashed border-[#00A1E4] rounded-lg bg-white shadow-sm">
-                                <h4 class="font-bold text-[#0077C0]">Part II: Dynamics</h4>
-                                <p class="text-sm">Stretch by $\Delta l$,<br>Measure Distance ($x$).</p>
+                                <h4 class="font-bold text-[#0077C0]">
+                                    <span class="en-content">Part II: Dynamics</span><span class="he-content">חלק ב': דינמיקה</span>
+                                </h4>
+                                <p class="text-sm">
+                                    <span class="en-content">Stretch by $\Delta l$,<br>Measure Distance ($x$).</span>
+                                    <span class="he-content">מתיחה ב- $\Delta l$,<br>מדידת מרחק ($x$).</span>
+                                </p>
                                 <div class="text-2xl mt-2">↓</div>
-                                <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">Graph x vs. $(\Delta l)^2$</p>
+                                <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">
+                                    <span class="en-content">Graph x vs. $(\Delta l)^2$</span><span class="he-content">גרף x כנגד $(\Delta l)^2$</span>
+                                </p>
                             </div>
 
                              <div class="text-4xl font-light text-gray-400 transform md:rotate-0 rotate-90">➔</div>
 
                             <div class="text-center p-4 bg-[#005082] text-white rounded-lg shadow-lg">
-                                <h4 class="font-bold">Final Result: 'μk'</h4>
-                                 <p class="text-lg font-mono">$\mu_k = \frac{k}{2 \cdot \text{Slope₂} \cdot mg}$</p>
+                                <h4 class="font-bold">
+                                    <span class="en-content">Final Result: 'μk'</span><span class="he-content">תוצאה סופית: 'μk'</span>
+                                </h4>
+                                 <p class="text-lg font-mono">$\mu_k = \frac{k}{2 \cdot (\text{<span class="en-content">Slope₂</span><span class="he-content">שיפוע₂</span>}) \cdot mg}$</p>
                             </div>
 
                         </div>
@@ -214,137 +313,135 @@
     </div>
 
     <script>
-        function wrapLabel(str, max_width) {
-            if (str.length <= max_width) {
-                return str;
-            }
-            const words = str.split(' ');
-            const lines = [];
-            let current_line = words[0];
+        let hookesChartInstance;
+        let workEnergyChartInstance;
 
-            for (let i = 1; i < words.length; i++) {
-                if (current_line.length + words[i].length + 1 < max_width) {
-                    current_line += ' ' + words[i];
-                } else {
-                    lines.push(current_line);
-                    current_line = words[i];
-                }
+        function switchLanguage(lang) {
+            if (lang === 'he') {
+                document.documentElement.lang = 'he';
+                document.documentElement.dir = 'rtl';
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
             }
-            lines.push(current_line);
-            return lines;
+            document.querySelectorAll('.en-content').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+            document.querySelectorAll('.he-content').forEach(el => el.style.display = lang === 'he' ? '' : 'none');
+            localStorage.setItem('preferredLanguage', lang);
+            renderCharts();
         }
 
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-                return label.join(' ');
-            } else {
-                return label;
-            }
-        };
+        function renderCharts() {
+            if (hookesChartInstance) hookesChartInstance.destroy();
+            if (workEnergyChartInstance) workEnergyChartInstance.destroy();
 
-        const sharedChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            plugins: {
-                legend: {
-                    position: 'bottom',
+            const isHebrew = document.documentElement.lang === 'he';
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const sharedChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
                 },
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        },
+                        rtl: isHebrew,
+                        textDirection: isHebrew ? 'rtl' : 'ltr',
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        title: { display: true, font: { weight: 'bold' } }
+                    },
+                    y: {
+                        grid: { color: '#e0e0e0', borderDash: [2, 4], },
+                        title: { display: true, font: { weight: 'bold' } },
+                        beginAtZero: true
                     }
                 }
-            },
-            scales: {
-                x: {
-                    grid: {
-                        display: false
-                    },
-                    title: {
-                        display: true,
-                        font: {
-                            weight: 'bold'
-                        }
+            };
+
+            // Hooke's Law Chart
+            document.getElementById('hookeChartTitle').innerHTML = isHebrew ? 'מציאת \'k\' באמצעות גרף' : 'Finding \'k\' with a Graph';
+            const hookeData = {
+                labels: [0.00, 0.05, 0.10, 0.15, 0.20, 0.25],
+                datasets: [{
+                    label: isHebrew ? 'כוח (N)' : 'Force (N)',
+                    data: [0, 2.45, 4.90, 7.35, 9.80, 12.25],
+                    borderColor: '#00A1E4',
+                    backgroundColor: 'rgba(0, 161, 228, 0.1)',
+                    fill: true,
+                    tension: 0.1,
+                    pointBackgroundColor: '#0077C0',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            };
+            const ctxHooke = document.getElementById('hookesLawChart').getContext('2d');
+            hookesChartInstance = new Chart(ctxHooke, {
+                type: 'line',
+                data: hookeData,
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        x: { ...sharedChartOptions.scales.x, title: { ...sharedChartOptions.scales.x.title, text: isHebrew ? "התארכות, Δl (מ')" : 'Elongation, Δl (m)' } },
+                        y: { ...sharedChartOptions.scales.y, title: { ...sharedChartOptions.scales.y.title, text: isHebrew ? "כוח, F (N)" : 'Force, F (N)' } }
                     }
-                },
-                y: {
-                    grid: {
-                        color: '#e0e0e0',
-                        borderDash: [2, 4],
-                    },
-                    title: {
-                        display: true,
-                        font: {
-                            weight: 'bold'
-                        }
-                    },
-                    beginAtZero: true
                 }
-            }
-        };
+            });
+
+            // Work-Energy Chart
+            document.getElementById('workEnergyChartTitle').innerHTML = isHebrew ? 'סיפורו של מעבר האנרגיה' : 'The Energy Transformation Story';
+            const workEnergyData = {
+                labels: [0, 0.01, 0.0225, 0.04, 0.0625, 0.09],
+                datasets: [{
+                    label: isHebrew ? "מרחק (מ')" : 'Distance (m)',
+                    data: [0, 0.25, 0.56, 1.00, 1.56, 2.25],
+                    borderColor: '#0077C0',
+                    backgroundColor: 'rgba(0, 119, 192, 0.1)',
+                    fill: true,
+                    tension: 0.1,
+                    pointBackgroundColor: '#005082',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            };
+            const ctxWorkEnergy = document.getElementById('workEnergyChart').getContext('2d');
+            workEnergyChartInstance = new Chart(ctxWorkEnergy, {
+                type: 'line',
+                data: workEnergyData,
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        x: { ...sharedChartOptions.scales.x, title: { ...sharedChartOptions.scales.x.title, text: isHebrew ? "התארכות בריבוע, (Δl)² (מ²)" : 'Elongation Squared, (Δl)² (m²)' } },
+                        y: { ...sharedChartOptions.scales.y, title: { ...sharedChartOptions.scales.y.title, text: isHebrew ? "מרחק תנועה, x (מ')" : 'Distance Traveled, x (m)' } }
+                    }
+                }
+            });
+        }
         
-        const hookeData = {
-            labels: [0.00, 0.05, 0.10, 0.15, 0.20, 0.25],
-            datasets: [{
-                label: 'Force (N)',
-                data: [0, 2.45, 4.90, 7.35, 9.80, 12.25],
-                borderColor: '#00A1E4',
-                backgroundColor: 'rgba(0, 161, 228, 0.1)',
-                fill: true,
-                tension: 0.1,
-                pointBackgroundColor: '#0077C0',
-                pointRadius: 5,
-                pointHoverRadius: 7
-            }]
-        };
-
-        const ctxHooke = document.getElementById('hookesLawChart').getContext('2d');
-        new Chart(ctxHooke, {
-            type: 'line',
-            data: hookeData,
-            options: {
-                ...sharedChartOptions,
-                scales: {
-                    ...sharedChartOptions.scales,
-                    x: { ...sharedChartOptions.scales.x, title: { ...sharedChartOptions.scales.x.title, text: 'Elongation, Δl (m)' } },
-                    y: { ...sharedChartOptions.scales.y, title: { ...sharedChartOptions.scales.y.title, text: 'Force, F (N)' } }
-                }
-            }
-        });
-
-        const workEnergyData = {
-            labels: [0, 0.01, 0.0225, 0.04, 0.0625, 0.09],
-            datasets: [{
-                label: 'Distance (m)',
-                data: [0, 0.25, 0.56, 1.00, 1.56, 2.25],
-                borderColor: '#0077C0',
-                backgroundColor: 'rgba(0, 119, 192, 0.1)',
-                fill: true,
-                tension: 0.1,
-                pointBackgroundColor: '#005082',
-                pointRadius: 5,
-                pointHoverRadius: 7
-            }]
-        };
-
-        const ctxWorkEnergy = document.getElementById('workEnergyChart').getContext('2d');
-        new Chart(ctxWorkEnergy, {
-            type: 'line',
-            data: workEnergyData,
-            options: {
-                ...sharedChartOptions,
-                scales: {
-                    ...sharedChartOptions.scales,
-                    x: { ...sharedChartOptions.scales.x, title: { ...sharedChartOptions.scales.x.title, text: 'Elongation Squared, (Δl)² (m²)' } },
-                    y: { ...sharedChartOptions.scales.y, title: { ...sharedChartOptions.scales.y.title, text: 'Distance Traveled, x (m)' } }
-                }
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
         });
     </script>
 </body>

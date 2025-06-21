@@ -1,18 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographic: The Tangent Galvanometer Experiment</title>
+    <title>Tangent Galvanometer / גלוונומטר טנגנטי</title>
+    <script>
+        function switchLanguage(lang) {
+            const oppositeLang = lang === 'he' ? 'en' : 'he';
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+            document.querySelectorAll(`.${oppositeLang}-content`).forEach(el => el.style.display = 'none');
+            document.querySelectorAll(`.${lang}-content`).forEach(el => el.style.display = 'block');
+            localStorage.setItem('preferredLanguage', lang);
+            renderCharts(lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
+        });
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.29.1.min.js" charset="utf-8"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Assistant:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+        }
+        [lang="he"] body, [lang="he"] h1, [lang="he"] h2, [lang="he"] h3 {
+            font-family: 'Assistant', sans-serif;
         }
         .chart-container {
             position: relative;
@@ -48,143 +69,153 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
+    <div class="absolute top-4 right-4 flex space-x-2 rtl:left-4 rtl:right-auto rtl:space-x-reverse z-10">
+        <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-white shadow text-sm font-medium">EN</button>
+        <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-white shadow text-sm font-medium">עב</button>
+    </div>
+
     <main class="container mx-auto p-4 md:p-8">
         
         <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-black text-[#003f5c] mb-2">Visualizing Electromagnetism</h1>
-            <p class="text-xl md:text-2xl font-bold text-[#665191]">The Tangent Galvanometer Experiment</p>
+            <h1 class="text-4xl md:text-6xl font-black text-[#003f5c] mb-2 en-content">Visualizing Electromagnetism</h1>
+            <h1 class="text-4xl md:text-6xl font-black text-[#003f5c] mb-2 he-content" style="display: none;">הדמיית אלקטרומגנטיות</h1>
+            <p class="text-xl md:text-2xl font-bold text-[#665191] en-content">The Tangent Galvanometer Experiment</p>
+            <p class="text-xl md:text-2xl font-bold text-[#665191] he-content" style="display: none;">ניסוי הגלוונומטר הטנגנטי</p>
         </header>
 
         <section id="introduction" class="mb-16">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-3xl font-bold text-[#003f5c] mb-4">The Core Concept: A Tale of Two Fields</h2>
-                    <p class="mb-4">This experiment measures an invisible force: the Earth's own magnetic field. Specifically, we measure its **horizontal component ($B_H$)**, the part that guides a compass. We do this by pitting it against a magnetic field we create and control.</p>
-                    <p>An electric current running through a coil generates a magnetic field ($B_{coil}$) at a right angle to the Earth's field. A compass placed at the center will align with the vector sum of these two perpendicular forces, deflecting by an angle, $\alpha$.</p>
+                    <h2 class="text-3xl font-bold text-[#003f5c] mb-4 en-content">The Core Concept: A Tale of Two Fields</h2>
+                    <h2 class="text-3xl font-bold text-[#003f5c] mb-4 he-content" style="display: none;">עקרון הליבה: סיפור על שני שדות</h2>
+                    <div class="en-content">
+                        <p class="mb-4">This experiment measures an invisible force: the Earth's own magnetic field. Specifically, we measure its <strong>horizontal component ($B_H$)</strong>, the part that guides a compass. We do this by pitting it against a magnetic field we create and control.</p>
+                        <p>An electric current running through a coil generates a magnetic field ($B_{coil}$) at a right angle to the Earth's field. A compass placed at the center will align with the vector sum of these two perpendicular forces, deflecting by an angle, $\alpha$.</p>
+                    </div>
+                    <div class="he-content" style="display: none;">
+                        <p class="mb-4">ניסוי זה מודד כוח בלתי נראה: השדה המגנטי של כדור הארץ. באופן ספציפי, אנו מודדים את <strong>הרכיב האופקי שלו ($B_H$)</strong>, החלק שמנחה מצפן. אנו עושים זאת על ידי התמודדות מול שדה מגנטי שאנו יוצרים ושולטים בו.</p>
+                        <p>זרם חשמלי העובר דרך סליל יוצר שדה מגנטי ($B_{coil}$) בזווית ישרה לשדה של כדור הארץ. מצפן המוצב במרכז יתיישר עם סכום הווקטורים של שני כוחות ניצבים אלה, ויסטה בזווית, $\alpha$.</p>
+                    </div>
                 </div>
                 <div class="bg-[#003f5c] text-white rounded-lg shadow-xl p-8 text-center">
-                    <p class="kpi-label mb-2">The Fundamental Law</p>
+                    <p class="kpi-label mb-2 en-content">The Fundamental Law</p>
+                    <p class="kpi-label mb-2 he-content" style="display: none;">החוק הבסיסי</p>
                     <div class="kpi-value mb-2 font-mono">tan(α)</div>
                     <p class="text-2xl font-bold font-mono">= B<sub>coil</sub> / B<sub>H</sub></p>
-                    <p class="mt-4 text-gray-300">The tangent of the deflection angle is the ratio of the two magnetic fields. This is the Tangent Law.</p>
+                    <p class="mt-4 text-gray-300 en-content">The tangent of the deflection angle is the ratio of the two magnetic fields. This is the Tangent Law.</p>
+                    <p class="mt-4 text-gray-300 he-content" style="display: none;">טנגנס זווית הסטייה הוא היחס בין שני השדות המגנטיים. זהו חוק הטנגנס.</p>
                 </div>
             </div>
         </section>
 
         <section id="analysis-current" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2">Analysis 1: Current's Influence</h2>
-            <p class="text-center text-lg text-gray-600 mb-8">The first part of the experiment verifies that as you increase the current (I) in the coil, the deflection angle's tangent increases in a perfectly linear fashion.</p>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2 en-content">Analysis 1: Current's Influence</h2>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2 he-content" style="display: none;">ניתוח 1: השפעת הזרם</h2>
+            <p class="text-center text-lg text-gray-600 mb-8 en-content">The first part of the experiment verifies that as you increase the current (I) in the coil, the deflection angle's tangent increases in a perfectly linear fashion.</p>
+            <p class="text-center text-lg text-gray-600 mb-8 he-content" style="display: none;">החלק הראשון של הניסוי מאמת שככל שמגבירים את הזרם (I) בסליל, טנגנס זווית הסטייה גדל באופן ליניארי לחלוטין.</p>
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="chart-container">
                     <canvas id="currentVsDeflectionChart"></canvas>
                 </div>
-                <p class="text-center mt-4 text-gray-700 font-semibold">This graph demonstrates a direct proportionality: $tan(\alpha) \propto I$. Doubling the current doubles the tangent of the angle.</p>
+                <p class="text-center mt-4 text-gray-700 font-semibold en-content">This graph demonstrates a direct proportionality: $tan(\alpha) \propto I$. Doubling the current doubles the tangent of the angle.</p>
+                <p class="text-center mt-4 text-gray-700 font-semibold he-content" style="display: none;">גרף זה מדגים יחס ישר: $tan(\alpha) \propto I$. הכפלת הזרם מכפילה את טנגנס הזווית.</p>
             </div>
         </section>
         
         <section id="analysis-turns" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2">Analysis 2: The Power of Turns</h2>
-            <p class="text-center text-lg text-gray-600 mb-8">The second part shows that adding more turns (n) to the coil, while keeping the current constant, also increases the deflection. Each turn adds its own magnetic field.</p>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2 en-content">Analysis 2: The Power of Turns</h2>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2 he-content" style="display: none;">ניתוח 2: כוחם של הליפופים</h2>
+            <p class="text-center text-lg text-gray-600 mb-8 en-content">The second part shows that adding more turns (n) to the coil, while keeping the current constant, also increases the deflection. Each turn adds its own magnetic field.</p>
+            <p class="text-center text-lg text-gray-600 mb-8 he-content" style="display: none;">החלק השני מראה שהוספת ליפופים (n) לסליל, תוך שמירה על זרם קבוע, מגדילה גם היא את הסטייה. כל ליפוף מוסיף שדה מגנטי משלו.</p>
             <div class="bg-white rounded-lg shadow-md p-6">
                  <div class="chart-container">
                     <canvas id="turnsVsDeflectionChart"></canvas>
                 </div>
-                <p class="text-center mt-4 text-gray-700 font-semibold">This confirms another direct proportionality: $tan(\alpha) \propto n$. More loops create a stronger magnetic field ($B_{coil}$).</p>
+                <p class="text-center mt-4 text-gray-700 font-semibold en-content">This confirms another direct proportionality: $tan(\alpha) \propto n$. More loops create a stronger magnetic field ($B_{coil}$).</p>
+                <p class="text-center mt-4 text-gray-700 font-semibold he-content" style="display: none;">דבר זה מאשר יחס ישר נוסף: $tan(\alpha) \propto n$. יותר ליפופים יוצרים שדה מגנטי חזק יותר ($B_{coil}$).</p>
             </div>
         </section>
 
         <section id="setup" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Deconstructing the Experimental Setup</h2>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8 en-content">Deconstructing the Experimental Setup</h2>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8 he-content" style="display: none;">פירוק מערך הניסוי</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-white rounded-lg shadow-md p-6 text-center">
                     <div class="text-6xl mb-4">🧭</div>
-                    <h3 class="text-xl font-bold text-[#665191] mb-2">The Detector: Compass</h3>
-                    <p>A short magnetic needle that aligns with the local magnetic field. Its deflection angle, $\alpha$, is the primary measurement.</p>
+                    <h3 class="text-xl font-bold text-[#665191] mb-2 en-content">The Detector: Compass</h3>
+                    <h3 class="text-xl font-bold text-[#665191] mb-2 he-content" style="display: none;">הגלאי: מצפן</h3>
+                    <p class="en-content">A short magnetic needle that aligns with the local magnetic field. Its deflection angle, $\alpha$, is the primary measurement.</p>
+                    <p class="he-content" style="display: none;">מחט מגנטית קצרה המתיישרת עם השדה המגנטי המקומי. זווית הסטייה שלה, $\alpha$, היא המדידה העיקרית.</p>
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6 text-center">
                     <div class="text-6xl mb-4">🔄</div>
-                    <h3 class="text-xl font-bold text-[#665191] mb-2">The Field Generator: Coil</h3>
-                    <p>When current flows through its turns (n), it creates the controlled magnetic field, $B_{coil}$, at its center.</p>
+                    <h3 class="text-xl font-bold text-[#665191] mb-2 en-content">The Field Generator: Coil</h3>
+                    <h3 class="text-xl font-bold text-[#665191] mb-2 he-content" style="display: none;">מחולל השדה: סליל</h3>
+                    <p class="en-content">When current flows through its turns (n), it creates the controlled magnetic field, $B_{coil}$, at its center.</p>
+                    <p class="he-content" style="display: none;">כאשר זרם זורם דרך הליפופים (n), הוא יוצר את השדה המגנטי הנשלט, $B_{coil}$, במרכזו.</p>
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6 text-center">
                      <div class="text-6xl mb-4">🔌</div>
-                    <h3 class="text-xl font-bold text-[#665191] mb-2">The Power Source: DC Supply</h3>
-                    <p>Provides a stable, non-reversing Direct Current. An AC source would not work, as it would cause the field to oscillate.</p>
+                    <h3 class="text-xl font-bold text-[#665191] mb-2 en-content">The Power Source: DC Supply</h3>
+                    <h3 class="text-xl font-bold text-[#665191] mb-2 he-content" style="display: none;">מקור הכוח: ספק DC</h3>
+                    <p class="en-content">Provides a stable, non-reversing Direct Current. An AC source would not work, as it would cause the field to oscillate.</p>
+                    <p class="he-content" style="display: none;">מספק זרם ישר (DC) יציב, שאינו מתהפך. מקור AC לא יעבוד, מכיוון שיגרום לשדה להתנדנד.</p>
                 </div>
             </div>
         </section>
 
         <section id="pitfalls" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Critical Step: Alignment & Common Pitfalls</h2>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8 en-content">Critical Step: Alignment & Common Pitfalls</h2>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8 he-content" style="display: none;">שלב קריטי: כיוון ומלכודות נפוצות</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-green-100 border-l-4 border-green-500 rounded-lg p-6">
-                    <h3 class="text-2xl font-bold text-green-800 mb-3">✅ DO: Align North-South</h3>
-                    <p class="text-green-700">The plane of the coil MUST be aligned with the Earth's North-South magnetic field. This ensures $B_H$ (N-S) and $B_{coil}$ (E-W) are perfectly perpendicular, which is required for the Tangent Law to apply.</p>
+                <div class="bg-green-100 border-l-4 rtl:border-l-0 rtl:border-r-4 border-green-500 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-green-800 mb-3 en-content">✅ DO: Align North-South</h3>
+                    <h3 class="text-2xl font-bold text-green-800 mb-3 he-content" style="display: none;">✅ עשה: כוון צפון-דרום</h3>
+                    <p class="text-green-700 en-content">The plane of the coil MUST be aligned with the Earth's North-South magnetic field. This ensures $B_H$ (N-S) and $B_{coil}$ (E-W) are perfectly perpendicular, which is required for the Tangent Law to apply.</p>
+                    <p class="text-green-700 he-content" style="display: none;">מישור הסליל חייב להיות מכוון עם השדה המגנטי צפון-דרום של כדור הארץ. זה מבטיח ש-$B_H$ (צ-ד) ו-$B_{coil}$ (מז-מע) יהיו ניצבים לחלוטין, מה שנדרש כדי שחוק הטנגנס יתקיים.</p>
                 </div>
-                <div class="bg-red-100 border-l-4 border-red-500 rounded-lg p-6">
-                    <h3 class="text-2xl font-bold text-red-800 mb-3">❌ DON'T: Align East-West</h3>
-                    <p class="text-red-700">If aligned East-West, both fields would be collinear (on the same line). There would be no sideways force, no deflection, and the experiment would fail completely.</p>
+                <div class="bg-red-100 border-l-4 rtl:border-l-0 rtl:border-r-4 border-red-500 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold text-red-800 mb-3 en-content">❌ DON'T: Align East-West</h3>
+                    <h3 class="text-2xl font-bold text-red-800 mb-3 he-content" style="display: none;">❌ אל תעשה: כוון מזרח-מערב</h3>
+                    <p class="text-red-700 en-content">If aligned East-West, both fields would be collinear (on the same line). There would be no sideways force, no deflection, and the experiment would fail completely.</p>
+                    <p class="text-red-700 he-content" style="display: none;">אם יכוון מזרח-מערב, שני השדות יהיו קולינאריים (על אותו קו). לא יהיה כוח צידי, לא תהיה סטייה, והניסוי ייכשל לחלוטין.</p>
                 </div>
             </div>
         </section>
 
         <section id="accuracy" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2">Instrument Sensitivity & The "Sweet Spot"</h2>
-            <p class="text-center text-lg text-gray-600 mb-8">The instrument isn't equally accurate at all angles. The percentage error in the measurement is minimized when the deflection is near 45°.</p>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2 en-content">Instrument Sensitivity & The "Sweet Spot"</h2>
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2 he-content" style="display: none;">רגישות המכשיר ו"הנקודה המתוקה"</h2>
+            <p class="text-center text-lg text-gray-600 mb-8 en-content">The instrument isn't equally accurate at all angles. The percentage error in the measurement is minimized when the deflection is near 45°.</p>
+            <p class="text-center text-lg text-gray-600 mb-8 he-content" style="display: none;">המכשיר אינו מדויק באותה מידה בכל הזוויות. אחוז השגיאה במדידה הוא מינימלי כאשר הסטייה קרובה ל-45°.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <div class="chart-container" style="height: 300px;">
                         <div id="errorFunctionChart" class="w-full h-full"></div>
                     </div>
-                     <p class="text-center mt-4 text-gray-700 font-semibold">This plot shows relative error. Note how the error skyrockets near 0° and 90° but is lowest at the 45° mark.</p>
+                     <p class="text-center mt-4 text-gray-700 font-semibold en-content">This plot shows relative error. Note how the error skyrockets near 0° and 90° but is lowest at the 45° mark.</p>
+                     <p class="text-center mt-4 text-gray-700 font-semibold he-content" style="display: none;">עלילה זו מציגה שגיאה יחסית. שימו לב כיצד השגיאה נוסקת ליד 0° ו-90° אך היא הנמוכה ביותר בסימן 45°.</p>
                 </div>
                 <div class="bg-[#ffa600] text-white rounded-lg shadow-xl p-8 text-center">
-                    <p class="kpi-label mb-2">Optimal Deflection</p>
+                    <p class="kpi-label mb-2 en-content">Optimal Deflection</p>
+                    <p class="kpi-label mb-2 he-content" style="display: none;">סטייה אופטימלית</p>
                     <div class="kpi-value">45°</div>
-                    <p class="mt-4 text-gray-800 font-bold">This is the angle of maximum sensitivity, where $B_{coil}$ is exactly equal to $B_H$.</p>
+                    <p class="mt-4 text-gray-800 font-bold en-content">This is the angle of maximum sensitivity, where $B_{coil}$ is exactly equal to $B_H$.</p>
+                    <p class="mt-4 text-gray-800 font-bold he-content" style="display: none;">זוהי זווית הרגישות המרבית, שבה $B_{coil}$ שווה בדיוק ל-$B_H$.</p>
                 </div>
             </div>
         </section>
         
         <footer class="text-center mt-12 pt-8 border-t border-gray-300">
-            <p class="text-gray-600">This infographic synthesizes the key principles and procedures of the tangent galvanometer experiment.</p>
+            <p class="text-gray-600 en-content">This infographic synthesizes the key principles and procedures of the tangent galvanometer experiment.</p>
+            <p class="text-gray-600 he-content" style="display: none;">אינפוגרפיקה זו מסכמת את העקרונות והנהלים המרכזיים של ניסוי הגלוונומטר הטנגנטי.</p>
             <p class="text-sm text-gray-400 mt-2">NEITHER Mermaid JS NOR SVG were used in this output.</p>
         </footer>
 
     </main>
 
     <script>
-        const wrapLabel = (str, maxWidth) => {
-            if (str.length <= maxWidth) {
-                return str;
-            }
-            const words = str.split(' ');
-            let lines = [];
-            let currentLine = words[0];
-
-            for (let i = 1; i < words.length; i++) {
-                if (currentLine.length + words[i].length + 1 < maxWidth) {
-                    currentLine += ' ' + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        };
-        
-        const tooltipTitleCallback = {
-            title: function(tooltipItems) {
-                const item = tooltipItems[0];
-                let label = item.chart.data.labels[item.dataIndex];
-                if (Array.isArray(label)) {
-                    return label.join(' ');
-                } else {
-                    return label;
-                }
-            }
-        };
+        let currentVsDeflectionChartInstance, turnsVsDeflectionChartInstance;
 
         const colors = {
             primary: '#f95d6a', 
@@ -194,9 +225,42 @@
             purple: '#665191'
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
+        const translations = {
+            en: {
+                currentVsDeflection: { yAxis: 'tan(α)', xAxis: 'Current (I)' },
+                turnsVsDeflection: { yAxis: 'tan(α)', xAxis: 'Number of Coil Turns (n)', labels: ['1 Turn', '2 Turns', '3 Turns', '4 Turns', '5 Turns'] },
+                errorChart: { xAxis: 'Deflection Angle α (°)', yAxis: 'Relative Error' }
+            },
+            he: {
+                currentVsDeflection: { yAxis: 'tan(α)', xAxis: '(I) זרם' },
+                turnsVsDeflection: { yAxis: 'tan(α)', xAxis: '(n) מספר ליפופים בסליל', labels: ['ליפוף 1', '2 ליפופים', '3 ליפופים', '4 ליפופים', '5 ליפופים'] },
+                 errorChart: { xAxis: '(°) זווית הסטייה α', yAxis: 'שגיאה יחסית' }
+            }
+        };
+        
+        const tooltipTitleCallback = {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) { return label.join(' '); } 
+                else { return label; }
+            }
+        };
+
+        function renderCharts(lang) {
+            if (currentVsDeflectionChartInstance) currentVsDeflectionChartInstance.destroy();
+            if (turnsVsDeflectionChartInstance) turnsVsDeflectionChartInstance.destroy();
+            Plotly.purge('errorFunctionChart');
+
+            const currentLangTranslations = translations[lang];
+            const commonFontOptions = {
+                family: lang === 'he' ? 'Assistant, sans-serif' : 'Inter, sans-serif',
+                weight: 'bold'
+            };
+
+            // Chart 1: Current vs Deflection
             const currentVsDeflectionCtx = document.getElementById('currentVsDeflectionChart').getContext('2d');
-            new Chart(currentVsDeflectionCtx, {
+            currentVsDeflectionChartInstance = new Chart(currentVsDeflectionCtx, {
                 type: 'line',
                 data: {
                     labels: ['0 A', '0.5 A', '1.0 A', '1.5 A', '2.0 A', '2.5 A'],
@@ -214,70 +278,54 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { callbacks: tooltipTitleCallback }
-                    },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: tooltipTitleCallback, bodyFont: { family: 'Inter, sans-serif' }, titleFont: { family: 'Inter, sans-serif' } } },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            title: { display: true, text: 'tan(α)', color: colors.text, font: { weight: 'bold' } },
+                            title: { display: true, text: currentLangTranslations.currentVsDeflection.yAxis, color: colors.text, font: commonFontOptions },
                             grid: { color: colors.grid }
                         },
                         x: {
-                            title: { display: true, text: 'Current (I)', color: colors.text, font: { weight: 'bold' } },
+                            title: { display: true, text: currentLangTranslations.currentVsDeflection.xAxis, color: colors.text, font: commonFontOptions },
                             grid: { color: colors.grid }
                         }
                     }
                 }
             });
 
+            // Chart 2: Turns vs Deflection
             const turnsVsDeflectionCtx = document.getElementById('turnsVsDeflectionChart').getContext('2d');
-            new Chart(turnsVsDeflectionCtx, {
+            turnsVsDeflectionChartInstance = new Chart(turnsVsDeflectionCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['1 Turn', '2 Turns', '3 Turns', '4 Turns', '5 Turns'],
+                    labels: currentLangTranslations.turnsVsDeflection.labels,
                     datasets: [{
                         label: 'tan(α)',
                         data: [0.5, 1.0, 1.5, 2.0, 2.5],
-                        backgroundColor: [
-                            colors.purple + 'cc',
-                            colors.primary + 'cc',
-                            colors.secondary + 'cc',
-                            colors.purple + '99',
-                            colors.primary + '99'
-                        ],
-                        borderColor: [
-                             colors.purple,
-                            colors.primary,
-                            colors.secondary,
-                            colors.purple,
-                            colors.primary
-                        ],
+                        backgroundColor: [colors.purple + 'cc', colors.primary + 'cc', colors.secondary + 'cc', colors.purple + '99', colors.primary + '99'],
+                        borderColor: [colors.purple, colors.primary, colors.secondary, colors.purple, colors.primary],
                         borderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { callbacks: tooltipTitleCallback }
-                    },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: tooltipTitleCallback, bodyFont: { family: 'Inter, sans-serif' }, titleFont: { family: 'Inter, sans-serif' } } },
                     scales: {
                          y: {
                             beginAtZero: true,
-                            title: { display: true, text: 'tan(α)', color: colors.text, font: { weight: 'bold' } },
+                            title: { display: true, text: currentLangTranslations.turnsVsDeflection.yAxis, color: colors.text, font: commonFontOptions },
                             grid: { color: colors.grid }
                         },
                         x: {
-                            title: { display: true, text: 'Number of Coil Turns (n)', color: colors.text, font: { weight: 'bold' } },
+                            title: { display: true, text: currentLangTranslations.turnsVsDeflection.xAxis, color: colors.text, font: commonFontOptions },
                             grid: { color: 'transparent' }
                         }
                     }
                 }
             });
             
+            // Chart 3: Error Function (Plotly)
             const errorX = [];
             const errorY = [];
             for(let i = 1; i < 90; i++) {
@@ -287,42 +335,28 @@
             }
             
             const errorTrace = {
-                x: errorX,
-                y: errorY,
-                mode: 'lines',
-                type: 'scattergl',
-                line: {
-                    color: colors.primary,
-                    width: 3
-                }
+                x: errorX, y: errorY, mode: 'lines', type: 'scattergl',
+                line: { color: colors.primary, width: 3 }
             };
 
             const layout = {
                 xaxis: {
-                    title: 'Deflection Angle α (°)',
-                    titlefont: { color: colors.text, family: 'Inter', weight: 'bold' },
+                    title: { text: currentLangTranslations.errorChart.xAxis, font: { ...commonFontOptions, color: colors.text } },
                     range: [0, 90]
                 },
                 yaxis: {
-                    title: 'Relative Error',
-                    titlefont: { color: colors.text, family: 'Inter', weight: 'bold' },
+                    title: { text: currentLangTranslations.errorChart.yAxis, font: { ...commonFontOptions, color: colors.text } },
                     range: [0, 20]
                 },
-                margin: { l: 60, r: 20, b: 50, t: 20 },
+                margin: { l: 60, r: 20, b: 50, t: 20, pad: 4 },
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
-                font: {
-                    family: 'Inter, sans-serif'
-                }
+                font: { family: commonFontOptions.family }
             };
             
-            const config = {
-                responsive: true,
-                displayModeBar: false
-            };
-
+            const config = { responsive: true, displayModeBar: false };
             Plotly.newPlot('errorFunctionChart', [errorTrace], layout, config);
-        });
+        }
     </script>
 </body>
 </html>

@@ -1,14 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographic: The Magnetic Field of a Current-Carrying Wire</title>
+    <title>The Magnetic Field of a Wire / השדה המגנטי של תיל</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        function switchLanguage(lang) {
+            if (lang === 'he') {
+                document.documentElement.lang = 'he';
+                document.documentElement.dir = 'rtl';
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'he');
+                updateCharts('he');
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'en');
+                updateCharts('en');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
+        });
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -43,140 +69,146 @@
             line-height: 1;
             color: #69A5F3;
         }
+        .he-content {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-
     
+    <div class="fixed top-4 right-4 z-10 flex space-x-2 rtl:space-x-reverse">
+        <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-white shadow text-[#004AAD] text-sm font-medium">EN</button>
+        <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-white shadow text-[#004AAD] text-sm font-medium">עב</button>
+    </div>
+
     <div class="container mx-auto p-4 md:p-8">
 
-        
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-[#004AAD] mb-2">The Magnetic Field of a Wire</h1>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">An interactive guide to understanding how electric currents create magnetic fields and how we measure them.</p>
+        <header class="text-center mb-12 pt-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#004AAD] mb-2 en-content">The Magnetic Field of a Wire</h1>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#004AAD] mb-2 he-content">השדה המגנטי של תיל</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto en-content">An interactive guide to understanding how electric currents create magnetic fields and how we measure them.</p>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto he-content">מדריך אינטראקטיבי להבנת האופן שבו זרמים חשמליים יוצרים שדות מגנטיים וכיצד אנו מודדים אותם.</p>
         </header>
 
-        
         <section id="introduction" class="mb-16">
-            <div class="bg-white rounded-2xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-3 items-center gap-8 border-l-8 border-[#0062E4]">
+            <div class="bg-white rounded-2xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-3 items-center gap-8 border-l-8 rtl:border-l-0 rtl:border-r-8 border-[#0062E4]">
                 <div class="md:col-span-2">
-                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">The Fundamental Connection</h2>
-                    <p class="text-gray-700 leading-relaxed">
-                        The core principle of this experiment, discovered by Oersted, is that electricity and magnetism are two sides of the same coin. A moving electric charge—an electric current ($I$)—generates a circular magnetic field ($B_{wire}$) in the space around it. This infographic breaks down how we can observe, measure, and verify this fundamental law of physics.
-                    </p>
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4 en-content">The Fundamental Connection</h2>
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4 he-content">הקשר היסודי</h2>
+                    <p class="text-gray-700 leading-relaxed en-content">The core principle of this experiment, discovered by Oersted, is that electricity and magnetism are two sides of the same coin. A moving electric charge—an electric current ($I$)—generates a circular magnetic field ($B_{wire}$) in the space around it. This infographic breaks down how we can observe, measure, and verify this fundamental law of physics.</p>
+                    <p class="text-gray-700 leading-relaxed he-content">העיקרון המרכזי של ניסוי זה, שהתגלה על ידי הנס כריסטיאן ארסטד, הוא שחשמל ומגנטיות הם שני צדדים של אותו מטבע. מטען חשמלי נע — זרם חשמלי ($I$) — יוצר שדה מגנטי מעגלי ($B_{wire}$) במרחב סביבו. אינפוגרפיקה זו מפרטת כיצד ניתן לצפות, למדוד ולאמת חוק יסוד זה של הפיזיקה.</p>
                 </div>
-                <div class="text-5xl md:text-7xl font-black text-center text-[#0062E4] flex items-center justify-center space-x-4">
-                    <span>⚡️</span>
-                    <span class="text-[#69A5F3]">&rarr;</span>
+                <div class="text-5xl md:text-7xl font-black text-center text-[#0062E4] flex items-center justify-center space-x-4 rtl:space-x-reverse">
                     <span>🧲</span>
+                    <span class="text-[#69A5F3]">&larr;</span>
+                    <span>⚡️</span>
                 </div>
             </div>
         </section>
 
-        
         <section id="setup" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8">The Experimental Procedure: A Step-by-Step Logic</h2>
+            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8 en-content">The Experimental Procedure: A Step-by-Step Logic</h2>
+            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8 he-content">מהלך הניסוי: לוגיקה שלב אחר שלב</h2>
              <div class="bg-white rounded-2xl shadow-lg p-8">
-                <p class="text-center text-gray-600 mb-8">Each step in the setup is deliberate, designed to isolate the magnetic field from the wire and use the Earth's own magnetic field as a stable, perpendicular reference point.</p>
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
-                    
+                <p class="text-center text-gray-600 mb-8 en-content">Each step in the setup is deliberate, designed to isolate the magnetic field from the wire and use the Earth's own magnetic field as a stable, perpendicular reference point.</p>
+                <p class="text-center text-gray-600 mb-8 he-content">כל שלב במערך הניסוי הוא מכוון, ומטרתו לבודד את השדה המגנטי של התיל ולהשתמש בשדה המגנטי של כדור הארץ כנקודת ייחוס יציבה וניצבת.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 rtl:md:space-x-reverse">
                     <div class="flex flex-col items-center text-center">
-                        <div class="flowchart-step bg-[#B8D5FA] text-[#004AAD]">1. Align Wire North-South</div>
-                        <p class="mt-2 text-sm max-w-xs">Aligns the wire with Earth's field ($B_H$).</p>
+                        <div class="flowchart-step bg-[#004AAD] text-white">4</div>
+                        <p class="mt-2 text-sm max-w-xs en-content">Vary Distance ($r$)</p>
+                        <p class="mt-2 text-sm max-w-xs he-content">שינוי מרחק ($r$)</p>
                     </div>
-
-                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">&rarr;</div>
-                    
+                    <div class="flowchart-arrow transform md:rotate-180 rotate-90">&rarr;</div>
                     <div class="flex flex-col items-center text-center">
-                        <div class="flowchart-step bg-[#69A5F3] text-white">2. Activate Current ($I$)</div>
-                        <p class="mt-2 text-sm max-w-xs">Generates the wire's field ($B_{wire}$) East-West.</p>
+                        <div class="flowchart-step bg-[#0062E4] text-white">3</div>
+                        <p class="mt-2 text-sm max-w-xs en-content">Measure Deflection ($\alpha$)</p>
+                        <p class="mt-2 text-sm max-w-xs he-content">מדידת סטייה ($\alpha$)</p>
                     </div>
-
-                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">&rarr;</div>
-                    
+                    <div class="flowchart-arrow transform md:rotate-180 rotate-90">&rarr;</div>
                     <div class="flex flex-col items-center text-center">
-                        <div class="flowchart-step bg-[#0062E4] text-white">3. Measure Deflection ($\alpha$)</div>
-                        <p class="mt-2 text-sm max-w-xs">Compass aligns with the net field ($B_{net}$).</p>
+                        <div class="flowchart-step bg-[#69A5F3] text-white">2</div>
+                        <p class="mt-2 text-sm max-w-xs en-content">Activate Current ($I$)</p>
+                        <p class="mt-2 text-sm max-w-xs he-content">הפעלת זרם ($I$)</p>
                     </div>
-
-                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">&rarr;</div>
-
+                    <div class="flowchart-arrow transform md:rotate-180 rotate-90">&rarr;</div>
                     <div class="flex flex-col items-center text-center">
-                        <div class="flowchart-step bg-[#004AAD] text-white">4. Vary Distance ($r$)</div>
-                        <p class="mt-2 text-sm max-w-xs">Investigates how field strength changes with distance.</p>
+                        <div class="flowchart-step bg-[#B8D5FA] text-[#004AAD]">1</div>
+                        <p class="mt-2 text-sm max-w-xs en-content">Align Wire North-South</p>
+                        <p class="mt-2 text-sm max-w-xs he-content">יישור התיל צפון-דרום</p>
                     </div>
                 </div>
             </div>
         </section>
 
-
-        
         <section id="physics" class="mb-16">
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
                 <div class="lg:col-span-3 bg-white rounded-2xl shadow-lg p-8">
-                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">The Physics of Deflection: The Tangent Law</h2>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        The compass doesn't point to the wire's field or the Earth's field; it points along the vector sum of both. Because the setup makes these two fields perpendicular, they form a right-angled triangle. Basic trigonometry gives us the "Tangent Law," the key to our measurements. The measurable angle $\alpha$ directly links the invisible field from the wire to the known field of the Earth.
-                    </p>
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4 en-content">The Physics of Deflection: The Tangent Law</h2>
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4 he-content">הפיזיקה של הסטייה: חוק הטנגנס</h2>
+                    <p class="text-gray-700 mb-6 leading-relaxed en-content">The compass doesn't point to the wire's field or the Earth's field; it points along the vector sum of both. Because the setup makes these two fields perpendicular, they form a right-angled triangle. Basic trigonometry gives us the "Tangent Law," the key to our measurements. The measurable angle $\alpha$ directly links the invisible field from the wire to the known field of the Earth.</p>
+                    <p class="text-gray-700 mb-6 leading-relaxed he-content">המצפן אינו מצביע על שדה התיל או על שדה כדור הארץ; הוא מצביע לאורך הסכום הווקטורי של שניהם. מכיוון שהמערך גורם לשני השדות הללו להיות ניצבים, הם יוצרים משולש ישר-זווית. טריגונומטריה בסיסית נותנת לנו את "חוק הטנגנס", המפתח למדידות שלנו. הזווית הנמדדת $\alpha$ מקשרת ישירות את השדה הבלתי נראה של התיל לשדה הידוע של כדור הארץ.</p>
                     <div class="bg-gray-100 rounded-lg p-4 text-center">
                         <code class="text-xl md:text-2xl font-mono text-[#0062E4]">tan(&alpha;) = B<sub>wire</sub> / B<sub>H</sub></code>
                     </div>
                 </div>
                 <div class="lg:col-span-2 bg-[#004AAD] text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center">
-                    <h3 class="text-2xl font-bold mb-4 text-center">Vector Superposition</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-center en-content">Vector Superposition</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-center he-content">סופרפוזיציה וקטורית</h3>
                     <div class="relative w-full max-w-[250px] aspect-square">
                         <div class="absolute bottom-0 left-0 w-full h-px bg-[#69A5F3]"></div>
                         <div class="absolute bottom-0 left-0 h-full w-px bg-[#69A5F3]"></div>
-                        <div class="absolute bottom-0 left-0 text-[#B8D5FA] -mb-6">B<sub>H</sub> (North)</div>
-                        <div class="absolute bottom-0 left-0 text-[#B8D5FA] -ml-20 top-1/2 transform -translate-y-1/2 rotate-90">B<sub>wire</sub> (West)</div>
-                        <div class="absolute bottom-0 left-0 w-full h-full" style="transform-origin: bottom left; transform: rotate(-45deg);">
-                             <div class="w-full h-px bg-white"></div>
-                        </div>
-                        <div class="absolute text-white top-1/3 left-1/2">B<sub>net</sub></div>
-                        <div class="absolute bottom-0 left-0 text-yellow-300 text-lg ml-2 mb-1">&alpha;</div>
+                        <div class="absolute bottom-0 left-0 text-[#B8D5FA] -mb-6 en-content">B<sub>H</sub> (North)</div>
+                        <div class="absolute bottom-0 left-0 text-[#B8D5FA] -mb-6 he-content">B<sub>H</sub> (צפון)</div>
+                        <div class="absolute bottom-0 left-0 text-[#B8D5FA] -ml-20 top-1/2 transform -translate-y-1/2 rotate-90 en-content">B<sub>wire</sub> (West)</div>
+                        <div class="absolute bottom-0 right-0 text-[#B8D5FA] -mr-20 top-1/2 transform -translate-y-1/2 -rotate-90 he-content">B<sub>wire</sub> (מערב)</div>
+                        <div class="absolute bottom-0 left-0 rtl:right-0 rtl:left-auto w-full h-full" style="transform-origin: bottom left;" dir="ltr"><div style="transform: rotate(-45deg);transform-origin: bottom left;" class="w-full h-full"><div class="w-full h-px bg-white"></div></div></div>
+                        <div class="absolute bottom-0 right-0 w-full h-full" style="transform-origin: bottom right;" dir="rtl"><div style="transform: rotate(45deg);transform-origin: bottom right;" class="w-full h-full"><div class="w-full h-px bg-white"></div></div></div>
+                        <div class="absolute text-white top-1/3 left-1/2 rtl:right-1/2 rtl:left-auto">B<sub>net</sub></div>
+                        <div class="absolute bottom-0 left-0 rtl:right-0 rtl:left-auto text-yellow-300 text-lg ml-2 rtl:ml-0 rtl:mr-2 mb-1">&alpha;</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        
         <section id="data" class="mb-16">
-             <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8">Visualizing the Data</h2>
+             <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8 en-content">Visualizing the Data</h2>
+             <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8 he-content">הדמיית הנתונים</h2>
              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
                 <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-xl text-[#004AAD] mb-2">1. The Raw Relationship</h3>
-                    <p class="text-sm text-gray-600 mb-4">Plotting the raw data of deflection (tan α) versus distance (r) reveals a non-linear curve. This shows that the magnetic field weakens as distance increases, but not in a straight-line fashion.</p>
-                    <div class="chart-container">
-                        <canvas id="nonlinearChart"></canvas>
-                    </div>
+                    <h3 class="font-bold text-xl text-[#004AAD] mb-2 en-content">1. The Raw Relationship</h3>
+                    <h3 class="font-bold text-xl text-[#004AAD] mb-2 he-content">1. הקשר הגולמי</h3>
+                    <p class="text-sm text-gray-600 mb-4 en-content">Plotting the raw data of deflection (tan α) versus distance (r) reveals a non-linear curve. This shows that the magnetic field weakens as distance increases, but not in a straight-line fashion.</p>
+                    <p class="text-sm text-gray-600 mb-4 he-content">שרטוט הנתונים הגולמיים של הסטייה (tan α) לעומת המרחק (r) חושף עקומה לא ליניארית. הדבר מראה שהשדה המגנטי נחלש ככל שהמרחק גדל, אך לא באופן ישר.</p>
+                    <div class="chart-container"><canvas id="nonlinearChart"></canvas></div>
                 </div>
-
-                
                 <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-xl text-[#004AAD] mb-2">2. Linearization for Analysis</h3>
-                    <p class="text-sm text-gray-600 mb-4">Physics equations predict that tan(α) is proportional to 1/r. Plotting tan(α) vs 1/r linearizes the data, creating a straight line. The slope of this line is packed with physical meaning.</p>
-                     <div class="chart-container">
-                        <canvas id="linearChart"></canvas>
-                    </div>
+                    <h3 class="font-bold text-xl text-[#004AAD] mb-2 en-content">2. Linearization for Analysis</h3>
+                    <h3 class="font-bold text-xl text-[#004AAD] mb-2 he-content">2. לינאריזציה לצורך ניתוח</h3>
+                    <p class="text-sm text-gray-600 mb-4 en-content">Physics equations predict that tan(α) is proportional to 1/r. Plotting tan(α) vs 1/r linearizes the data, creating a straight line. The slope of this line is packed with physical meaning.</p>
+                    <p class="text-sm text-gray-600 mb-4 he-content">משוואות פיזיקליות חוזות ש-tan(α) פרופורציונלי ל-1/r. שרטוט tan(α) לעומת 1/r הופך את הנתונים לקו ישר. לשיפוע של קו זה יש משמעות פיזיקלית עמוקה.</p>
+                     <div class="chart-container"><canvas id="linearChart"></canvas></div>
                 </div>
              </div>
         </section>
         
         <section id="analysis" class="mb-16">
              <div class="bg-white rounded-2xl shadow-lg p-8 text-center border-t-8 border-[#0062E4]">
-                <h2 class="text-3xl font-bold text-[#004AAD] mb-4">Unlocking Physics from the Slope</h2>
-                <p class="text-gray-700 max-w-3xl mx-auto mb-6">The slope ('m') of the linearized graph is not just a number; it's a combination of physical constants and experimental parameters. By rearranging the slope equation, we can use our measurements to calculate fundamental properties of our world.</p>
+                <h2 class="text-3xl font-bold text-[#004AAD] mb-4 en-content">Unlocking Physics from the Slope</h2>
+                <h2 class="text-3xl font-bold text-[#004AAD] mb-4 he-content">חילוץ פיזיקה מהשיפוע</h2>
+                <p class="text-gray-700 max-w-3xl mx-auto mb-6 en-content">The slope ('m') of the linearized graph is not just a number; it's a combination of physical constants and experimental parameters. By rearranging the slope equation, we can use our measurements to calculate fundamental properties of our world.</p>
+                <p class="text-gray-700 max-w-3xl mx-auto mb-6 he-content">השיפוע ('m') של הגרף הליניארי אינו רק מספר; זהו שילוב של קבועים פיזיקליים ופרמטרים ניסיוניים. על ידי סידור מחדש של משוואת השיפוע, אנו יכולים להשתמש במדידות שלנו כדי לחשב תכונות יסוד של עולמנו.</p>
                 <div class="bg-gray-100 rounded-lg p-4 mb-4">
                     <code class="text-xl md:text-2xl font-mono text-[#0062E4]">Slope (m) = (&mu;<sub>0</sub> * I) / (2&pi; * B<sub>H</sub>)</code>
                 </div>
                 <div class="flex flex-col md:flex-row justify-center gap-4">
                      <div class="bg-[#B8D5FA] p-4 rounded-lg flex-1">
-                        <h4 class="font-bold text-[#004AAD]">Calculate Earth's Field</h4>
+                        <h4 class="font-bold text-[#004AAD] en-content">Calculate Earth's Field</h4>
+                        <h4 class="font-bold text-[#004AAD] he-content">חישוב שדה כדור הארץ</h4>
                         <code class="font-mono text-lg text-[#004AAD]">B<sub>H</sub> = (&mu;<sub>0</sub> * I) / (2&pi; * m)</code>
                      </div>
                      <div class="bg-[#B8D5FA] p-4 rounded-lg flex-1">
-                        <h4 class="font-bold text-[#004AAD]">Calculate a Fundamental Constant</h4>
+                        <h4 class="font-bold text-[#004AAD] en-content">Calculate a Fundamental Constant</h4>
+                        <h4 class="font-bold text-[#004AAD] he-content">חישוב קבוע יסודי</h4>
                         <code class="font-mono text-lg text-[#004AAD]">&mu;<sub>0</sub> = (m * 2&pi; * B<sub>H</sub>) / I</code>
                      </div>
                 </div>
@@ -184,218 +216,162 @@
         </section>
         
         <section id="scenarios" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8">Mastering the "What If?" Scenarios</h2>
+            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8 en-content">Mastering the "What If?" Scenarios</h2>
+            <h2 class="text-3xl font-bold text-center text-[#004AAD] mb-8 he-content">שליטה בתרחישי "מה אם?"</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
                 <div class="bg-white rounded-xl shadow-md p-6">
-                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: Wire is oriented East-West.</h4>
-                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> No deflection. The wire's field is now parallel to Earth's field (North/South). The compass feels a stronger or weaker North-South pull, but no sideways torque. The tangent law is invalid.</p>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 en-content">Scenario: Wire is oriented East-West.</h4>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 he-content">תרחיש: התיל מכוון מזרח-מערב.</h4>
+                    <p class="text-sm text-gray-600 en-content"><strong>Outcome:</strong> No deflection. The wire's field is now parallel to Earth's field. The compass feels a stronger or weaker North-South pull, but no sideways torque. The tangent law is invalid.</p>
+                    <p class="text-sm text-gray-600 he-content"><strong>תוצאה:</strong> אין סטייה. שדה התיל מקביל כעת לשדה כדור הארץ. המצפן מרגיש משיכה חזקה או חלשה יותר בכיוון צפון-דרום, אך ללא מומנט צידי. חוק הטנגנס אינו תקף.</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-md p-6">
-                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: The current (I) is doubled.</h4>
-                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Deflection increases. Since B<sub>wire</sub> is proportional to I, the wire's field doubles. The value of tan(α) doubles, leading to a much larger angle α.</p>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 en-content">Scenario: The current (I) is doubled.</h4>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 he-content">תרחיש: הזרם (I) מוכפל.</h4>
+                    <p class="text-sm text-gray-600 en-content"><strong>Outcome:</strong> Deflection increases. Since B<sub>wire</sub> is proportional to I, the wire's field doubles. The value of tan(α) doubles, leading to a much larger angle α.</p>
+                    <p class="text-sm text-gray-600 he-content"><strong>תוצאה:</strong> הסטייה גדלה. מכיוון ש-B<sub>wire</sub> פרופורציונלי ל-I, שדה התיל מוכפל. ערך tan(α) מוכפל, מה שמוביל לזווית α גדולה בהרבה.</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-md p-6">
-                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: The compass is placed *below* the wire.</h4>
-                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Deflection is in the opposite direction. The magnetic field forms circles. Below the wire, the field points East (instead of West), so the compass deflects to the East by the same amount.</p>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 en-content">Scenario: The compass is placed *below* the wire.</h4>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 he-content">תרחיש: המצפן ממוקם *מתחת* לתיל.</h4>
+                    <p class="text-sm text-gray-600 en-content"><strong>Outcome:</strong> Deflection is in the opposite direction. The magnetic field forms circles. Below the wire, the field points East (instead of West), so the compass deflects to the East by the same amount.</p>
+                    <p class="text-sm text-gray-600 he-content"><strong>תוצאה:</strong> הסטייה היא בכיוון ההפוך. השדה המגנטי יוצר מעגלים. מתחת לתיל, השדה מצביע מזרחה (במקום מערבה), ולכן המצפן סוטה מזרחה באותה מידה.</p>
                 </div>
                  <div class="bg-white rounded-xl shadow-md p-6">
-                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: Experiment is at the Magnetic North Pole.</h4>
-                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Experiment fails. At the pole, B<sub>H</sub> is zero. The compass has no North reference and would try to point 90 degrees, directly along B<sub>wire</sub> (East/West). </p>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 en-content">Scenario: Experiment is at the Magnetic North Pole.</h4>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 he-content">תרחיש: הניסוי נערך בקוטב המגנטי הצפוני.</h4>
+                    <p class="text-sm text-gray-600 en-content"><strong>Outcome:</strong> Experiment fails. At the pole, B<sub>H</sub> is zero. The compass has no North reference and would try to point 90 degrees, directly along B<sub>wire</sub> (East/West).</p>
+                    <p class="text-sm text-gray-600 he-content"><strong>תוצאה:</strong> הניסוי נכשל. בקוטב, B<sub>H</sub> הוא אפס. למצפן אין ייחוס צפוני והוא ינסה להצביע 90 מעלות, ישירות לאורך B<sub>wire</sub> (מזרח/מערב).</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-md p-6">
-                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: Increase the variable resistor's value.</h4>
-                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Deflection decreases. By Ohm's Law (V=IR), increasing resistance decreases the current I. A smaller current means a weaker B<sub>wire</sub> and a smaller deflection angle α.</p>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 en-content">Scenario: Increase the variable resistor's value.</h4>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 he-content">תרחיש: הגדלת ערך הנגד המשתנה.</h4>
+                    <p class="text-sm text-gray-600 en-content"><strong>Outcome:</strong> Deflection decreases. By Ohm's Law (V=IR), increasing resistance decreases the current I. A smaller current means a weaker B<sub>wire</sub> and a smaller deflection angle α.</p>
+                    <p class="text-sm text-gray-600 he-content"><strong>תוצאה:</strong> הסטייה קטנה. לפי חוק אוהם (V=IR), הגדלת ההתנגדות מפחיתה את הזרם I. זרם קטן יותר פירושו B<sub>wire</sub> חלש יותר וזווית סטייה α קטנה יותר.</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-md p-6">
-                    <h4 class="font-bold text-lg text-[#0062E4] mb-2">Scenario: A strong magnet is brought nearby.</h4>
-                    <p class="text-sm text-gray-600"><strong>Outcome:</strong> Corrupted results. The external magnet adds a third, uncontrolled magnetic field. Superposition applies, but the simple tangent law is no longer valid, and the readings are meaningless.</p>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 en-content">Scenario: A strong magnet is brought nearby.</h4>
+                    <h4 class="font-bold text-lg text-[#0062E4] mb-2 he-content">תרחיש: מגנט חזק מובא לקרבת מקום.</h4>
+                    <p class="text-sm text-gray-600 en-content"><strong>Outcome:</strong> Corrupted results. The external magnet adds a third, uncontrolled magnetic field. Superposition applies, but the simple tangent law is no longer valid, and the readings are meaningless.</p>
+                    <p class="text-sm text-gray-600 he-content"><strong>תוצאה:</strong> תוצאות משובשות. המגנט החיצוני מוסיף שדה מגנטי שלישי ובלתי מבוקר. עקרון הסופרפוזיציה חל, אך חוק הטנגנס הפשוט אינו תקף עוד, והקריאות חסרות משמעות.</p>
                 </div>
             </div>
         </section>
 
         <footer class="text-center text-sm text-gray-500 mt-12">
-            <p>Infographic designed as a conceptual study tool.</p>
-            <p>Color Palette: Brilliant Blues. No SVG or Mermaid JS were used in this document.</p>
+            <p class="en-content">Infographic designed as a conceptual study tool.</p>
+            <p class="he-content">אינפוגרפיקה שנועדה ככלי לימוד רעיוני.</p>
+            <p class="en-content">Color Palette: Brilliant Blues. No SVG or Mermaid JS were used in this document.</p>
+            <p class="he-content">פלטת צבעים: כחולים זוהרים. לא נעשה שימוש ב-SVG או Mermaid JS במסמך זה.</p>
         </footer>
-
     </div>
 
     <script>
-        
-        function formatLabel(str) {
-            const maxLength = 16;
-            if (typeof str !== 'string' || str.length <= maxLength) {
-                return str;
+        let nonlinearChartInstance, linearChartInstance;
+
+        const chartLabels = {
+            en: {
+                yAxis: 'tan(α)',
+                nonlinearXAxis: 'Distance r (m)',
+                linearXAxis: '1 / r (m⁻¹)',
+                experimentalData: 'Experimental Data',
+                trendline: 'Linear Trendline (Ideal)',
+            },
+            he: {
+                yAxis: 'tan(α)',
+                nonlinearXAxis: 'מרחק r (מ\')',
+                linearXAxis: '1 / r (מ⁻¹)',
+                experimentalData: 'נתונים ניסיוניים',
+                trendline: 'קו מגמה ליניארי (אידיאלי)',
             }
-            const words = str.split(' ');
-            const lines = [];
-            let currentLine = '';
-            for (const word of words) {
-                if ((currentLine + ' ' + word).length > maxLength) {
-                    lines.push(currentLine);
-                    currentLine = word;
-                } else {
-                    currentLine += (currentLine ? ' ' : '') + word;
-                }
+        };
+
+        function updateCharts(lang) {
+            if (nonlinearChartInstance) {
+                nonlinearChartInstance.options.scales.x.title.text = chartLabels[lang].nonlinearXAxis;
+                nonlinearChartInstance.options.scales.y.title.text = chartLabels[lang].yAxis;
+                nonlinearChartInstance.update();
             }
-            lines.push(currentLine);
-            return lines;
+            if (linearChartInstance) {
+                linearChartInstance.options.scales.x.title.text = chartLabels[lang].linearXAxis;
+                linearChartInstance.options.scales.y.title.text = chartLabels[lang].yAxis;
+                linearChartInstance.data.datasets[0].label = chartLabels[lang].experimentalData;
+                linearChartInstance.data.datasets[1].label = chartLabels[lang].trendline;
+                linearChartInstance.update();
+            }
         }
 
-        
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-                return label.join(' ');
-            } else {
-                return label;
-            }
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            const B_H = 2.0e-5; 
+            const I = 3.0; 
+            const mu_0 = 4 * Math.PI * 1e-7; 
 
-        
-        const B_H = 2.0e-5; 
-        const I = 3.0; 
-        const mu_0 = 4 * Math.PI * 1e-7; 
+            const r_values = [0.021, 0.031, 0.041, 0.051, 0.061, 0.071];
+            const one_over_r_values = r_values.map(r => 1 / r);
+            const tan_alpha_values = r_values.map(r => (mu_0 * I) / (2 * Math.PI * r * B_H));
+            
+            const nonlinearData = {
+                labels: r_values.map(r => r.toFixed(3)),
+                datasets: [{
+                    label: 'tan(α)',
+                    data: r_values.map(r => ({ x: r, y: (mu_0 * I) / (2 * Math.PI * r * B_H) })),
+                    backgroundColor: '#0062E4', borderColor: '#0062E4',
+                    pointRadius: 5, pointHoverRadius: 7, showLine: true, tension: 0.1, type: 'line',
+                }]
+            };
 
-        const r_values = [0.021, 0.031, 0.041, 0.051, 0.061, 0.071];
-        const one_over_r_values = r_values.map(r => 1 / r);
-        const tan_alpha_values = r_values.map(r => (mu_0 * I) / (2 * Math.PI * r * B_H));
-        
-        const nonlinearData = {
-            labels: r_values.map(r => r.toFixed(3)),
-            datasets: [{
-                label: 'tan(α)',
-                data: r_values.map(r => ({
-                    x: r,
-                    y: (mu_0 * I) / (2 * Math.PI * r * B_H)
-                })),
-                backgroundColor: '#0062E4',
-                borderColor: '#0062E4',
-                pointRadius: 5,
-                pointHoverRadius: 7,
-                showLine: true,
-                tension: 0.1,
-                type: 'line',
-            }]
-        };
-
-        const slope = (mu_0 * I) / (2 * Math.PI * B_H);
-        const linearData = {
-            labels: one_over_r_values.map(val => val.toFixed(2)),
-            datasets: [{
-                label: 'Experimental Data',
-                data: one_over_r_values.map((val, index) => ({
-                    x: val,
-                    y: tan_alpha_values[index]
-                })),
-                backgroundColor: '#0062E4',
-                borderColor: '#0062E4',
-                pointRadius: 5,
-                pointHoverRadius: 7,
-                type: 'scatter',
-                order: 2,
-            }, {
-                label: 'Linear Trendline (Ideal)',
-                data: [
-                    { x: one_over_r_values[one_over_r_values.length - 1], y: slope * one_over_r_values[one_over_r_values.length - 1] },
-                    { x: one_over_r_values[0], y: slope * one_over_r_values[0] }
-                ],
-                borderColor: '#69A5F3',
-                backgroundColor: '#69A5F3',
-                borderWidth: 2,
-                borderDash: [5, 5],
-                pointRadius: 0,
-                type: 'line',
-                order: 1,
-            }]
-        };
-
-        
-        const sharedOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                },
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'tan(α)',
-                        font: {
-                            weight: 'bold'
-                        }
-                    }
-                },
-            }
-        };
-
-        
-        const ctxNonlinear = document.getElementById('nonlinearChart').getContext('2d');
-        new Chart(ctxNonlinear, {
-            type: 'scatter',
-            data: nonlinearData,
-            options: {
-                ...sharedOptions,
+            const slope = (mu_0 * I) / (2 * Math.PI * B_H);
+            const linearData = {
+                labels: one_over_r_values.map(val => val.toFixed(2)),
+                datasets: [{
+                    label: chartLabels.en.experimentalData,
+                    data: one_over_r_values.map((val, index) => ({ x: val, y: tan_alpha_values[index] })),
+                    backgroundColor: '#0062E4', borderColor: '#0062E4',
+                    pointRadius: 5, pointHoverRadius: 7, type: 'scatter', order: 2,
+                }, {
+                    label: chartLabels.en.trendline,
+                    data: [
+                        { x: one_over_r_values[one_over_r_values.length - 1], y: slope * one_over_r_values[one_over_r_values.length - 1] },
+                        { x: one_over_r_values[0], y: slope * one_over_r_values[0] }
+                    ],
+                    borderColor: '#69A5F3', backgroundColor: '#69A5F3',
+                    borderWidth: 2, borderDash: [5, 5], pointRadius: 0, type: 'line', order: 1,
+                }]
+            };
+            
+            const sharedOptions = {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
                 scales: {
-                    ...sharedOptions.scales,
-                    x: {
-                        type: 'linear',
-                        position: 'bottom',
-                        title: {
-                            display: true,
-                            text: 'Distance r (m)',
-                            font: {
-                                weight: 'bold'
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        const ctxLinear = document.getElementById('linearChart').getContext('2d');
-        new Chart(ctxLinear, {
-            type: 'scatter',
-            data: linearData,
-            options: {
-                ...sharedOptions,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom',
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: chartLabels.en.yAxis, font: { weight: 'bold' } }
                     },
-                    tooltip: {
-                        callbacks: {
-                           title: tooltipTitleCallback
-                        }
-                    }
-                },
-                scales: {
-                     ...sharedOptions.scales,
-                    x: {
-                        type: 'linear',
-                        position: 'bottom',
-                        title: {
-                            display: true,
-                            text: '1 / r (m⁻¹)',
-                            font: {
-                                weight: 'bold'
-                            }
-                        }
+                }
+            };
+            
+            const ctxNonlinear = document.getElementById('nonlinearChart').getContext('2d');
+            nonlinearChartInstance = new Chart(ctxNonlinear, {
+                type: 'scatter', data: nonlinearData,
+                options: { ...sharedOptions,
+                    scales: { ...sharedOptions.scales,
+                        x: { type: 'linear', position: 'bottom', title: { display: true, text: chartLabels.en.nonlinearXAxis, font: { weight: 'bold' } } }
                     }
                 }
-            }
+            });
+
+            const ctxLinear = document.getElementById('linearChart').getContext('2d');
+            linearChartInstance = new Chart(ctxLinear, {
+                type: 'scatter', data: linearData,
+                options: { ...sharedOptions,
+                    plugins: { legend: { display: true, position: 'bottom' } },
+                    scales: { ...sharedOptions.scales,
+                        x: { type: 'linear', position: 'bottom', title: { display: true, text: chartLabels.en.linearXAxis, font: { weight: 'bold' } } }
+                    }
+                }
+            });
+            const savedLang = localStorage.getItem('preferredLanguage') || (navigator.language.startsWith('he') ? 'he' : 'en');
+            switchLanguage(savedLang);
         });
     </script>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographic: The Physics of a Simple Push</title>
+    <title>Uncovering Hidden Forces / חשיפת כוחות נסתרים</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,34 @@
 
     Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this document.
     -->
+    <script>
+        let velocityChartInstance = null;
+        let scenarioChartInstance = null;
+
+        function switchLanguage(lang) {
+            if (lang === 'he') {
+                document.documentElement.lang = 'he';
+                document.documentElement.dir = 'rtl';
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'he');
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'en');
+            }
+            renderCharts(lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
+        });
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -55,80 +83,116 @@
             line-height: 1;
             color: #0077C0;
         }
+        .he-content {
+            display: none;
+        }
     </style>
 </head>
 <body class="text-[#333333]">
 
-    <div class="container mx-auto p-4 md:p-8">
+    <div class="relative container mx-auto p-4 md:p-8">
+
+        <div class="absolute top-4 right-4 flex space-x-2 rtl:space-x-reverse z-10">
+            <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-blue-100 text-blue-800 text-sm font-medium shadow-sm hover:bg-blue-200 transition-colors">EN</button>
+            <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-blue-100 text-blue-800 text-sm font-medium shadow-sm hover:bg-blue-200 transition-colors">עברית</button>
+        </div>
 
         <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-black text-[#005082] mb-2">Uncovering Hidden Forces</h1>
-            <p class="text-lg md:text-xl text-[#0077C0] max-w-3xl mx-auto">An interactive guide to analyzing motion and calculating friction using video analysis and Newton's Second Law.</p>
+            <h1 class="text-4xl md:text-6xl font-black text-[#005082] mb-2 en-content">Uncovering Hidden Forces</h1>
+            <h1 class="text-4xl md:text-6xl font-black text-[#005082] mb-2 he-content">חשיפת כוחות נסתרים</h1>
+            <p class="text-lg md:text-xl text-[#0077C0] max-w-3xl mx-auto en-content">An interactive guide to analyzing motion and calculating friction using video analysis and Newton's Second Law.</p>
+            <p class="text-lg md:text-xl text-[#0077C0] max-w-3xl mx-auto he-content">מדריך אינטראקטיבי לניתוח תנועה וחישוב חיכוך באמצעות ניתוח וידאו וחוקי ניוטון.</p>
         </header>
 
         <main class="space-y-12">
             
             <section id="the-play" class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center">The Experiment: A Two-Act Play</h2>
-                <p class="text-center max-w-2xl mx-auto mb-8">The entire motion isn't one event, but two distinct phases defined by the forces at play. Understanding this separation is the key to solving the physics problem.</p>
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center en-content">The Experiment: A Two-Act Play</h2>
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center he-content">הניסוי: הצגה בשתי מערכות</h2>
+
+                <p class="text-center max-w-2xl mx-auto mb-8 en-content">The entire motion isn't one event, but two distinct phases defined by the forces at play. Understanding this separation is the key to solving the physics problem.</p>
+                <p class="text-center max-w-2xl mx-auto mb-8 he-content">התנועה כולה אינה אירוע בודד, אלא שני שלבים נפרדים המוגדרים על ידי הכוחות הפועלים. הבנת ההפרדה הזו היא המפתח לפתרון הבעיה הפיזיקלית.</p>
+
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
                     <div class="text-center border-2 border-[#00A1E4] rounded-lg p-6 w-full md:w-1/3">
-                        <h3 class="text-2xl font-bold text-[#0077C0]">Act I: The Push</h3>
-                        <p class="mt-2">The object is actively pushed, causing it to speed up. The push force is stronger than friction.</p>
+                        <h3 class="text-2xl font-bold text-[#0077C0] en-content">Act I: The Push</h3>
+                        <h3 class="text-2xl font-bold text-[#0077C0] he-content">מערכה א': הדחיפה</h3>
+                        <p class="mt-2 en-content">The object is actively pushed, causing it to speed up. The push force is stronger than friction.</p>
+                        <p class="mt-2 he-content">הגוף נדחף באופן פעיל, מה שגורם לו להאיץ. כוח הדחיפה חזק יותר מהחיכוך.</p>
                         <p class="font-mono mt-2 text-lg text-[#005082]">F_net = F_push - f_friction</p>
-                        <p class="font-bold text-2xl text-green-500 mt-2">Positive Acceleration</p>
+                        <p class="font-bold text-2xl text-green-500 mt-2 en-content">Positive Acceleration</p>
+                        <p class="font-bold text-2xl text-green-500 mt-2 he-content">תאוצה חיובית</p>
                     </div>
                     <div class="flowchart-arrow">&#10140;</div>
                     <div class="text-center border-2 border-[#00A1E4] rounded-lg p-6 w-full md:w-1/3">
-                        <h3 class="text-2xl font-bold text-[#0077C0]">Act II: The Slide</h3>
-                        <p class="mt-2">The hand is removed. Only friction acts on the object, causing it to slow down and stop.</p>
+                        <h3 class="text-2xl font-bold text-[#0077C0] en-content">Act II: The Slide</h3>
+                        <h3 class="text-2xl font-bold text-[#0077C0] he-content">מערכה ב': ההחלקה</h3>
+                        <p class="mt-2 en-content">The hand is removed. Only friction acts on the object, causing it to slow down and stop.</p>
+                        <p class="mt-2 he-content">היד מוסרת. רק כוח החיכוך פועל על הגוף, מה שגורם לו להאט ולעצור.</p>
                         <p class="font-mono mt-2 text-lg text-[#005082]">F_net = -f_friction</p>
-                         <p class="font-bold text-2xl text-red-500 mt-2">Negative Acceleration</p>
+                        <p class="font-bold text-2xl text-red-500 mt-2 en-content">Negative Acceleration</p>
+                        <p class="font-bold text-2xl text-red-500 mt-2 he-content">תאוצה שלילית</p>
                     </div>
                 </div>
             </section>
             
             <section id="data-quality" class="bg-white rounded-lg shadow-md p-6">
-                 <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center">Data Quality is Everything</h2>
-                 <p class="text-center max-w-3xl mx-auto mb-8">The experiment's success relies on a precise setup. The procedure is designed to eliminate common errors before they can affect the results.</p>
+                 <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center en-content">Data Quality is Everything</h2>
+                 <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center he-content">איכות הנתונים היא הכל</h2>
+
+                 <p class="text-center max-w-3xl mx-auto mb-8 en-content">The experiment's success relies on a precise setup. The procedure is designed to eliminate common errors before they can affect the results.</p>
+                 <p class="text-center max-w-3xl mx-auto mb-8 he-content">הצלחת הניסוי תלויה במערך מדויק. ההליך מתוכנן כדי למנוע שגיאות נפוצות לפני שהן ישפיעו על התוצאות.</p>
+
                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <div class="text-6xl font-black text-[#00A1E4]">60</div>
-                        <h3 class="text-xl font-bold mt-2">Frames Per Second</h3>
-                        <p class="mt-1">High frame rate provides more data points and reduces motion blur, leading to more accurate tracking.</p>
+                        <h3 class="text-xl font-bold mt-2 en-content">Frames Per Second</h3>
+                        <h3 class="text-xl font-bold mt-2 he-content">פריימים לשנייה</h3>
+                        <p class="mt-1 en-content">High frame rate provides more data points and reduces motion blur, leading to more accurate tracking.</p>
+                        <p class="mt-1 he-content">קצב פריימים גבוה מספק יותר נקודות נתונים ומפחית טשטוש תנועה, מה שמוביל למעקב מדויק יותר.</p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <div class="text-6xl text-[#00A1E4]">&#128247;</div>
-                        <h3 class="text-xl font-bold mt-2">Stable & Parallel Camera</h3>
-                        <p class="mt-1">Prevents parallax and perspective errors, which can distort the perception of speed and distance.</p>
+                        <h3 class="text-xl font-bold mt-2 en-content">Stable & Parallel Camera</h3>
+                        <h3 class="text-xl font-bold mt-2 he-content">מצלמה יציבה ומקבילה</h3>
+                        <p class="mt-1 en-content">Prevents parallax and perspective errors, which can distort the perception of speed and distance.</p>
+                        <p class="mt-1 he-content">מונע שגיאות פרלקסה ופרספקטיבה, העלולות לעוות את תפיסת המהירות והמרחק.</p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg">
                          <div class="text-6xl text-[#00A1E4]">&#128210;</div>
-                        <h3 class="text-xl font-bold mt-2">Horizontal Push</h3>
-                        <p class="mt-1">Ensures the normal force (and thus friction) remains constant, a key assumption for the calculations.</p>
+                        <h3 class="text-xl font-bold mt-2 en-content">Horizontal Push</h3>
+                        <h3 class="text-xl font-bold mt-2 he-content">דחיפה אופקית</h3>
+                        <p class="mt-1 en-content">Ensures the normal force (and thus friction) remains constant, a key assumption for the calculations.</p>
+                        <p class="mt-1 he-content">מבטיחה שהכוח הנורמלי (ולכן החיכוך) נשאר קבוע, הנחה מרכזית לחישובים.</p>
                     </div>
                 </div>
             </section>
 
             <section id="analysis-heart" class="bg-white rounded-lg shadow-md p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center">The Story in the Slopes</h2>
-                <p class="text-center max-w-3xl mx-auto mb-8">The most powerful tool for analysis is the velocity-time graph. Its shape directly reveals the object's acceleration in each phase. The slope of this graph *is* the acceleration.</p>
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center en-content">The Story in the Slopes</h2>
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center he-content">הסיפור שבשיפועים</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8 en-content">The most powerful tool for analysis is the velocity-time graph. Its shape directly reveals the object's acceleration in each phase. The slope of this graph *is* the acceleration.</p>
+                <p class="text-center max-w-3xl mx-auto mb-8 he-content">הכלי החזק ביותר לניתוח הוא גרף מהירות-זמן. צורתו חושפת ישירות את תאוצת הגוף בכל שלב. השיפוע של גרף זה *הוא* התאוצה.</p>
                 <div class="chart-container">
                     <canvas id="velocityTimeChart"></canvas>
                 </div>
             </section>
 
             <section id="detective-work">
-                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center">The Detective Work: From Motion to Forces</h2>
-                <p class="text-center max-w-3xl mx-auto mb-8">With accelerations found from the graph's slopes, we can apply Newton's Second Law (`F_net = ma`) to each phase. We solve the simpler "Slide" phase first to find the friction, then use that to solve for the push.</p>
+                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center en-content">The Detective Work: From Motion to Forces</h2>
+                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center he-content">עבודת הבילוש: מתנועה לכוחות</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8 en-content">With accelerations found from the graph's slopes, we can apply Newton's Second Law (`F_net = ma`) to each phase. We solve the simpler "Slide" phase first to find the friction, then use that to solve for the push.</p>
+                <p class="text-center max-w-3xl mx-auto mb-8 he-content">עם התאצות שנמצאו משיפועי הגרף, נוכל ליישם את החוק השני של ניוטון (`F_net = ma`) על כל שלב. אנו פותרים תחילה את שלב ה"החלקה" הפשוט יותר כדי למצוא את החיכוך, ואז משתמשים בו כדי לפתור עבור הדחיפה.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center">Free-Body Diagrams</h3>
+                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center en-content">Free-Body Diagrams</h3>
+                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center he-content">דיאגרמות גוף חופשי</h3>
                         <div class="flex justify-around">
                              <div class="text-center">
-                                <p class="font-semibold mb-2">Push Phase</p>
+                                <p class="font-semibold mb-2 en-content">Push Phase</p>
+                                <p class="font-semibold mb-2 he-content">שלב הדחיפה</p>
                                 <div class="relative w-24 h-24 bg-gray-200 flex items-center justify-center font-bold text-gray-600 rounded">
-                                    <span>Body</span>
+                                    <span class="en-content">Body</span><span class="he-content">גוף</span>
                                     <div class="absolute -bottom-6 text-xs font-semibold">W=mg &#8595;</div>
                                     <div class="absolute -top-6 text-xs font-semibold">&#8593; N</div>
                                     <div class="absolute -left-12 text-xs font-semibold">&#8592; f_k</div>
@@ -136,9 +200,10 @@
                                 </div>
                              </div>
                              <div class="text-center">
-                                <p class="font-semibold mb-2">Slide Phase</p>
+                                <p class="font-semibold mb-2 en-content">Slide Phase</p>
+                                <p class="font-semibold mb-2 he-content">שלב ההחלקה</p>
                                 <div class="relative w-24 h-24 bg-gray-200 flex items-center justify-center font-bold text-gray-600 rounded">
-                                    <span>Body</span>
+                                     <span class="en-content">Body</span><span class="he-content">גוף</span>
                                     <div class="absolute -bottom-6 text-xs font-semibold">W=mg &#8595;</div>
                                     <div class="absolute -top-6 text-xs font-semibold">&#8593; N</div>
                                     <div class="absolute -left-12 text-xs font-semibold">&#8592; f_k</div>
@@ -147,7 +212,8 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-lg shadow-md p-6 space-y-4">
-                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center">Key Formulas</h3>
+                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center en-content">Key Formulas</h3>
+                        <h3 class="text-2xl font-bold text-[#0077C0] mb-4 text-center he-content">נוסחאות מפתח</h3>
                         <div class="bg-[#00A1E4] text-white p-4 rounded-lg text-center font-mono text-lg shadow-sm">
                             f_k = -m * a₂
                         </div>
@@ -162,48 +228,52 @@
             </section>
 
             <section id="what-if" class="bg-white rounded-lg shadow-md p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center">"What If?" Scenarios</h2>
-                <p class="text-center max-w-3xl mx-auto mb-8">How would the motion change if we altered the experiment? Understanding these relationships is key to mastering the concepts.</p>
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center en-content">"What If?" Scenarios</h2>
+                <h2 class="text-3xl font-bold text-[#005082] mb-4 text-center he-content">תרחישי "מה אם?"</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8 en-content">How would the motion change if we altered the experiment? Understanding these relationships is key to mastering the concepts.</p>
+                <p class="text-center max-w-3xl mx-auto mb-8 he-content">כיצד הייתה משתנה התנועה אם היינו משנים את הניסוי? הבנת יחסים אלו היא המפתח לשליטה במושגים.</p>
                 <div class="chart-container">
                     <canvas id="scenarioChart"></canvas>
                 </div>
                  <div class="mt-6 text-sm text-gray-600 max-w-3xl mx-auto">
-                    <p><span class="font-bold">Key Insight:</span> Notice that when you increase the mass, the deceleration during the slide (`a₂`) doesn't change! The greater friction force is perfectly cancelled out by the object's greater inertia. The rate of slowing down is independent of mass.</p>
+                    <p><span class="font-bold en-content">Key Insight:</span><span class="font-bold he-content">תובנת מפתח:</span> <span class="en-content">Notice that when you increase the mass, the deceleration during the slide (`a₂`) doesn't change! The greater friction force is perfectly cancelled out by the object's greater inertia. The rate of slowing down is independent of mass.</span><span class="he-content">שימו לב שכאשר מגדילים את המסה, התאוטה במהלך ההחלקה (`a₂`) אינה משתנה! כוח החיכוך הגדול יותר מתקזז באופן מושלם על ידי האינרציה הגדולה יותר של הגוף. קצב ההאטה אינו תלוי במסה.</span></p>
                 </div>
             </section>
             
             <section id="errors" class="bg-white rounded-lg shadow-md p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center">Mastering Accuracy: The Anatomy of Error</h2>
-                <p class="text-center max-w-3xl mx-auto mb-8">A good scientist understands not just the experiment, but what can go wrong. Here are the main sources of error and how the procedure is designed to stop them.</p>
+                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center en-content">Mastering Accuracy: The Anatomy of Error</h2>
+                <h2 class="text-3xl font-bold text-[#005082] mb-6 text-center he-content">שליטה בדיוק: אנטומיה של שגיאות</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8 en-content">A good scientist understands not just the experiment, but what can go wrong. Here are the main sources of error and how the procedure is designed to stop them.</p>
+                <p class="text-center max-w-3xl mx-auto mb-8 he-content">מדען טוב מבין לא רק את הניסוי, אלא גם מה יכול להשתבש. להלן מקורות השגיאה העיקריים וכיצד ההליך מתוכנן למנוע אותם.</p>
                 <div class="overflow-x-auto">
-                    <table class="w-full min-w-max text-left">
+                    <table class="w-full min-w-max text-left rtl:text-right">
                         <thead class="border-b-2 border-[#0077C0]">
                             <tr>
-                                <th class="p-2 text-lg font-bold">Source of Error</th>
-                                <th class="p-2 text-lg font-bold">Type</th>
-                                <th class="p-2 text-lg font-bold">Mitigation Strategy</th>
+                                <th class="p-2 text-lg font-bold en-content">Source of Error</th><th class="p-2 text-lg font-bold he-content">מקור השגיאה</th>
+                                <th class="p-2 text-lg font-bold en-content">Type</th><th class="p-2 text-lg font-bold he-content">סוג</th>
+                                <th class="p-2 text-lg font-bold en-content">Mitigation Strategy</th><th class="p-2 text-lg font-bold he-content">אסטרטגיית מניעה</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="border-b border-gray-200">
-                                <td class="p-3 font-semibold">Parallax / Perspective</td>
-                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded">Systematic</span></td>
-                                <td class="p-3">Keep camera stable, level, and far away. Ensure motion is parallel to camera.</td>
+                                <td class="p-3 font-semibold en-content">Parallax / Perspective</td><td class="p-3 font-semibold he-content">פרלקסה / פרספקטיבה</td>
+                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded en-content">Systematic</span><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded he-content">שיטתית</span></td>
+                                <td class="p-3 en-content">Keep camera stable, level, and far away. Ensure motion is parallel to camera.</td><td class="p-3 he-content">שמירה על מצלמה יציבה, מפולסת ורחוקה. וידוא שהתנועה מקבילה למצלמה.</td>
                             </tr>
                              <tr class="border-b border-gray-200">
-                                <td class="p-3 font-semibold">Incorrect Scale Calibration</td>
-                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded">Systematic</span></td>
-                                <td class="p-3">Place ruler in the exact plane of motion and measure carefully.</td>
+                                <td class="p-3 font-semibold en-content">Incorrect Scale Calibration</td><td class="p-3 font-semibold he-content">כיול קנה מידה שגוי</td>
+                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded en-content">Systematic</span><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded he-content">שיטתית</span></td>
+                                <td class="p-3 en-content">Place ruler in the exact plane of motion and measure carefully.</td><td class="p-3 he-content">הנחת הסרגל במישור התנועה המדויק ומדידה קפדנית.</td>
                             </tr>
                              <tr class="border-b border-gray-200">
-                                <td class="p-3 font-semibold">Video File Compression</td>
-                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded">Systematic</span></td>
-                                <td class="p-3">Transfer video via email or USB, not messaging apps which alter frame rate.</td>
+                                <td class="p-3 font-semibold en-content">Video File Compression</td><td class="p-3 font-semibold he-content">דחיסת קובץ וידאו</td>
+                                <td class="p-3"><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded en-content">Systematic</span><span class="font-semibold bg-red-100 text-red-700 px-2 py-1 rounded he-content">שיטתית</span></td>
+                                <td class="p-3 en-content">Transfer video via email or USB, not messaging apps which alter frame rate.</td><td class="p-3 he-content">העברת וידאו במייל או USB, לא באפליקציות מסרים שמשנות קצב פריימים.</td>
                             </tr>
                              <tr>
-                                <td class="p-3 font-semibold">Tracking Imprecision</td>
-                                <td class="p-3"><span class="font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded">Random</span></td>
-                                <td class="p-3">Use a clear marker on the object and a line of best fit to average out jitter.</td>
+                                <td class="p-3 font-semibold en-content">Tracking Imprecision</td><td class="p-3 font-semibold he-content">חוסר דיוק במעקב</td>
+                                <td class="p-3"><span class="font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded en-content">Random</span><span class="font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded he-content">אקראית</span></td>
+                                <td class="p-3 en-content">Use a clear marker on the object and a line of best fit to average out jitter.</td><td class="p-3 he-content">שימוש בסמן ברור על הגוף וקו מגמה למצע את הרעידות.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -213,7 +283,8 @@
         </main>
 
         <footer class="text-center mt-12 pt-8 border-t border-gray-300">
-            <p class="text-gray-500">Infographic generated to aid in the study of classical mechanics.</p>
+            <p class="text-gray-500 en-content">Infographic generated to aid in the study of classical mechanics.</p>
+            <p class="text-gray-500 he-content">אינפוגרפיקה שנוצרה כדי לסייע בלימוד מכניקה קלאסית.</p>
         </footer>
 
     </div>
@@ -225,6 +296,37 @@
             dark: '#005082',
             light: '#F2F2F2',
             text: '#333333'
+        };
+
+        const translations = {
+            en: {
+                velocityTimeTitle: 'Example Velocity-Time Graph',
+                velocityLabel: 'Velocity (m/s)',
+                timeLabel: 'Time (s)',
+                slope1: 'Slope = a₁ (Positive)',
+                slope2: 'Slope = a₂ (Negative)',
+                scenarioTitle: 'Comparing Experimental Outcomes',
+                scenarioLabels: ['Baseline', 'Heavier Mass', 'Rougher Surface', 'Stronger Push'],
+                pushAccelLabel: 'Push Acceleration (a₁)',
+                slideDecelLabel: 'Slide Deceleration (a₂)',
+                maxVelocityLabel: 'Max Velocity',
+                valueYAxis: 'Value (m/s² or m/s)',
+                scenarioXAxis: 'Scenario'
+            },
+            he: {
+                velocityTimeTitle: 'גרף מהירות-זמן לדוגמה',
+                velocityLabel: 'מהירות (מ/ש)',
+                timeLabel: 'זמן (ש)',
+                slope1: 'שיפוע = a₁ (חיובי)',
+                slope2: 'שיפוע = a₂ (שלילי)',
+                scenarioTitle: 'השוואת תוצאות ניסיוניות',
+                scenarioLabels: ['בסיס', 'מסה כבדה יותר', 'משטח מחוספס יותר', 'דחיפה חזקה יותר'],
+                pushAccelLabel: 'תאוצת דחיפה (a₁)',
+                slideDecelLabel: 'תאוטת החלקה (a₂)',
+                maxVelocityLabel: 'מהירות מירבית',
+                valueYAxis: 'ערך (מ/ש² או מ/ש)',
+                scenarioXAxis: 'תרחיש'
+            }
         };
 
         const chartTooltipOptions = {
@@ -244,133 +346,100 @@
                 }
             }
         };
-        
-        function wrapLabel(str, maxWidth) {
-            if (str.length <= maxWidth) {
-                return str;
+
+        function renderCharts(lang) {
+            if (velocityChartInstance) {
+                velocityChartInstance.destroy();
             }
-            const words = str.split(' ');
-            let lines = [];
-            let currentLine = '';
-            for (const word of words) {
-                if ((currentLine + ' ' + word).trim().length > maxWidth) {
-                    lines.push(currentLine.trim());
-                    currentLine = word;
-                } else {
-                    currentLine = (currentLine + ' ' + word).trim();
-                }
+            if (scenarioChartInstance) {
+                scenarioChartInstance.destroy();
             }
-            if (currentLine) {
-                lines.push(currentLine.trim());
-            }
-            return lines;
+            createVelocityChart(lang);
+            createScenarioChart(lang);
         }
 
-
-        const vtCtx = document.getElementById('velocityTimeChart').getContext('2d');
-        new Chart(vtCtx, {
-            type: 'line',
-            data: {
-                labels: ['0s', '0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s', '0.7s', '0.8s', '0.9s', '1.0s', '1.1s'],
-                datasets: [{
-                    label: 'Velocity (m/s)',
-                    data: [0, 0.5, 1.0, 1.5, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8, 0.6],
-                    borderColor: brilliantBlues.primary,
-                    backgroundColor: 'rgba(0, 161, 228, 0.1)',
-                    fill: true,
-                    tension: 0,
-                    pointRadius: 4,
-                    pointBackgroundColor: brilliantBlues.primary
-                }]
-            },
-            options: {
-                ...chartTooltipOptions,
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Velocity (m/s)', font: { weight: 'bold' } }
-                    },
-                    x: {
-                        title: { display: true, text: 'Time (s)', font: { weight: 'bold' } }
-                    }
+        function createVelocityChart(lang) {
+            const T = translations[lang];
+            const vtCtx = document.getElementById('velocityTimeChart').getContext('2d');
+            velocityChartInstance = new Chart(vtCtx, {
+                type: 'line',
+                data: {
+                    labels: ['0s', '0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s', '0.7s', '0.8s', '0.9s', '1.0s', '1.1s'],
+                    datasets: [{
+                        label: T.velocityLabel,
+                        data: [0, 0.5, 1.0, 1.5, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8, 0.6],
+                        borderColor: brilliantBlues.primary,
+                        backgroundColor: 'rgba(0, 161, 228, 0.1)',
+                        fill: true,
+                        tension: 0,
+                        pointRadius: 4,
+                        pointBackgroundColor: brilliantBlues.primary
+                    }]
                 },
-                plugins: {
-                    ...chartTooltipOptions.plugins,
-                    title: { display: true, text: 'Example Velocity-Time Graph', font: { size: 16 } },
-                    legend: { display: false },
-                    annotation: {
-                        annotations: {
-                            line1: {
-                                type: 'line',
-                                xMin: 1, xMax: 4, yMin: 0.5, yMax: 2.0,
-                                borderColor: 'green', borderWidth: 2
-                            },
-                            label1: {
-                                type: 'label',
-                                xValue: 2.5, yValue: 0.8,
-                                content: ['Slope = a₁ (Positive)'],
-                                font: { size: 14, weight: 'bold' },
-                                color: 'green'
-                            },
-                            line2: {
-                               type: 'line',
-                                xMin: 4, xMax: 11, yMin: 2.0, yMax: 0.6,
-                                borderColor: 'red', borderWidth: 2
-                            },
-                             label2: {
-                                type: 'label',
-                                xValue: 7.5, yValue: 1.8,
-                                content: ['Slope = a₂ (Negative)'],
-                                font: { size: 14, weight: 'bold' },
-                                color: 'red'
-                            }
+                options: {
+                    ...chartTooltipOptions,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: T.velocityLabel, font: { weight: 'bold' } }
+                        },
+                        x: {
+                            title: { display: true, text: T.timeLabel, font: { weight: 'bold' } }
                         }
-                    }
-                }
-            }
-        });
-
-        const scCtx = document.getElementById('scenarioChart').getContext('2d');
-        new Chart(scCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Baseline', 'Heavier Mass', 'Rougher Surface', 'Stronger Push'],
-                datasets: [{
-                    label: 'Push Acceleration (a₁)',
-                    data: [4.0, 3.0, 3.0, 6.0],
-                    backgroundColor: 'rgba(0, 161, 228, 0.7)',
-                }, {
-                    label: 'Slide Deceleration (a₂)',
-                    data: [-2.0, -2.0, -3.5, -2.0],
-                    backgroundColor: 'rgba(0, 119, 192, 0.7)',
-                }, {
-                    label: 'Max Velocity',
-                    data: [4.0, 3.0, 2.5, 6.0],
-                    backgroundColor: 'rgba(0, 80, 130, 0.7)',
-                }]
-            },
-            options: {
-                ...chartTooltipOptions,
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        title: { display: true, text: 'Value (m/s² or m/s)', font: { weight: 'bold' } }
                     },
-                    x: {
-                        title: { display: true, text: 'Scenario', font: { weight: 'bold' } }
+                    plugins: {
+                        ...chartTooltipOptions.plugins,
+                        title: { display: true, text: T.velocityTimeTitle, font: { size: 16 } },
+                        legend: { display: false }
                     }
-                },
-                plugins: {
-                    ...chartTooltipOptions.plugins,
-                    title: { display: true, text: 'Comparing Experimental Outcomes', font: { size: 16 } },
-                    legend: { position: 'bottom' }
                 }
-            }
-        });
+            });
+        }
+
+        function createScenarioChart(lang) {
+            const T = translations[lang];
+            const scCtx = document.getElementById('scenarioChart').getContext('2d');
+            scenarioChartInstance = new Chart(scCtx, {
+                type: 'bar',
+                data: {
+                    labels: T.scenarioLabels,
+                    datasets: [{
+                        label: T.pushAccelLabel,
+                        data: [4.0, 3.0, 3.0, 6.0],
+                        backgroundColor: 'rgba(0, 161, 228, 0.7)',
+                    }, {
+                        label: T.slideDecelLabel,
+                        data: [-2.0, -2.0, -3.5, -2.0],
+                        backgroundColor: 'rgba(0, 119, 192, 0.7)',
+                    }, {
+                        label: T.maxVelocityLabel,
+                        data: [4.0, 3.0, 2.5, 6.0],
+                        backgroundColor: 'rgba(0, 80, 130, 0.7)',
+                    }]
+                },
+                options: {
+                    ...chartTooltipOptions,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: { display: true, text: T.valueYAxis, font: { weight: 'bold' } }
+                        },
+                        x: {
+                            title: { display: true, text: T.scenarioXAxis, font: { weight: 'bold' } }
+                        }
+                    },
+                    plugins: {
+                        ...chartTooltipOptions.plugins,
+                        title: { display: true, text: T.scenarioTitle, font: { size: 16 } },
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

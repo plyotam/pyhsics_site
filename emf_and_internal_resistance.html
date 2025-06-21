@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographic: A Tale of Two Resistors</title>
+    <title>A Tale of Two Resistors / סיפורם של שני נגדים</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        function switchLanguage(lang) {
+            if (lang === 'he') {
+                document.documentElement.lang = 'he';
+                document.documentElement.dir = 'rtl';
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'he');
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'en');
+            }
+            renderCharts(lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
+        });
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #001219;
+        }
+        html[lang="he"] body {
+            font-family: 'Assistant', sans-serif;
         }
         .chart-container {
             position: relative;
@@ -27,6 +55,9 @@
             border-right: 3px solid #0a9396;
             transform: rotate(45deg);
         }
+         html[dir="rtl"] .flow-arrow {
+            transform: rotate(225deg);
+        }
          .flow-arrow-down {
             width: 1.5rem;
             height: 1.5rem;
@@ -39,9 +70,17 @@
 <body class="text-slate-800">
 
     <main class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+        
+        <div class="fixed top-4 right-4 z-10 flex space-x-2 rtl:space-x-reverse">
+            <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-white/80 backdrop-blur-sm text-sm font-medium">EN</button>
+            <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-white/80 backdrop-blur-sm text-sm font-medium">עב</button>
+        </div>
+
         <header class="text-center my-8 md:my-12">
-            <h1 class="text-4xl md:text-6xl font-black text-white">A Tale of Two Resistors</h1>
-            <p class="mt-4 text-lg md:text-xl text-[#94d2bd]">Ohm's Law Under the Microscope</p>
+            <h1 class="text-4xl md:text-6xl font-black text-white en-content">A Tale of Two Resistors</h1>
+            <h1 class="text-4xl md:text-6xl font-black text-white he-content" style="display:none;">סיפורם של שני נגדים</h1>
+            <p class="mt-4 text-lg md:text-xl text-[#94d2bd] en-content">Ohm's Law Under the Microscope</p>
+            <p class="mt-4 text-lg md:text-xl text-[#94d2bd] he-content" style="display:none;">חוק אוהם תחת המיקרוסקופ</p>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -49,123 +88,142 @@
             <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <h2 class="text-3xl font-bold text-[#005f73]">The Rulebook: Ohm's Law</h2>
-                        <p class="mt-4 text-lg">In the world of electricity, Ohm's Law is the fundamental principle. It states that for many materials, the voltage applied is directly proportional to the current that flows through it, as long as physical conditions like temperature remain constant.</p>
+                        <h2 class="text-3xl font-bold text-[#005f73] en-content">The Rulebook: Ohm's Law</h2>
+                        <h2 class="text-3xl font-bold text-[#005f73] he-content text-right" style="display:none;">ספר החוקים: חוק אוהם</h2>
+                        <p class="mt-4 text-lg en-content">In the world of electricity, Ohm's Law is the fundamental principle. It states that for many materials, the voltage applied is directly proportional to the current that flows through it, as long as physical conditions like temperature remain constant.</p>
+                        <p class="mt-4 text-lg he-content text-right" style="display:none;">בעולם החשמל, חוק אוהם הוא העיקרון הבסיסי. הוא קובע שעבור חומרים רבים, המתח המופעל פרופורציונלי ישירות לזרם הזורם דרכו, כל עוד תנאים פיזיקליים כמו טמפרטורה נשארים קבועים.</p>
                         <p class="mt-4 text-center text-3xl font-bold bg-[#e9d8a6] text-[#001219] py-4 rounded-lg shadow-inner">V = I × R</p>
-                        <p class="mt-4 text-base">Here, <span class="font-bold">Voltage (V)</span> is the electrical pressure, <span class="font-bold">Current (I)</span> is the flow of charge, and <span class="font-bold">Resistance (R)</span> is the opposition to that flow.</p>
+                        <p class="mt-4 text-base en-content">Here, <span class="font-bold">Voltage (V)</span> is the electrical pressure, <span class="font-bold">Current (I)</span> is the flow of charge, and <span class="font-bold">Resistance (R)</span> is the opposition to that flow.</p>
+                        <p class="mt-4 text-base he-content text-right" style="display:none;">כאשר, <span class="font-bold">מתח (V)</span> הוא הלחץ החשמלי, <span class="font-bold">זרם (I)</span> הוא זרימת המטען, ו<span class="font-bold">התנגדות (R)</span> היא ההתנגדות לזרימה זו.</p>
                     </div>
                      <div class="chart-container mx-auto max-w-lg">
                         <canvas id="ohmicChart"></canvas>
                     </div>
                 </div>
                  <div class="mt-6 border-t pt-4">
-                    <h3 class="font-bold text-xl text-[#0a9396]">The Ohmic Conductor: A Metallic Wire</h3>
-                    <p class="mt-2 text-base">The experiment first tests a Nichrome wire, an ideal "ohmic" conductor. As you can see in the graph, the relationship between Voltage and Current is a perfect straight line. This constant slope signifies a <span class="font-bold">constant resistance</span>, meaning the wire perfectly follows Ohm's Law. It's predictable and linear.</p>
+                    <h3 class="font-bold text-xl text-[#0a9396] en-content">The Ohmic Conductor: A Metallic Wire</h3>
+                    <h3 class="font-bold text-xl text-[#0a9396] he-content text-right" style="display:none;">המוליך האוהמי: תיל מתכתי</h3>
+                    <p class="mt-2 text-base en-content">The experiment first tests a Nichrome wire, an ideal "ohmic" conductor. As you can see in the graph, the relationship between Voltage and Current is a perfect straight line. This constant slope signifies a <span class="font-bold">constant resistance</span>, meaning the wire perfectly follows Ohm's Law. It's predictable and linear.</p>
+                    <p class="mt-2 text-base he-content text-right" style="display:none;">הניסוי בוחן תחילה תיל ניכרום, מוליך "אוהמי" אידיאלי. כפי שניתן לראות בגרף, היחס בין מתח לזרם הוא קו ישר מושלם. שיפוע קבוע זה מסמל <span class="font-bold">התנגדות קבועה</span>, כלומר התיל מציית באופן מושלם לחוק אוהם. הוא צפוי וליניארי.</p>
                 </div>
             </section>
             
             <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6">The Four Factors of Resistance</h2>
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6 en-content">The Four Factors of Resistance</h2>
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6 he-content" style="display:none;">ארבעת הגורמים המשפיעים על התנגדות</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
                     <div class="bg-gray-50 p-4 rounded-lg shadow">
                         <p class="text-4xl">🔬</p>
-                        <h3 class="font-bold mt-2">Material</h3>
-                        <p class="text-sm">Intrinsic property (resistivity). Copper has low resistance; Nichrome is higher.</p>
+                        <h3 class="font-bold mt-2 en-content">Material</h3><h3 class="font-bold mt-2 he-content" style="display:none;">חומר</h3>
+                        <p class="text-sm en-content">Intrinsic property (resistivity). Copper has low resistance; Nichrome is higher.</p>
+                        <p class="text-sm he-content" style="display:none;">תכונה פנימית (התנגדות סגולית). לנחושת התנגדות נמוכה; לניכרום גבוהה יותר.</p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg shadow">
                         <p class="text-4xl">📏</p>
-                        <h3 class="font-bold mt-2">Length</h3>
-                        <p class="text-sm">Longer wires have more resistance. More path for electrons to travel.</p>
+                        <h3 class="font-bold mt-2 en-content">Length</h3><h3 class="font-bold mt-2 he-content" style="display:none;">אורך</h3>
+                        <p class="text-sm en-content">Longer wires have more resistance. More path for electrons to travel.</p>
+                        <p class="text-sm he-content" style="display:none;">לתילים ארוכים יותר התנגדות גבוהה יותר. מסלול ארוך יותר לאלקטרונים.</p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg shadow">
                         <p class="text-4xl">🔘</p>
-                        <h3 class="font-bold mt-2">Cross-Sectional Area</h3>
-                        <p class="text-sm">Thicker wires have less resistance. More room for electrons to flow.</p>
+                        <h3 class="font-bold mt-2 en-content">Cross-Sectional Area</h3><h3 class="font-bold mt-2 he-content" style="display:none;">שטח חתך</h3>
+                        <p class="text-sm en-content">Thicker wires have less resistance. More room for electrons to flow.</p>
+                        <p class="text-sm he-content" style="display:none;">לתילים עבים יותר התנגדות נמוכה יותר. יותר מקום לזרימת אלקטרונים.</p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg shadow">
                         <p class="text-4xl">🌡️</p>
-                        <h3 class="font-bold mt-2">Temperature</h3>
-                        <p class="text-sm">For most metals, higher temperatures mean more resistance.</p>
+                        <h3 class="font-bold mt-2 en-content">Temperature</h3><h3 class="font-bold mt-2 he-content" style="display:none;">טמפרטורה</h3>
+                        <p class="text-sm en-content">For most metals, higher temperatures mean more resistance.</p>
+                        <p class="text-sm he-content" style="display:none;">ברוב המתכות, טמפרטורה גבוהה יותר משמעותה התנגדות גבוהה יותר.</p>
                     </div>
                 </div>
             </section>
             
             <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="order-2 md:order-1">
-                        <h2 class="text-3xl font-bold text-[#005f73]">The Rule-Breaker: A Light Bulb</h2>
-                        <p class="mt-4 text-base">Next, the experiment tests an incandescent light bulb. Its thin tungsten filament is designed to get incredibly hot to produce light. This heat dramatically changes its properties. The V-I graph is no longer a straight line, but a curve. This reveals the bulb is <span class="font-bold">non-ohmic</span>.</p>
-                        <p class="mt-2 text-base">The slope of the graph gets steeper, which proves that its <span class="font-bold">resistance is increasing</span> as more current flows and the filament heats up. For every additional volt of pressure, you get less and less additional current.</p>
+                    <div class="order-2 md:order-1 rtl:md:order-2">
+                        <h2 class="text-3xl font-bold text-[#005f73] en-content">The Rule-Breaker: A Light Bulb</h2>
+                        <h2 class="text-3xl font-bold text-[#005f73] he-content text-right" style="display:none;">שוברת הכללים: נורת להט</h2>
+                        <p class="mt-4 text-base en-content">Next, the experiment tests an incandescent light bulb. Its thin tungsten filament is designed to get incredibly hot to produce light. This heat dramatically changes its properties. The V-I graph is no longer a straight line, but a curve. This reveals the bulb is <span class="font-bold">non-ohmic</span>.</p>
+                        <p class="mt-4 text-base he-content text-right" style="display:none;">לאחר מכן, הניסוי בוחן נורת להט. חוט הלהט הדק מטונגסטן שלה נועד להתחמם מאוד כדי להפיק אור. חום זה משנה באופן דרמטי את תכונותיו. גרף ה-V-I אינו עוד קו ישר, אלא עקומה. זה חושף שהנורה היא <span class="font-bold">לא-אוהמית</span>.</p>
+                        <p class="mt-2 text-base en-content">The slope of the graph gets steeper, which proves that its <span class="font-bold">resistance is increasing</span> as more current flows and the filament heats up. For every additional volt of pressure, you get less and less additional current.</p>
+                        <p class="mt-2 text-base he-content text-right" style="display:none;">שיפוע הגרף נעשה תלול יותר, מה שמוכיח ש<span class="font-bold">התנגדותה עולה</span> ככל שיותר זרם זורם וחוט הלהט מתחמם. עבור כל וולט נוסף של לחץ, מתקבל פחות ופחות זרם נוסף.</p>
                     </div>
-                     <div class="chart-container mx-auto max-w-lg order-1 md:order-2">
+                     <div class="chart-container mx-auto max-w-lg order-1 md:order-2 rtl:md:order-1">
                         <canvas id="nonOhmicChart"></canvas>
                     </div>
                 </div>
                 <div class="mt-8 border-t pt-6">
-                    <h3 class="font-bold text-xl text-center text-[#0a9396]">Why Does The Bulb's Resistance Increase?</h3>
+                    <h3 class="font-bold text-xl text-center text-[#0a9396] en-content">Why Does The Bulb's Resistance Increase?</h3>
+                    <h3 class="font-bold text-xl text-center text-[#0a9396] he-content" style="display:none;">מדוע התנגדות הנורה עולה?</h3>
                     <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 mt-4">
                         <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
-                            <p class="font-bold">More Current</p>
+                            <p class="font-bold en-content">More Current</p><p class="font-bold he-content" style="display:none;">זרם גובר</p>
                         </div>
                         <div class="flow-arrow-down md:flow-arrow"></div>
                         <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
-                            <p class="font-bold">Filament Heats Up</p>
+                            <p class="font-bold en-content">Filament Heats Up</p><p class="font-bold he-content" style="display:none;">חוט הלהט מתחמם</p>
                         </div>
                         <div class="flow-arrow-down md:flow-arrow"></div>
                         <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
-                            <p class="font-bold">Atoms Vibrate More</p>
+                            <p class="font-bold en-content">Atoms Vibrate More</p><p class="font-bold he-content" style="display:none;">האטומים רוטטים יותר</p>
                         </div>
                         <div class="flow-arrow-down md:flow-arrow"></div>
                         <div class="text-center p-3 bg-gray-50 rounded-lg shadow">
-                            <p class="font-bold">More Electron Collisions</p>
+                            <p class="font-bold en-content">More Electron Collisions</p><p class="font-bold he-content" style="display:none;">יותר התנגשויות אלקטרונים</p>
                         </div>
                          <div class="flow-arrow-down md:flow-arrow"></div>
                         <div class="text-center p-3 bg-red-100 border border-red-400 rounded-lg shadow">
-                            <p class="font-bold text-red-700">Resistance Increases</p>
+                            <p class="font-bold text-red-700 en-content">Resistance Increases</p><p class="font-bold text-red-700 he-content" style="display:none;">ההתנגדות עולה</p>
                         </div>
                     </div>
                 </div>
             </section>
             
             <section class="lg:col-span-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6">The Tools of the Trade</h2>
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6 en-content">The Tools of the Trade</h2>
+                <h2 class="text-3xl font-bold text-center text-[#005f73] mb-6 he-content" style="display:none;">כלי העבודה</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="border-2 border-[#0a9396] p-6 rounded-lg">
-                        <h3 class="text-2xl font-bold text-center">Ammeter</h3>
+                    <div class="border-2 border-[#0a9396] p-6 rounded-lg text-right">
+                        <h3 class="text-2xl font-bold text-center en-content">Ammeter</h3><h3 class="text-2xl font-bold text-center he-content" style="display:none;">אמפרמטר (מד זרם)</h3>
                         <p class="text-6xl text-center my-4">🇦</p>
                         <ul class="space-y-2 list-disc list-inside">
-                            <li><span class="font-semibold">Function:</span> Measures Current (Amps).</li>
-                            <li><span class="font-semibold">Connection:</span> Must be in <span class="font-bold">SERIES</span> with the component.</li>
-                            <li><span class="font-semibold">Internal Resistance:</span> Very <span class="font-bold">LOW</span>, to not impede the current it measures.</li>
+                            <li class="en-content"><span class="font-semibold">Function:</span> Measures Current (Amps).</li><li class="he-content" style="display:none;"><span class="font-semibold">תפקיד:</span> מודד זרם (אמפר).</li>
+                            <li class="en-content"><span class="font-semibold">Connection:</span> Must be in <span class="font-bold">SERIES</span> with the component.</li><li class="he-content" style="display:none;"><span class="font-semibold">חיבור:</span> חייב להיות <span class="font-bold">בטור</span> לרכיב.</li>
+                            <li class="en-content"><span class="font-semibold">Internal Resistance:</span> Very <span class="font-bold">LOW</span>, to not impede the current it measures.</li><li class="he-content" style="display:none;"><span class="font-semibold">התנגדות פנימית:</span> <span class="font-bold">נמוכה</span> מאוד, כדי לא להפריע לזרם שהוא מודד.</li>
                         </ul>
                     </div>
-                     <div class="border-2 border-[#0a9396] p-6 rounded-lg">
-                        <h3 class="text-2xl font-bold text-center">Voltmeter</h3>
+                     <div class="border-2 border-[#0a9396] p-6 rounded-lg text-right">
+                        <h3 class="text-2xl font-bold text-center en-content">Voltmeter</h3><h3 class="text-2xl font-bold text-center he-content" style="display:none;">וולטמטר (מד מתח)</h3>
                         <p class="text-6xl text-center my-4">⚡</p>
                         <ul class="space-y-2 list-disc list-inside">
-                            <li><span class="font-semibold">Function:</span> Measures Voltage (Volts).</li>
-                            <li><span class="font-semibold">Connection:</span> Must be in <span class="font-bold">PARALLEL</span> with the component.</li>
-                            <li><span class="font-semibold">Internal Resistance:</span> Very <span class="font-bold">HIGH</span>, to not draw current from the circuit.</li>
+                            <li class="en-content"><span class="font-semibold">Function:</span> Measures Voltage (Volts).</li><li class="he-content" style="display:none;"><span class="font-semibold">תפקיד:</span> מודד מתח (וולט).</li>
+                            <li class="en-content"><span class="font-semibold">Connection:</span> Must be in <span class="font-bold">PARALLEL</span> with the component.</li><li class="he-content" style="display:none;"><span class="font-semibold">חיבור:</span> חייב להיות <span class="font-bold">במקביל</span> לרכיב.</li>
+                            <li class="en-content"><span class="font-semibold">Internal Resistance:</span> Very <span class="font-bold">HIGH</span>, to not draw current from the circuit.</li><li class="he-content" style="display:none;"><span class="font-semibold">התנגדות פנימית:</span> <span class="font-bold">גבוהה</span> מאוד, כדי לא למשוך זרם מהמעגל.</li>
                         </ul>
                     </div>
                 </div>
             </section>
             
             <section class="lg:col-span-3 bg-red-800 text-white rounded-xl shadow-2xl p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-center mb-6">Critical Error: Swapping the Meters</h2>
-                <p class="text-center text-red-200 mb-8">Connecting the meters incorrectly leads to catastrophic failure. Understanding why is key.</p>
+                <h2 class="text-3xl font-bold text-center mb-6 en-content">Critical Error: Swapping the Meters</h2>
+                <h2 class="text-3xl font-bold text-center mb-6 he-content" style="display:none;">טעות קריטית: החלפת המדים</h2>
+                <p class="text-center text-red-200 mb-8 en-content">Connecting the meters incorrectly leads to catastrophic failure. Understanding why is key.</p>
+                <p class="text-center text-red-200 mb-8 he-content" style="display:none;">חיבור לא נכון של המדים מוביל לכשל קטסטרופלי. הבנת הסיבה היא המפתח.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-red-900/50 p-6 rounded-lg text-center">
-                        <h3 class="text-2xl font-bold text-yellow-300">Ammeter in Parallel</h3>
+                        <h3 class="text-2xl font-bold text-yellow-300 en-content">Ammeter in Parallel</h3><h3 class="text-2xl font-bold text-yellow-300 he-content" style="display:none;">אמפרמטר במקביל</h3>
                          <p class="text-6xl text-center my-4">☠️</p>
-                        <p class="font-black text-3xl text-white my-4">SHORT CIRCUIT!</p>
-                        <p class="text-red-200">The ammeter's low resistance provides an "easy path". Almost all current bypasses the component and rushes through the meter, likely blowing its fuse or destroying it.</p>
+                        <p class="font-black text-3xl text-white my-4 en-content">SHORT CIRCUIT!</p><p class="font-black text-3xl text-white my-4 he-content" style="display:none;">קצר חשמלי!</p>
+                        <p class="text-red-200 en-content">The ammeter's low resistance provides an "easy path". Almost all current bypasses the component and rushes through the meter, likely blowing its fuse or destroying it.</p>
+                        <p class="text-red-200 he-content" style="display:none;">ההתנגדות הנמוכה של מד הזרם מספקת "נתיב קל". כמעט כל הזרם עוקף את הרכיב וזורם דרך המד, מה שכנראה יגרום לשריפת הנתיך שלו או להרס המד.</p>
                     </div>
                      <div class="bg-red-900/50 p-6 rounded-lg text-center">
-                        <h3 class="text-2xl font-bold text-yellow-300">Voltmeter in Series</h3>
+                        <h3 class="text-2xl font-bold text-yellow-300 en-content">Voltmeter in Series</h3><h3 class="text-2xl font-bold text-yellow-300 he-content" style="display:none;">וולטמטר בטור</h3>
                          <p class="text-6xl text-center my-4">⚠️</p>
-                        <p class="font-black text-3xl text-white my-4">OPEN CIRCUIT!</p>
-                        <p class="text-red-200">The voltmeter's high resistance is added to the circuit, blocking almost all current flow. The circuit effectively stops working, and readings are meaningless.</p>
+                        <p class="font-black text-3xl text-white my-4 en-content">OPEN CIRCUIT!</p><p class="font-black text-3xl text-white my-4 he-content" style="display:none;">מעגל פתוח!</p>
+                        <p class="text-red-200 en-content">The voltmeter's high resistance is added to the circuit, blocking almost all current flow. The circuit effectively stops working, and readings are meaningless.</p>
+                        <p class="text-red-200 he-content" style="display:none;">ההתנגדות הגבוהה של מד המתח מתווספת למעגל, וחוסמת כמעט את כל זרימת הזרם. המעגל למעשה מפסיק לעבוד, והקריאות חסרות משמעות.</p>
                     </div>
                 </div>
             </section>
@@ -174,6 +232,9 @@
     </main>
 
     <script>
+        let ohmicChartInstance;
+        let nonOhmicChartInstance;
+
         const brilliantBlues = {
             primary: '#005f73',
             secondary: '#0a9396',
@@ -182,134 +243,86 @@
             text: '#001219'
         };
 
-        function processLabel(label) {
-            const maxLen = 16;
-            if (typeof label !== 'string' || label.length <= maxLen) {
-                return label;
-            }
-            const words = label.split(' ');
-            const lines = [];
-            let currentLine = '';
-            for (const word of words) {
-                if ((currentLine + ' ' + word).length > maxLen && currentLine.length > 0) {
-                    lines.push(currentLine);
-                    currentLine = word;
-                } else {
-                    currentLine = currentLine ? currentLine + ' ' + word : word;
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
-
         const tooltipTitleCallback = (tooltipItems) => {
             const item = tooltipItems[0];
             let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-              return label.join(' ');
-            }
-            return label;
+            return Array.isArray(label) ? label.join(' ') : label;
         };
         
-        const sharedChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: brilliantBlues.text,
-                        font: {
-                            size: 14,
-                            weight: 'bold'
-                        }
-                    }
+        const getChartConfigs = (lang) => {
+            const isHebrew = lang === 'he';
+            const sharedOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: brilliantBlues.text, font: { size: 14, weight: 'bold' }}},
+                    tooltip: { callbacks: { title: tooltipTitleCallback }, textDirection: isHebrew ? 'rtl' : 'ltr', bodyFont: { family: isHebrew ? 'Assistant' : 'Inter' }, titleFont: { family: isHebrew ? 'Assistant' : 'Inter' } }
                 },
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
+                scales: {
+                    x: {
+                        title: { display: true, text: isHebrew ? 'זרם (A)' : 'Current (A)', color: brilliantBlues.text, font: { size: 16, weight: 'bold' }},
+                        ticks: { color: brilliantBlues.text },
+                        grid: { color: brilliantBlues.accent }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: isHebrew ? 'מתח (V)' : 'Voltage (V)', color: brilliantBlues.text, font: { size: 16, weight: 'bold' }},
+                        ticks: { color: brilliantBlues.text },
+                        grid: { color: brilliantBlues.accent }
                     }
                 }
-            },
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Current (A)',
-                        color: brilliantBlues.text,
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
-                    },
-                    ticks: {
-                        color: brilliantBlues.text
-                    },
-                    grid: {
-                        color: brilliantBlues.accent
-                    }
+            };
+
+            const ohmicConfig = {
+                type: 'line',
+                data: {
+                    labels: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+                    datasets: [{
+                        label: isHebrew ? 'תיל אוהמי (התנגדות קבועה)' : 'Ohmic Wire (Constant Resistance)',
+                        data: [0, 1, 2, 3, 4, 5],
+                        borderColor: brilliantBlues.primary,
+                        backgroundColor: brilliantBlues.secondary,
+                        borderWidth: 4,
+                        tension: 0.1,
+                        pointRadius: 5
+                    }]
                 },
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Voltage (V)',
-                        color: brilliantBlues.text,
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
-                    },
-                    ticks: {
-                        color: brilliantBlues.text
-                    },
-                    grid: {
-                        color: brilliantBlues.accent
-                    }
-                }
-            }
-        };
+                options: sharedOptions
+            };
 
-        const ohmicData = {
-            labels: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
-            datasets: [{
-                label: 'Ohmic Wire (Constant Resistance)',
-                data: [0, 1, 2, 3, 4, 5],
-                borderColor: brilliantBlues.primary,
-                backgroundColor: brilliantBlues.secondary,
-                borderWidth: 4,
-                tension: 0.1,
-                pointRadius: 5
-            }]
-        };
-
-        const nonOhmicData = {
-            labels: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.1],
-            datasets: [{
-                label: 'Non-Ohmic Bulb (Increasing Resistance)',
-                data: [0, 0.5, 1.2, 2.3, 3.8, 5.5, 6.8],
-                borderColor: brilliantBlues.secondary,
-                backgroundColor: brilliantBlues.primary,
-                borderWidth: 4,
-                tension: 0.4,
-                pointRadius: 5,
-                fill: {
-                    target: 'origin',
-                    above: 'rgba(148, 210, 189, 0.3)',
+            const nonOhmicConfig = {
+                type: 'line',
+                data: {
+                    labels: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.1],
+                    datasets: [{
+                        label: isHebrew ? 'נורת להט (התנגדות עולה)' : 'Non-Ohmic Bulb (Increasing Resistance)',
+                        data: [0, 0.5, 1.2, 2.3, 3.8, 5.5, 6.8],
+                        borderColor: brilliantBlues.secondary,
+                        backgroundColor: brilliantBlues.primary,
+                        borderWidth: 4,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        fill: { target: 'origin', above: 'rgba(148, 210, 189, 0.3)' }
+                    }]
                 },
-            }]
+                options: sharedOptions
+            };
+
+            return { ohmicConfig, nonOhmicConfig };
         };
 
-        new Chart(document.getElementById('ohmicChart'), {
-            type: 'line',
-            data: ohmicData,
-            options: sharedChartOptions
-        });
+        function renderCharts(lang) {
+            if (ohmicChartInstance) ohmicChartInstance.destroy();
+            if (nonOhmicChartInstance) nonOhmicChartInstance.destroy();
 
-        new Chart(document.getElementById('nonOhmicChart'), {
-            type: 'line',
-            data: nonOhmicData,
-            options: sharedChartOptions
-        });
+            const { ohmicConfig, nonOhmicConfig } = getChartConfigs(lang);
+
+            const ohmicCtx = document.getElementById('ohmicChart').getContext('2d');
+            ohmicChartInstance = new Chart(ohmicCtx, ohmicConfig);
+
+            const nonOhmicCtx = document.getElementById('nonOhmicChart').getContext('2d');
+            nonOhmicChartInstance = new Chart(nonOhmicCtx, nonOhmicConfig);
+        }
     </script>
 </body>
 </html>

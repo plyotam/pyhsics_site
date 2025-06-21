@@ -1,9 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Physics Simulations</title>
+    <title>Interactive Physics Simulations / סימולציות פיזיקה אינטראקטיביות</title>
+    <!-- Language switcher -->
+    <script>
+        function switchLanguage(lang) {
+            if (lang === 'he') {
+                document.documentElement.lang = 'he';
+                document.documentElement.dir = 'rtl';
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'he');
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'en');
+            }
+        }
+
+        // Check for saved language preference or browser language
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
+        });
+    </script>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
@@ -26,13 +52,22 @@
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-8 md:py-16">
 
-        <!-- Header Section -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
-                Interactive Physics Lab
+        <!-- Language Switcher -->
+    <div class="absolute top-4 right-4 flex space-x-2 rtl:space-x-reverse">
+        <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-sm font-medium">EN</button>
+        <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-sm font-medium">עברית</button>
+    </div>
+
+    <!-- Header Section -->
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2 en-content">Interactive Physics Simulations</h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2 he-content" style="display: none;">סימולציות פיזיקה אינטראקטיביות</h1>
             </h1>
-            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
-                Select an experiment to begin your simulation.
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 en-content">
+                Explore interactive physics simulations and experiments
+            </p>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 he-content" style="display: none;">
+                גלה סימולציות וניסויים אינטראקטיביים בפיזיקה
             </p>
         </header>
 
@@ -42,56 +77,119 @@
             <!-- Card 1: EMF and Internal Resistance -->
             <a href="emf_and_internal_resistance.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">EMF & Internal Resistance</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Explore the relationship between electromotive force (EMF), terminal voltage, and internal resistance in a circuit.</p>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 en-content">EMF and Internal Resistance</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 he-content" style="display: none;">כוח אלקטרו-מניע והתנגדות פנימית</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 en-content">Investigate the relationship between EMF, internal resistance, and terminal potential difference.</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 he-content" style="display: none;">חקור את הקשר בין כוח אלקטרו-מניע, התנגדות פנימית והפרש הפוטנציאל בקצות</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400">
+                        <span class="en-content">Explore</span>
+                        <span class="he-content" style="display: none;">גלה</span>
+                        <svg class="w-4 h-4 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </a>
 
             <!-- Card 2: Free Fall Experiment -->
             <a href="free_fall_experiment.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Free Fall Experiment</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Measure the acceleration due to gravity (g) by simulating an object in free fall.</p>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 en-content">Free Fall Experiment</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 he-content" style="display: none;">ניסוי נפילה חופשית</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 en-content">Measure the acceleration due to gravity (g) by simulating an object in free fall.</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 he-content" style="display: none;">מדד את האצלרציה עקב כוח הכבידה (g) על ידי סימולציה של עצם בנפילה חופשית</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400">
+                        <span class="en-content">Explore</span>
+                        <span class="he-content" style="display: none;">גלה</span>
+                        <svg class="w-4 h-4 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </a>
 
-            <!-- Card 3: I-V Characteristics -->
+            <!-- Card 3: IV Characteristics of a Wire and a Bulb -->
             <a href="iv_characteristics_wire_bulb.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">I-V Characteristics</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Investigate the current-voltage (I-V) characteristics of a metallic wire and a filament bulb.</p>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 en-content">IV Characteristics</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 he-content" style="display: none;">מאפיין זרם-מתח (א"מ)</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 en-content">Compare the current-voltage (IV) characteristics of a wire and a bulb.</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 he-content" style="display: none;">השווה בין מאפייני זרם-מתח של תיל ושל נורה</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400">
+                        <span class="en-content">Explore</span>
+                        <span class="he-content" style="display: none;">גלה</span>
+                        <svg class="w-4 h-4 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </a>
 
-            <!-- Card 4: Magnetic Field of a Wire -->
+            <!-- Card 4: Magnetic Field of a Current-Carrying Wire -->
             <a href="magnetic_field_wire.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Magnetic Field of a Wire</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Visualize and measure the magnetic field produced by a current-carrying straight wire.</p>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 en-content">Magnetic Field of a Wire</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 he-content" style="display: none;">שדה מגנטי סביב תיל נושא זרם</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 en-content">Investigate the magnetic field around a current-carrying wire.</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 he-content" style="display: none;">חקור את השדה המגנטי סביב תיל נושא זרם</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400">
+                        <span class="en-content">Explore</span>
+                        <span class="he-content" style="display: none;">גלה</span>
+                        <svg class="w-4 h-4 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </a>
 
             <!-- Card 5: Motion with Friction -->
             <a href="motion_with_friction.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Motion with Friction</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Study the effects of static and kinetic friction on the motion of an object on a surface.</p>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 en-content">Motion with Friction</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 he-content" style="display: none;">תנועה עם חיכוך</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 en-content">Study the effects of static and kinetic friction on the motion of an object on a surface.</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 he-content" style="display: none;">חקור את השפעת החיכוך הסטטי והקינטי על תנועת עצם על משטח</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400">
+                        <span class="en-content">Explore</span>
+                        <span class="he-content" style="display: none;">גלה</span>
+                        <svg class="w-4 h-4 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </a>
 
-            <!-- Card 6: Spring Energy -->
+            <!-- Card 6: Spring Energy Experiment -->
             <a href="spring_energy_experiment.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Conservation of Energy in a Spring</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Verify the principle of conservation of energy by analyzing a mass-spring system.</p>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 en-content">Spring Energy</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 he-content" style="display: none;">אנרגיה של קפיץ</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 en-content">Investigate the relationship between the extension of a spring and the energy stored in it.</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 he-content" style="display: none;">חקור את הקשר בין מתיחת קפיץ לאנרגיה האגורה בו</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400">
+                        <span class="en-content">Explore</span>
+                        <span class="he-content" style="display: none;">גלה</span>
+                        <svg class="w-4 h-4 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </a>
             
             <!-- Card 7: Tangent Galvanometer -->
             <a href="tangent_galvanometer.html" class="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">Tangent Galvanometer</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Understand how a tangent galvanometer works to measure electric current.</p>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 en-content">Tangent Galvanometer</h2>
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2 he-content" style="display: none;">גלוונומטר טנגנטי</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 en-content">Measure the horizontal component of Earth's magnetic field using a tangent galvanometer.</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 he-content" style="display: none;">מדוד את הרכיב האופקי של השדה המגנטי של כדור הארץ באמצעות גלוונומטר טנגנטי</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400">
+                        <span class="en-content">Explore</span>
+                        <span class="he-content" style="display: none;">גלה</span>
+                        <svg class="w-4 h-4 ml-2 rtl:ml-0 rtl:mr-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
             </a>
 
@@ -100,7 +198,10 @@
         <!-- Iframe container for displaying the chosen experiment -->
         <section id="experiment-view" class="mt-16">
             <div id="placeholder" class="text-center p-10 bg-white dark:bg-gray-800 rounded-xl shadow-md">
-                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">Your selected simulation will appear here.</h2>
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300 en-content">Your selected simulation will appear here.</h2>
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300 he-content" style="display: none;">הסימולציה הנבחרת תוצג כאן</h2>
+                <p class="mt-4 text-gray-500 dark:text-gray-400 en-content">Click on any experiment above to start</p>
+                <p class="mt-4 text-gray-500 dark:text-gray-400 he-content" style="display: none;">לחץ על ניסוי כלשהו למעלה כדי להתחיל</p>
             </div>
             <iframe id="experiment-frame" title="Physics Simulation" class="w-full h-[600px] md:h-[800px] rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-700 hidden" src="about:blank"></iframe>
         </section>

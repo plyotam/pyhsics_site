@@ -1,9 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Physics of Free Fall: An Interactive Analysis</title>
+    <title>The Physics of Free Fall / נפילה חופשית: ניתוח אינטראקטיבי</title>
+    <!-- Language switcher -->
+    <script>
+        function switchLanguage(lang) {
+            if (lang === 'he') {
+                document.documentElement.lang = 'he';
+                document.documentElement.dir = 'rtl';
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'he');
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'en');
+            }
+        }
+
+        // Check for saved language preference or browser language
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
+        });
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +58,10 @@
         .gradient-text {
             background: linear-gradient(90deg, #ff6361, #ffa600);
             -webkit-background-clip: text;
+            -moz-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
         }
         .data-card {
             background-color: rgba(0, 50, 75, 0.6);
@@ -67,58 +96,85 @@
 <body class="antialiased">
 
     <div class="container mx-auto p-4 md:p-8">
+        <!-- Language Switcher -->
+        <div class="absolute top-4 right-4 flex space-x-2 rtl:space-x-reverse">
+            <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-sm font-medium">EN</button>
+            <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-sm font-medium">עברית</button>
+        </div>
 
         <header class="text-center my-8 md:my-12">
-            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">The Physics of Free Fall</h1>
-            <p class="text-xl md:text-2xl mt-2 text-gray-300">An Interactive Analysis of an Accelerating World</p>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight en-content">The Physics of Free Fall</h1>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight he-content" style="display: none;">נפילה חופשית</h1>
+            <p class="text-xl md:text-2xl mt-2 text-gray-300 en-content">An Interactive Analysis of an Accelerating World</p>
+            <p class="text-xl md:text-2xl mt-2 text-gray-300 he-content" style="display: none;">ניתוח אינטראקטיבי של עולם בתאוצה</p>
+            <a href="homepage.html" class="inline-block mt-4 text-blue-400 hover:text-blue-300 transition-colors">
+                <span class="en-content">← Back to all experiments</span>
+                <span class="he-content" style="display: none;">← חזרה לכל הניסויים</span>
+            </a>
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
             <div class="lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
-                <h2 class="text-2xl font-bold mb-4 gradient-text">The Ideal vs. The Real</h2>
-                <p class="text-gray-300 mb-6">In a perfect world (a vacuum), all objects fall with the same constant acceleration due to gravity, denoted as '$g$'. This experiment explores how close we can get to this ideal in a real-world lab, where forces like friction and air resistance play a critical role.</p>
+                <h2 class="text-2xl font-bold mb-4 gradient-text en-content">The Ideal vs. The Real</h2>
+                <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">האידיאלי לעומת המציאות</h2>
+                <p class="text-gray-300 mb-6 en-content">In a perfect world (a vacuum), all objects fall with the same constant acceleration due to gravity, denoted as '$g$'. This experiment explores how close we can get to this ideal in a real-world lab, where forces like friction and air resistance play a critical role.</p>
+                <p class="text-gray-300 mb-6 he-content" style="display: none;">בעולם מושלם (ריק), כל העצמים נופלים באותה תאוצה קבועה עקב כוח הכבידה, המסומנת ב-'$g$'. ניסוי זה בודק עד כמה אנחנו יכולים להתקרב לאידיאל זה במעבדה אמיתית, בה כוחות כמו חיכוך והתנגדות האוויר ממלאים תפקיד קריטי.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="text-center">
-                        <h3 class="text-xl font-semibold text-gray-200">Ideal Acceleration '$g$'</h3>
+                        <h3 class="text-xl font-semibold text-gray-200 en-content">Ideal Acceleration '$g$'</h3>
+                        <h3 class="text-xl font-semibold text-gray-200 he-content" style="display: none;">תאוצה אידיאלית '$g$'</h3>
                         <p class="text-6xl font-black my-2" style="color: #ffa600;">9.81</p>
                         <p class="text-lg text-gray-400">m/s²</p>
-                        <p class="mt-2 text-sm">The theoretical value on Earth, independent of mass.</p>
+                        <p class="mt-2 text-sm en-content">The theoretical value on Earth, independent of mass.</p>
+                        <p class="mt-2 text-sm he-content" style="display: none;">הערך התיאורטי בכדור הארץ, בלתי תלוי במסה.</p>
                     </div>
                     <div class="chart-container">
                         <canvas id="forcesChart"></canvas>
                     </div>
                 </div>
-                 <p class="text-center text-gray-400 mt-4 text-sm">The donut chart illustrates the forces acting on the weight in our real experiment. While gravity is the main driver, retarding forces actively work against it, reducing the net acceleration.</p>
+                 <p class="text-center text-gray-400 mt-4 text-sm en-content">The donut chart illustrates the forces acting on the weight in our real experiment. While gravity is the main driver, retarding forces actively work against it, reducing the net acceleration.</p>
+                <p class="text-center text-gray-400 mt-4 text-sm he-content" style="display: none;">התראת העוגה ממחישה את הכוחות הפועלים על המשקולת בניסוי האמיתי. בעוד שכוח הכבידה הוא הכוח המניע העיקרי, כוחות מעכבים פועלים נגדו ומפחיתים את התאוצה הנקייה.</p>
             </div>
 
             <div class="lg:col-span-2 data-card rounded-lg shadow-2xl p-6">
-                <h2 class="text-2xl font-bold mb-4 gradient-text">The Experimental Setup</h2>
-                <p class="text-gray-300 mb-6">The core of the experiment is the time recorder, a device that uses an electromagnet vibrating at 50 Hz to mark a dot on a paper tape every 0.02 seconds. As the weight falls, it pulls the tape through, creating a physical record of its motion.</p>
+                <h2 class="text-2xl font-bold mb-4 gradient-text en-content">The Experimental Setup</h2>
+                <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">ההתקן הניסיוני</h2>
+                <p class="text-gray-300 mb-6 en-content">The core of the experiment is the time recorder, a device that uses an electromagnet vibrating at 50 Hz to mark a dot on a paper tape every 0.02 seconds. As the weight falls, it pulls the tape through, creating a physical record of its motion.</p>
+                <p class="text-gray-300 mb-6 he-content" style="display: none;">ליבו של הניסוי הוא מד התדר, מכשיר המשתמש באלקטרומגנט הרוטט בתדר 50 הרץ כדי לסמן נקודה על סרט נייר כל 0.02 שניות. כשהמשקולת נופלת, היא מושכת את הסרט ויוצרת תיעוד פיזי של תנועתה.</p>
                 <div class="flex flex-col md:flex-row items-center justify-around">
                     <div class="text-center p-4">
-                        <h3 class="text-lg font-semibold">Time Recorder</h3>
-                        <p class="text-gray-400 text-sm">Marks 50 dots/sec</p>
+                        <h3 class="text-lg font-semibold en-content">Time Recorder</h3>
+                        <h3 class="text-lg font-semibold he-content" style="display: none;">מד תדר</h3>
+                        <p class="text-gray-400 text-sm en-content">Marks 50 dots/sec</p>
+                        <p class="text-gray-400 text-sm he-content" style="display: none;">מסמן 50 נקודות לשנייה</p>
                         <div class="text-4xl my-2">⏱️</div>
                         <p class="font-bold text-2xl" style="color:#ff6361;">0.02s</p>
-                        <p class="text-gray-400 text-sm">Between each dot</p>
+                        <p class="text-gray-400 text-sm en-content">Between each dot</p>
+                        <p class="text-gray-400 text-sm he-content" style="display: none;">בין נקודה לנקודה</p>
                     </div>
                     <div class="paper-tape" id="paper-tape-visual">
                     </div>
                     <div class="text-center p-4">
-                         <h3 class="text-lg font-semibold">Falling Weight</h3>
-                        <p class="text-gray-400 text-sm">Pulls the tape</p>
+                         <h3 class="text-lg font-semibold en-content">Falling Weight</h3>
+                         <h3 class="text-lg font-semibold he-content" style="display: none;">משקולת נופלת</h3>
+                        <p class="text-gray-400 text-sm en-content">Pulls the tape</p>
+                        <p class="text-gray-400 text-sm he-content" style="display: none;">מושכת את הסרט</p>
                         <div class="text-4xl my-2">⚖️</div>
                         <p class="font-bold text-2xl" style="color:#ff6361;">Gravity</p>
-                        <p class="text-gray-400 text-sm">Is the driving force</p>
+                        <p class="text-gray-400 text-sm en-content">Is the driving force</p>
+                        <p class="text-gray-400 text-sm he-content" style="display: none;">הוא הכוח המניע</p>
                     </div>
                 </div>
-                <p class="text-center text-gray-400 mt-4 text-sm">The dots on the paper tape get further apart, providing immediate visual evidence of acceleration.</p>
+                <p class="text-center text-gray-400 mt-4 text-sm en-content">The dots on the paper tape get further apart, providing immediate visual evidence of acceleration.</p>
+                <p class="text-center text-gray-400 mt-4 text-sm he-content" style="display: none;">הנקודות על הסרט הנייר מתרחקות זו מזו, מספקות ראיות חזותיות מיידיות לתאוצה.</p>
             </div>
             
             <div class="data-card rounded-lg shadow-2xl p-6 flex flex-col justify-center">
-                 <h2 class="text-2xl font-bold mb-4 gradient-text">From Dots to Data</h2>
-                 <p class="text-gray-300 mb-6">The process transforms physical marks into graphs. By measuring the distance between dots, we can calculate velocity. This data then reveals the fundamental physics of the motion.</p>
+                 <h2 class="text-2xl font-bold mb-4 gradient-text en-content">From Dots to Data</h2>
+                 <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">מנקודות לנתונים</h2>
+                 <p class="text-gray-300 mb-6 en-content">The process transforms physical marks into graphs. By measuring the distance between dots, we can calculate velocity. This data then reveals the fundamental physics of the motion.</p>
+                <p class="text-gray-300 mb-6 he-content" style="display: none;">התהליך הופך סימנים פיזיים לגרפים. על ידי מדידת המרחק בין הנקודות, נוכל לחשב את המהירות. נתונים אלה מגלים את הפיזיקה הבסיסית של התנועה.</p>
                 <div class="flex items-center justify-center space-x-4">
                     <span class="text-3xl">📍</span>
                     <span class="flow-arrow">&rarr;</span>
@@ -126,44 +182,64 @@
                     <span class="flow-arrow">&rarr;</span>
                      <span class="text-3xl">📈</span>
                 </div>
-                 <p class="text-center text-gray-400 mt-4 text-sm">Dots &rarr; Measurement &rarr; Graph</p>
+                 <p class="text-center text-gray-400 mt-4 text-sm en-content">Dots &rarr; Measurement &rarr; Graph</p>
+                 <p class="text-center text-gray-400 mt-4 text-sm he-content" style="display: none;">נקודות &rarr; מדידה &rarr; גרף</p>
             </div>
 
             <div class="md:col-span-2 lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
-                 <h2 class="text-2xl font-bold mb-4 gradient-text">The Story of Motion: Position vs. Time</h2>
-                 <p class="text-gray-300 mb-6">A graph of the weight's position over time reveals a parabolic curve. This shape is the classic signature of constant acceleration—the object covers more and more distance in each consecutive time interval, so the curve gets progressively steeper.</p>
+                 <h2 class="text-2xl font-bold mb-4 gradient-text en-content">The Story of Motion: Position vs. Time</h2>
+                 <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">סיפור התנועה: מיקום לעומת זמן</h2>
+                 <p class="text-gray-300 mb-6 en-content">A graph of the weight's position over time reveals a parabolic curve. This shape is the classic signature of constant acceleration—the object covers more and more distance in each consecutive time interval, so the curve gets progressively steeper.</p>
+                <p class="text-gray-300 mb-6 he-content" style="display: none;">גרף של מיקום המשקולת לאורך זמן מגלה עקומה פרבולית. צורה זו היא החתימה הקלאסית של תאוצה קבועה - העצם כיסה יותר ויותר מרחק בכל פרק זמן עוקב, כך שהעקומה הופכת לתלולה יותר ויותר.</p>
                 <div class="chart-container mx-auto" style="height: 350px; max-width: 800px;">
                     <canvas id="positionTimeChart"></canvas>
                 </div>
             </div>
 
             <div class="md:col-span-2 lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
-                <h2 class="text-2xl font-bold mb-4 gradient-text">Finding Acceleration: Velocity vs. Time</h2>
-                <p class="text-gray-300 mb-6">Plotting velocity versus time reveals a straight line. The slope of this line is the most important result of the experiment: the measured acceleration ($a_{exp}$). Because of friction and air resistance, this slope is slightly less than the ideal value of $g$.</p>
+                <h2 class="text-2xl font-bold mb-4 gradient-text en-content">Finding Acceleration: Velocity vs. Time</h2>
+                <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">מציאת תאוצה: מהירות לעומת זמן</h2>
+                <p class="text-gray-300 mb-6 en-content">Plotting velocity versus time reveals a straight line. The slope of this line is the most important result of the experiment: the measured acceleration ($a_{exp}$). Because of friction and air resistance, this slope is slightly less than the ideal value of $g$.</p>
+                <p class="text-gray-300 mb-6 he-content" style="display: none;">גרף של מהירות לעומת זמן מגלה קו ישר. שיפוע הקו הזה הוא התוצאה החשובה ביותר של הניסוי: התאוצה המדודה ($a_{exp}$). בגלל חיכוך והתנגדות האוויר, שיפוע זה קטן מעט מהערך האידיאלי של $g$.</p>
                 <div class="chart-container mx-auto" style="height: 350px; max-width: 800px;">
                     <canvas id="velocityTimeChart"></canvas>
                 </div>
             </div>
 
             <div class="lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
-                <h2 class="text-2xl font-bold mb-4 gradient-text">The Effect of Mass: A Critical Comparison</h2>
-                <p class="text-gray-300 mb-6">While ideal free fall is independent of mass, our real-world experiment is not. Retarding forces (friction, air resistance) are relatively constant. A heavier mass has more inertia to overcome these forces, resulting in a measured acceleration ($a_{exp}$) that is higher and closer to the theoretical value of $g$.</p>
+                <h2 class="text-2xl font-bold mb-4 gradient-text en-content">The Effect of Mass: A Critical Comparison</h2>
+                <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">השפעת המסה: השוואה ביקורתית</h2>
+                <p class="text-gray-300 mb-6 en-content">While ideal free fall is independent of mass, our real-world experiment is not. Retarding forces (friction, air resistance) are relatively constant. A heavier mass has more inertia to overcome these forces, resulting in a measured acceleration ($a_{exp}$) that is higher and closer to the theoretical value of $g$.</p>
+                <p class="text-gray-300 mb-6 he-content" style="display: none;">בעוד שנפילה חופשית אידיאלית אינה תלויה במסה, ניסויינו בעולם האמיתי כן. כוחות מעכבים (חיכוך, התנגדות האוויר) קבועים באופן יחסי. מסה כבדה יותר היא בעלת אינרציה רבה יותר להתגבר על כוחות אלה, ותוצאה בתאוצה מדודה ($a_{exp}$) שהיא גבוהה יותר וקרובה יותר לערך התאורטי של $g$.</p>
                 <div class="chart-container mx-auto" style="height: 350px; max-width: 700px;">
                     <canvas id="massComparisonChart"></canvas>
                 </div>
             </div>
             
             <div class="lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
-                <h2 class="text-2xl font-bold mb-4 gradient-text">"What If?" Thinking Corner</h2>
+                <h2 class="text-2xl font-bold mb-4 gradient-text en-content">The Takeaway</h2>
+                <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">המסקנה</h2>
+                <p class="text-gray-300 mb-6 en-content">This experiment beautifully demonstrates how real-world measurements can both confirm and refine our theoretical understanding. The slight difference between our measured acceleration and the ideal $g$ isn't a failure—it's an opportunity to learn about the complex factors at play in physical systems.</p>
+                <p class="text-gray-300 mb-6 he-content" style="display: none;">ניסוי זה מדגים בצורה יפה כיצד מדידות בעולם האמיתי יכולות לאשש ולשפר את ההבנה התאורטית שלנו. ההבדל הקל בין התאוצה הנמדדת שלנו ל-$g$ האידיאלי אינו כישלון - זו הזדמנות ללמוד על הגורמים המורכבים הפועלים במערכות פיזיקליות.</p>
+                <p class="text-gray-300 en-content">By understanding and accounting for these factors, we get closer to the ideal while gaining deeper insights into the nature of motion and the forces that govern our universe.</p>
+                <p class="text-gray-300 he-content" style="display: none;">על ידי הבאה בחשבון של גורמים אלה, אנחנו מתקרבים לאידיאל תוך כדי השגת תובנות עמוקות יותר לגבי טבעה של התנועה והכוחות ששולטים ביקום שלנו.</p>
+            </div>
+
+            <div class="lg:col-span-3 data-card rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold mb-4 gradient-text en-content">"What If?" Thinking Corner</h2>
+                <h2 class="text-2xl font-bold mb-4 gradient-text he-content" style="display: none;">פינת "מה אם?"</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                     <div class="bg-black bg-opacity-20 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-2">What if this experiment were on the Moon? 🌙</h3>
-                        <p class="text-gray-300">The Moon's gravity is much weaker (about 1/6th of Earth's) and it has no atmosphere (no air resistance). The weight would fall much slower, and the dots on the tape would be very close together. The measured acceleration would be close to:</p>
-                        <p class="text-5xl font-black my-3" style="color: #ffa600;">1.62 m/s²</p>
+                        <h3 class="text-xl font-bold mb-3 en-content">In a Vacuum</h3>
+                        <h3 class="text-xl font-bold mb-3 he-content" style="display: none;">בוואקום</h3>
+                        <p class="text-gray-300 en-content">Without air resistance, all objects would fall with the same acceleration ($g$), regardless of mass. This is what astronauts experience on the Moon!</p>
+                        <p class="text-gray-300 he-content" style="display: none;">ללא התנגדות אוויר, כל העצמים היו נופלים באותה תאוצה ($g$), ללא קשר למסה. זה מה שאסטרונאוטים חווים על הירח!</p>
                     </div>
                     <div class="bg-black bg-opacity-20 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-2">Why not use the first few dots?  iniziale</h3>
-                        <p class="text-gray-300">The initial release can be shaky, and the first dots are often blurred or too close to measure accurately. By starting our analysis a few dots in, we ensure we are measuring the part of the fall that is smooth and steady, giving a more reliable result for acceleration.</p>
+                        <h3 class="text-xl font-bold mb-3 en-content">On Another Planet</h3>
+                        <h3 class="text-xl font-bold mb-3 he-content" style="display: none;">על כוכב לכת אחר</h3>
+                        <p class="text-gray-300 en-content">The value of $g$ changes based on the planet's mass and radius. On Mars, $g_{Mars} \approx 3.7 m/s^2$, while on Jupiter, $g_{Jupiter} \approx 24.8 m/s^2$!</p>
+                        <p class="text-gray-300 he-content" style="display: none;">ערך $g$ משתנה בהתאם למסה ולרדיוס של כוכב הלכת. במאדים, $g_{Mars} \approx 3.7 m/s^2$, בעוד שבצדק, $g_{Jupiter} \approx 24.8 m/s^2$!</p>
                     </div>
                 </div>
             </div>
@@ -171,7 +247,8 @@
         </main>
 
         <footer class="text-center mt-12 text-gray-500 text-sm">
-            <p>Infographic created to visualize the principles of the free-fall experiment.</p>
+            <p class="en-content">Infographic created to visualize the principles of the free-fall experiment.</p>
+            <p class="he-content" style="display: none;">אינפוגרפיקה שנוצרה כדי להמחיש את עקרונות ניסוי הנפילה החופשית.</p>
         </footer>
 
     </div>

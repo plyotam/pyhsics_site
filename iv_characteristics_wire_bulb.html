@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Infographic: The Physics of a Real Battery</title>
+    <title>The Real Battery / הסוללה האמיתית</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f4f8; 
+        }
+        html[lang="he"] body {
+            font-family: 'Assistant', sans-serif;
         }
         .chart-container {
             position: relative;
@@ -41,41 +44,84 @@
         .brilliant-blues-accent-bg { background-color: #4194F2; }
         .brilliant-blues-accent-text { color: #4194F2; }
         .brilliant-blues-light-bg { background-color: #B4D5F7; }
+        .he-content { display: none; }
     </style>
+     <script>
+        function switchLanguage(lang) {
+            if (lang === 'he') {
+                document.documentElement.lang = 'he';
+                document.documentElement.dir = 'rtl';
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'he');
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                document.querySelectorAll('.he-content').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.en-content').forEach(el => el.style.display = 'block');
+                localStorage.setItem('preferredLanguage', 'en');
+            }
+            updateChartsForLanguage(lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const browserLang = navigator.language.startsWith('he') ? 'he' : 'en';
+            const defaultLang = savedLang || browserLang;
+            switchLanguage(defaultLang);
+        });
+    </script>
 </head>
 <body class="text-gray-800">
-
+    <div class="relative">
+        <div class="absolute top-4 right-4 flex space-x-2 z-10">
+            <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-white text-blue-800 text-sm font-medium shadow-md hover:bg-gray-100">EN</button>
+            <button onclick="switchLanguage('he')" class="px-3 py-1 rounded-md bg-white text-blue-800 text-sm font-medium shadow-md hover:bg-gray-100">עב</button>
+        </div>
+    </div>
+    
     <header class="brilliant-blues-bg text-white p-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-2">The Real Battery</h1>
-        <p class="text-lg md:text-xl max-w-3xl mx-auto text-blue-200">Why a 1.5V battery doesn't always deliver 1.5 volts. An interactive guide to your physics experiment.</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-2 en-content">The Real Battery</h1>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-2 he-content">הסוללה האמיתית</h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto text-blue-200 en-content">Why a 1.5V battery doesn't always deliver 1.5 volts. An interactive guide to your physics experiment.</p>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto text-blue-200 he-content">למה סוללת 1.5V לא תמיד מספקת 1.5 וולט. מדריך אינטראקטיבי לניסוי בפיזיקה.</p>
     </header>
 
     <main class="container mx-auto p-4 md:p-8">
 
         <section id="concepts" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text">Deconstructing the Battery: The Three Key Players</h2>
+            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text en-content">Deconstructing the Battery: The Three Key Players</h2>
+            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text he-content">פירוק הסוללה: שלושת השחקנים המרכזיים</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="stat-card">
-                    <h3 class="text-xl font-bold mb-2">Electromotive Force (ε)</h3>
+                    <h3 class="text-xl font-bold mb-2 en-content">Electromotive Force (ε)</h3>
+                    <h3 class="text-xl font-bold mb-2 he-content">כוח אלקטרו-מניע (כא"מ, ε)</h3>
                     <p class="text-6xl font-extrabold brilliant-blues-accent-text">1.55 V</p>
-                    <p class="mt-4 text-gray-600">The battery's <span class="font-semibold">ideal or maximum</span> possible voltage, measured when no current is flowing (open circuit). It's the true potential from the chemical reaction.</p>
+                    <p class="mt-4 text-gray-600 en-content">The battery's <span class="font-semibold">ideal or maximum</span> possible voltage, measured when no current is flowing (open circuit). It's the true potential from the chemical reaction.</p>
+                    <p class="mt-4 text-gray-600 he-content">המתח <span class="font-semibold">האידיאלי או המרבי</span> האפשרי של הסוללה, הנמדד כאשר לא זורם זרם (מעגל פתוח). זהו הפוטנציאל האמיתי מהתגובה הכימית.</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="text-xl font-bold mb-2">Internal Resistance (r)</h3>
+                    <h3 class="text-xl font-bold mb-2 en-content">Internal Resistance (r)</h3>
+                    <h3 class="text-xl font-bold mb-2 he-content">התנגדות פנימית (r)</h3>
                     <p class="text-6xl font-extrabold brilliant-blues-accent-text">0.4 Ω</p>
-                    <p class="mt-4 text-gray-600">The <span class="font-semibold">inevitable imperfection</span>. Resistance from the battery's own materials, causing it to heat up and lose voltage under load.</p>
+                    <p class="mt-4 text-gray-600 en-content">The <span class="font-semibold">inevitable imperfection</span>. Resistance from the battery's own materials, causing it to heat up and lose voltage under load.</p>
+                    <p class="mt-4 text-gray-600 he-content">ה<span class="font-semibold">פגם הבלתי נמנע</span>. התנגדות הנובעת מהחומרים של הסוללה עצמה, הגורמת לה להתחמם ולאבד מתח תחת עומס.</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="text-xl font-bold mb-2">Terminal Voltage (Vᴛ)</h3>
+                    <h3 class="text-xl font-bold mb-2 en-content">Terminal Voltage (Vᴛ)</h3>
+                    <h3 class="text-xl font-bold mb-2 he-content">מתח הדקים (Vᴛ)</h3>
                     <p class="text-6xl font-extrabold brilliant-blues-accent-text">&lt; 1.55 V</p>
-                    <p class="mt-4 text-gray-600">The <span class="font-semibold">actual, measured</span> voltage across the battery's terminals when it's powering a circuit. This is what you measure in the experiment.</p>
+                    <p class="mt-4 text-gray-600 en-content">The <span class="font-semibold">actual, measured</span> voltage across the battery's terminals when it's powering a circuit. This is what you measure in the experiment.</p>
+                    <p class="mt-4 text-gray-600 he-content">המתח <span class="font-semibold">האמיתי, הנמדד</span> על פני הדקי הסוללה כשהיא מזינה מעגל. זה מה שנמדד בניסוי.</p>
                 </div>
             </div>
         </section>
 
         <section id="setup" class="mb-16 bg-white p-8 rounded-lg shadow-md">
-            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text">The Experimental Setup</h2>
-            <p class="text-center max-w-3xl mx-auto mb-10 text-gray-600">To investigate these concepts, you built a specific circuit. Each component has a critical role, and its connection method (series or parallel) is deliberate. This setup allows us to control the current and measure its effect on the battery's voltage.</p>
+            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text en-content">The Experimental Setup</h2>
+            <h2 class="text-3xl font-bold text-center mb-8 brilliant-blues-text he-content">מערכת הניסוי</h2>
+            <p class="text-center max-w-3xl mx-auto mb-10 text-gray-600 en-content">To investigate these concepts, you built a specific circuit. Each component has a critical role, and its connection method (series or parallel) is deliberate. This setup allows us to control the current and measure its effect on the battery's voltage.</p>
+            <p class="text-center max-w-3xl mx-auto mb-10 text-gray-600 he-content">כדי לחקור מושגים אלו, בנינו מעגל חשמלי ייעודי. לכל רכיב תפקיד חיוני, וצורת החיבור שלו (טורי או מקבילי) מכוונת. מערך זה מאפשר לנו לשלוט בזרם ולמדוד את השפעתו על מתח הסוללה.</p>
             <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
                 <div class="p-4 border-2 border-gray-300 border-dashed rounded-lg">
                     <div class="flex items-center justify-around space-x-4">
@@ -83,37 +129,41 @@
                             <div class="w-16 h-16 rounded-full border-4 border-gray-700 flex items-center justify-center text-2xl font-bold bg-yellow-100">
                                 <span>&#9889;</span>
                             </div>
-                            <span class="font-semibold mt-2">Battery (ε, r)</span>
+                            <span class="font-semibold mt-2 en-content">Battery (ε, r)</span>
+                            <span class="font-semibold mt-2 he-content">סוללה (ε, r)</span>
                         </div>
                         <div class="w-16 h-1 bg-gray-700"></div>
                         <div class="flex flex-col items-center">
                             <div class="w-16 h-16 rounded-full border-4 border-blue-500 flex items-center justify-center text-2xl font-bold text-blue-500 bg-blue-100">A</div>
-                             <span class="font-semibold mt-2">Ammeter (in Series)</span>
+                             <span class="font-semibold mt-2 en-content">Ammeter (in Series)</span>
+                             <span class="font-semibold mt-2 he-content">אמפרמטר (בטור)</span>
                         </div>
                         <div class="w-16 h-1 bg-gray-700"></div>
                         <div class="flex flex-col items-center">
                             <div class="w-20 h-10 border-4 border-gray-700 flex items-center justify-center font-serif text-2xl italic">R</div>
-                            <span class="font-semibold mt-2">Rheostat (Load)</span>
+                            <span class="font-semibold mt-2 en-content">Rheostat (Load)</span>
+                            <span class="font-semibold mt-2 he-content">ריאוסטט (עומס)</span>
                         </div>
                     </div>
-                    <div class="relative left-1/4 -top-8">
+                    <div class="relative left-1/4 -top-8 rtl:left-auto rtl:-top-8 rtl:right-1/4">
                          <div class="w-16 h-16 rounded-full border-4 border-green-500 flex items-center justify-center text-2xl font-bold text-green-500 bg-green-100">V</div>
-                         <span class="font-semibold mt-2 relative left-2">Voltmeter <br>(in Parallel)</span>
+                         <span class="font-semibold mt-2 relative left-2 rtl:left-auto rtl:right-2 en-content">Voltmeter <br>(in Parallel)</span>
+                         <span class="font-semibold mt-2 relative left-2 rtl:left-auto rtl:right-2 he-content">וולטמטר <br>(במקביל)</span>
                     </div>
                 </div>
                 <div class="max-w-md">
                     <ul class="space-y-4">
                         <li class="flex items-start">
-                            <span class="text-blue-500 text-2xl font-bold mr-3">A</span>
-                            <div><strong class="text-gray-900">Ammeter:</strong> Connected in <span class="font-bold">series</span> to measure the current flowing *through* the circuit. It has very low internal resistance to avoid affecting the current it measures.</div>
+                            <span class="text-blue-500 text-2xl font-bold ml-3 rtl:ml-0 rtl:mr-3">A</span>
+                            <div><strong class="text-gray-900 en-content">Ammeter:</strong><strong class="text-gray-900 he-content">אמפרמטר:</strong><span class="en-content"> Connected in <span class="font-bold">series</span> to measure the current flowing *through* the circuit. It has very low internal resistance to avoid affecting the current it measures.</span><span class="he-content"> מחובר ב<span class="font-bold">טור</span> כדי למדוד את הזרם הזורם *דרך* המעגל. יש לו התנגדות פנימית נמוכה מאוד כדי לא להשפיע על הזרם הנמדד.</span></div>
                         </li>
                         <li class="flex items-start">
-                             <span class="text-green-500 text-2xl font-bold mr-3">V</span>
-                            <div><strong class="text-gray-900">Voltmeter:</strong> Connected in <span class="font-bold">parallel</span> to measure the potential difference *across* the battery terminals. It has very high internal resistance so it doesn't draw current from the circuit.</div>
+                             <span class="text-green-500 text-2xl font-bold ml-3 rtl:ml-0 rtl:mr-3">V</span>
+                            <div><strong class="text-gray-900 en-content">Voltmeter:</strong><strong class="text-gray-900 he-content">וולטמטר:</strong><span class="en-content"> Connected in <span class="font-bold">parallel</span> to measure the potential difference *across* the battery terminals. It has very high internal resistance so it doesn't draw current from the circuit.</span><span class="he-content"> מחובר ב<span class="font-bold">מקביל</span> כדי למדוד את הפרש הפוטנציאלים *על פני* הדקי הסוללה. יש לו התנגדות פנימית גבוהה מאוד כדי שלא ימשוך זרם מהמעגל.</span></div>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-gray-700 font-serif text-2xl font-bold mr-3 italic">R</span>
-                            <div><strong class="text-gray-900">Variable Resistor (Rheostat):</strong> Acts as the external load. By changing its resistance, you control the amount of current drawn from the battery, allowing you to collect multiple data points.</div>
+                            <span class="text-gray-700 font-serif text-2xl font-bold ml-3 rtl:ml-0 rtl:mr-3 italic">R</span>
+                            <div><strong class="text-gray-900 en-content">Variable Resistor (Rheostat):</strong><strong class="text-gray-900 he-content">נגד משתנה (ריאוסטט):</strong><span class="en-content"> Acts as the external load. By changing its resistance, you control the amount of current drawn from the battery, allowing you to collect multiple data points.</span><span class="he-content"> פועל כעומס חיצוני. על ידי שינוי ההתנגדות שלו, שולטים בכמות הזרם הנמשכת מהסוללה, מה שמאפשר איסוף נקודות נתונים מרובות.</span></div>
                         </li>
                     </ul>
                 </div>
@@ -122,38 +172,50 @@
 
 
         <section id="v-vs-i" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text">The "Fingerprint" Graph: Voltage vs. Current</h2>
-            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600">This graph is the key to understanding the battery. It plots the Terminal Voltage (Vᴛ) against the Current (I). The result is a straight line, which perfectly confirms the master equation: <strong class="font-mono">Vᴛ = ε - Ir</strong>. We can extract the battery's core properties directly from this line.</p>
+            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text en-content">The "Fingerprint" Graph: Voltage vs. Current</h2>
+            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text he-content">גרף "טביעת האצבע": מתח כנגד זרם</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600 en-content">This graph is the key to understanding the battery. It plots the Terminal Voltage (Vᴛ) against the Current (I). The result is a straight line, which perfectly confirms the master equation: <strong class="font-mono">Vᴛ = ε - Ir</strong>. We can extract the battery's core properties directly from this line.</p>
+            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600 he-content">גרף זה הוא המפתח להבנת הסוללה. הוא מציג את מתח ההדקים (Vᴛ) כנגד הזרם (I). התוצאה היא קו ישר, המאשר באופן מושלם את משוואת המאסטר: <strong class="font-mono">Vᴛ = ε - Ir</strong>. ניתן לחלץ את תכונות הליבה של הסוללה ישירות מקו זה.</p>
             <div class="bg-white p-4 md:p-8 rounded-lg shadow-md">
                 <div class="chart-container">
                     <canvas id="voltageVsCurrentChart"></canvas>
                 </div>
                 <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
                     <div>
-                        <h4 class="text-lg font-semibold">The Y-Intercept is the EMF (ε)</h4>
-                        <p class="text-gray-600">Where the line hits the vertical axis (at zero current), the terminal voltage equals the EMF. This is the battery's ideal voltage.</p>
+                        <h4 class="text-lg font-semibold en-content">The Y-Intercept is the EMF (ε)</h4>
+                        <h4 class="text-lg font-semibold he-content">נקודת החיתוך עם ציר Y היא הכא"מ (ε)</h4>
+                        <p class="text-gray-600 en-content">Where the line hits the vertical axis (at zero current), the terminal voltage equals the EMF. This is the battery's ideal voltage.</p>
+                        <p class="text-gray-600 he-content">היכן שהקו פוגע בציר האנכי (בזרם אפס), מתח ההדקים שווה לכא"מ. זהו המתח האידיאלי של הסוללה.</p>
                         <p class="text-2xl font-bold brilliant-blues-accent-text mt-2" id="emf-display">ε ≈ 1.55 V</p>
                     </div>
                     <div>
-                        <h4 class="text-lg font-semibold">The Slope is the Internal Resistance (-r)</h4>
-                        <p class="text-gray-600">The steepness of the line shows how much voltage is "lost" per amp of current. The internal resistance is the <span class="font-bold">negative</span> of the slope.</p>
+                        <h4 class="text-lg font-semibold en-content">The Slope is the Internal Resistance (-r)</h4>
+                        <h4 class="text-lg font-semibold he-content">השיפוע הוא ההתנגדות הפנימית (r-)</h4>
+                        <p class="text-gray-600 en-content">The steepness of the line shows how much voltage is "lost" per amp of current. The internal resistance is the <span class="font-bold">negative</span> of the slope.</p>
+                        <p class="text-gray-600 he-content">תלילות הקו מראה כמה מתח "אובד" לכל אמפר של זרם. ההתנגדות הפנימית היא הערך ה<span class="font-bold">שלילי</span> של השיפוע.</p>
                         <p class="text-2xl font-bold brilliant-blues-accent-text mt-2" id="r-display">r ≈ 0.40 Ω</p>
                     </div>
                 </div>
                  <div class="mt-8 text-center">
-                    <h4 class="text-lg font-semibold mb-3">What if the battery was different?</h4>
+                    <h4 class="text-lg font-semibold mb-3 en-content">What if the battery was different?</h4>
+                    <h4 class="text-lg font-semibold mb-3 he-content">מה אם הסוללה הייתה שונה?</h4>
                     <div class="flex justify-center space-x-2 md:space-x-4">
-                        <button onclick="updateBattery('normal')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Normal Battery</button>
-                        <button onclick="updateBattery('performance')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">High Performance</button>
-                        <button onclick="updateBattery('old')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Old / Cold</button>
+                        <button onclick="updateBattery('normal')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors en-content">Normal Battery</button>
+                        <button onclick="updateBattery('normal')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors he-content">סוללה רגילה</button>
+                        <button onclick="updateBattery('performance')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors en-content">High Performance</button>
+                        <button onclick="updateBattery('performance')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors he-content">ביצועים גבוהים</button>
+                        <button onclick="updateBattery('old')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors en-content">Old / Cold</button>
+                        <button onclick="updateBattery('old')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors he-content">ישנה / קרה</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="p-vs-i" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text">The Power Curve: Finding the Peak</h2>
-            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600">How much power can the battery actually deliver? By calculating Power (P = Vᴛ × I) and plotting it against Current (I), we see a parabola. This reveals the limits of the battery's performance and a critical concept: the Maximum Power Transfer Theorem.</p>
+            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text en-content">The Power Curve: Finding the Peak</h2>
+            <h2 class="text-3xl font-bold text-center mb-4 brilliant-blues-text he-content">עקומת ההספק: מציאת השיא</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600 en-content">How much power can the battery actually deliver? By calculating Power (P = Vᴛ × I) and plotting it against Current (I), we see a parabola. This reveals the limits of the battery's performance and a critical concept: the Maximum Power Transfer Theorem.</p>
+            <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600 he-content">כמה הספק הסוללה יכולה לספק בפועל? על ידי חישוב הספק (P = Vᴛ × I) והצגתו כנגד הזרם (I), אנו רואים פרבולה. הדבר חושף את מגבלות ביצועי הסוללה ואת מושג המפתח: משפט העברת ההספק המרבי.</p>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2 bg-white p-4 md:p-8 rounded-lg shadow-md">
                     <div class="chart-container">
@@ -161,12 +223,16 @@
                     </div>
                 </div>
                 <div class="bg-white p-8 rounded-lg shadow-md flex flex-col justify-center text-center">
-                     <h4 class="text-lg font-semibold">The Peak: Maximum Power (Pₘₐₓ)</h4>
-                    <p class="text-gray-600 mt-2">The peak of the curve shows the absolute maximum power the battery can deliver to an external circuit. This occurs when the external resistance equals the internal resistance (Rₑₓₜ = r).</p>
-                    <p class="text-4xl font-extrabold brilliant-blues-accent-text mt-4">1.50 W</p>
+                     <h4 class="text-lg font-semibold en-content">The Peak: Maximum Power (Pₘₐₓ)</h4>
+                     <h4 class="text-lg font-semibold he-content">השיא: הספק מרבי (Pₘₐₓ)</h4>
+                    <p class="text-gray-600 mt-2 en-content">The peak of the curve shows the absolute maximum power the battery can deliver to an external circuit. This occurs when the external resistance equals the internal resistance (Rₑₓₜ = r).</p>
+                    <p class="text-gray-600 mt-2 he-content">שיא העקומה מראה את ההספק המרבי המוחלט שהסוללה יכולה לספק למעגל חיצוני. זה קורה כאשר ההתנגדות החיצונית שווה להתנגדות הפנימית (Rₑₓₜ = r).</p>
+                    <p class="text-4xl font-extrabold brilliant-blues-accent-text mt-4" id="max-power-display">1.50 W</p>
                     <div class="mt-8">
-                         <h4 class="text-lg font-semibold">The Efficiency Trap</h4>
-                         <p class="text-gray-600 mt-2">But there's a catch! At maximum power, efficiency is only 50%. Half the energy is wasted as heat inside the battery.</p>
+                         <h4 class="text-lg font-semibold en-content">The Efficiency Trap</h4>
+                         <h4 class="text-lg font-semibold he-content">מלכודת היעילות</h4>
+                         <p class="text-gray-600 mt-2 en-content">But there's a catch! At maximum power, efficiency is only 50%. Half the energy is wasted as heat inside the battery.</p>
+                         <p class="text-gray-600 mt-2 he-content">אבל יש מלכוד! בהספק מרבי, היעילות היא 50% בלבד. מחצית מהאנרגיה מתבזבזת כחום בתוך הסוללה.</p>
                          <div class="chart-container h-48 max-h-48 mt-4">
                             <canvas id="efficiencyChart"></canvas>
                         </div>
@@ -178,7 +244,8 @@
     </main>
     
     <footer class="text-center p-6 bg-gray-200 text-gray-600">
-        <p>An Interactive Infographic by Canvas Infographics. Use this guide to ace your verbal exam!</p>
+        <p class="en-content">An Interactive Infographic by Canvas Infographics. Use this guide to ace your verbal exam!</p>
+        <p class="he-content">אינפוגרפיקה אינטראקטיבית מאת Canvas Infographics. השתמשו במדריך זה כדי להצטיין במבחן בעל פה!</p>
     </footer>
 
     <script>
@@ -239,9 +306,46 @@
 
         let vChart, pChart, efficiencyChart;
         let currentBattery = 'normal';
+        let currentLang = 'en';
+
+        const chartLabels = {
+            en: {
+                vVsI: {
+                    title: 'Terminal Voltage (V)',
+                    x: 'Current (A)',
+                    y: 'Terminal Voltage (V)'
+                },
+                pVsI: {
+                    title: 'Power Delivered (W)',
+                    x: 'Current (A)',
+                    y: 'Power (W)'
+                },
+                efficiency: {
+                    title: 'Efficiency at Max Power',
+                    labels: ['Useful Power to Load', 'Power Wasted as Heat']
+                }
+            },
+            he: {
+                vVsI: {
+                    title: 'מתח הדקים (V)',
+                    x: 'זרם (A)',
+                    y: 'מתח הדקים (V)'
+                },
+                pVsI: {
+                    title: 'הספק נמסר (W)',
+                    x: 'זרם (A)',
+                    y: 'הספק (W)'
+                },
+                efficiency: {
+                    title: 'יעילות בהספק מרבי',
+                    labels: ['הספק שימושי לעומס', 'הספק מבוזבז כחום']
+                }
+            }
+        };
 
         function createCharts() {
             const data = generateBatteryData(batteryTypes[currentBattery].emf, batteryTypes[currentBattery].r);
+            const lang = document.documentElement.lang;
 
             const vCtx = document.getElementById('voltageVsCurrentChart').getContext('2d');
             vChart = new Chart(vCtx, {
@@ -249,7 +353,7 @@
                 data: {
                     labels: data.currents.map(c => c.toFixed(2)),
                     datasets: [{
-                        label: 'Terminal Voltage (V)',
+                        label: chartLabels[lang].vVsI.title,
                         data: data.voltages,
                         borderColor: batteryTypes[currentBattery].color,
                         backgroundColor: batteryTypes[currentBattery].color + '33',
@@ -264,19 +368,11 @@
                     maintainAspectRatio: false,
                     scales: {
                         x: {
-                            title: {
-                                display: true,
-                                text: 'Current (A)',
-                                font: { weight: 'bold' }
-                            },
+                            title: { display: true, text: chartLabels[lang].vVsI.x, font: { weight: 'bold' } },
                             beginAtZero: true
                         },
                         y: {
-                            title: {
-                                display: true,
-                                text: 'Terminal Voltage (V)',
-                                font: { weight: 'bold' }
-                            },
+                            title: { display: true, text: chartLabels[lang].vVsI.y, font: { weight: 'bold' } },
                              beginAtZero: false
                         }
                     },
@@ -290,7 +386,7 @@
                 data: {
                     labels: data.currents.map(c => c.toFixed(2)),
                     datasets: [{
-                        label: 'Power Delivered (W)',
+                        label: chartLabels[lang].pVsI.title,
                         data: data.powers,
                         borderColor: brilliantBluesPalette.accent,
                         backgroundColor: brilliantBluesPalette.accent + '33',
@@ -304,42 +400,24 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Current (A)',
-                                font: { weight: 'bold' }
-                            },
-                            beginAtZero: true
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Power (W)',
-                                font: { weight: 'bold' }
-                            },
-                             beginAtZero: true
-                        }
+                        x: { title: { display: true, text: chartLabels[lang].pVsI.x, font: { weight: 'bold' } }, beginAtZero: true },
+                        y: { title: { display: true, text: chartLabels[lang].pVsI.y, font: { weight: 'bold' } }, beginAtZero: true }
                     },
                      ...tooltipPlugin
                 }
             });
             
             const maxPower = Math.max(...data.powers);
-            document.querySelector('#p-vs-i .text-4xl').textContent = `${maxPower.toFixed(2)} W`;
-
+            document.getElementById('max-power-display').textContent = `${maxPower.toFixed(2)} W`;
 
             const effCtx = document.getElementById('efficiencyChart').getContext('2d');
             efficiencyChart = new Chart(effCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Useful Power to Load', 'Power Wasted as Heat'],
+                    labels: chartLabels[lang].efficiency.labels,
                     datasets: [{
                         data: [50, 50],
-                        backgroundColor: [
-                            brilliantBluesPalette.accent,
-                            '#ef4444' 
-                        ],
+                        backgroundColor: [ brilliantBluesPalette.accent, '#ef4444' ],
                         borderColor: '#ffffff',
                         borderWidth: 4,
                     }]
@@ -348,19 +426,33 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { boxWidth: 15 }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Efficiency at Max Power'
-                        },
+                        legend: { position: 'bottom', labels: { boxWidth: 15 } },
+                        title: { display: true, text: chartLabels[lang].efficiency.title },
                          ...tooltipPlugin.plugins
                     }
                 }
             });
         }
+        
+        function updateChartsForLanguage(lang) {
+            currentLang = lang;
+            if (!vChart || !pChart || !efficiencyChart) return;
+            
+            vChart.data.datasets[0].label = chartLabels[lang].vVsI.title;
+            vChart.options.scales.x.title.text = chartLabels[lang].vVsI.x;
+            vChart.options.scales.y.title.text = chartLabels[lang].vVsI.y;
+            vChart.update();
+
+            pChart.data.datasets[0].label = chartLabels[lang].pVsI.title;
+            pChart.options.scales.x.title.text = chartLabels[lang].pVsI.x;
+            pChart.options.scales.y.title.text = chartLabels[lang].pVsI.y;
+            pChart.update();
+
+            efficiencyChart.data.labels = chartLabels[lang].efficiency.labels;
+            efficiencyChart.options.plugins.title.text = chartLabels[lang].efficiency.title;
+            efficiencyChart.update();
+        }
+
 
         function updateBattery(type) {
             currentBattery = type;
@@ -384,11 +476,13 @@
             pChart.update();
             
             const maxPower = Math.max(...data.powers);
-            document.querySelector('#p-vs-i .text-4xl').textContent = `${maxPower.toFixed(2)} W`;
+            document.getElementById('max-power-display').textContent = `${maxPower.toFixed(2)} W`;
         }
         
         window.onload = function() {
             createCharts();
+            const defaultLang = localStorage.getItem('preferredLanguage') || (navigator.language.startsWith('he') ? 'he' : 'en');
+            switchLanguage(defaultLang);
         };
 
     </script>
