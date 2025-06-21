@@ -6,6 +6,7 @@
     <title>The Mechanics of Springs & Friction / מכניקה של קפיצים וחיכוך</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Assistant:wght@400;700&display=swap" rel="stylesheet">
@@ -112,8 +113,8 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div class="prose max-w-none text-gray-700">
                             <p>
-                                <span class="en-content">The first goal is to find the <strong>spring constant (k)</strong>, a measure of a spring's stiffness. We do this by applying a known force (hanging weights) and measuring the resulting stretch (elongation). The experiment relies on two key principles:</span>
-                                <span class="he-content">המטרה הראשונה היא למצוא את <strong>קבוע הקפיץ (k)</strong>, מדד לקשיחותו של הקפיץ. אנו עושים זאת על ידי הפעלת כוח ידוע (תליית משקולות) ומדידת ההתארכות התוצאתית. הניסוי מסתמך על שני עקרונות מרכזיים:</span>
+                                <span class="en-content">The first goal is to find the <strong>spring constant (\(k\))</strong>, a measure of a spring's stiffness. We do this by applying a known force (hanging weights) and measuring the resulting stretch (elongation). The experiment relies on two key principles:</span>
+                                <span class="he-content">המטרה הראשונה היא למצוא את <strong>קבוע הקפיץ (\(k\))</strong>, מדד לקשיחותו של הקפיץ. אנו עושים זאת על ידי הפעלת כוח ידוע (תליית משקולות) ומדידת ההתארכות התוצאתית. הניסוי מסתמך על שני עקרונות מרכזיים:</span>
                             </p>
                             <ul>
                                 <li>
@@ -121,8 +122,8 @@
                                     <span class="he-content"><strong>החוק הראשון של ניוטון:</strong> במצב של שיווי משקל סטטי (כאשר המשקולות תלויות ללא תנועה), סך הכוחות הוא אפס. משמעות הדבר היא שהכוח המושך של הקפיץ כלפי מעלה מאזן באופן מושלם את כוח המשיכה כלפי מטה.</span>
                                 </li>
                                 <li>
-                                    <span class="en-content"><strong>Hooke's Law:</strong> For an ideal spring, the force it exerts ($F$) is directly proportional to its elongation ($\Delta l$). The formula is $F = k\Delta l$.</span>
-                                    <span class="he-content"><strong>חוק הוק:</strong> עבור קפיץ אידיאלי, הכוח שהוא מפעיל ($F$) נמצא ביחס ישר להתארכותו ($\Delta l$). הנוסחה היא $F = k\Delta l$.</span>
+                                    <span class="en-content"><strong>Hooke's Law:</strong> For an ideal spring, the force it exerts (\(F\)) is directly proportional to its elongation (\(\Delta l\)). The formula is \(F = k\Delta l\).</span>
+                                    <span class="he-content"><strong>חוק הוק:</strong> עבור קפיץ אידיאלי, הכוח שהוא מפעיל (\(F\)) נמצא ביחס ישר להתארכותו (\(\Delta l\)). הנוסחה היא \(F = k\Delta l\).</span>
                                 </li>
                             </ul>
                             <p>
@@ -146,8 +147,8 @@
                                     <div>
                                         <div class="w-px h-16 bg-gray-400 mx-auto"></div>
                                         <div class="font-mono text-sm text-[#0077C0]">
-                                            <span class="en-content">Spring (k=?)</span>
-                                            <span class="he-content">קפיץ (k=?)</span>
+                                            <span class="en-content">Spring (\(k\)=?)</span>
+                                            <span class="he-content">קפיץ (\(k\)=?)</span>
                                         </div>
                                         <div class="w-1 h-12 bg-gray-400 mx-auto relative">
                                             <div class="absolute -left-1 w-3 h-1 bg-gray-400 top-1"></div>
@@ -156,8 +157,8 @@
                                         </div>
                                         <div class="w-8 h-8 bg-[#00A1E4] rounded-md mx-auto flex items-center justify-center text-white font-bold">m</div>
                                         <p class="text-xs mt-1">
-                                            <span class="en-content">Weight ($F=mg$)</span>
-                                            <span class="he-content">משקולת ($F=mg$)</span>
+                                            <span class="en-content">Weight (\(F=mg\))</span>
+                                            <span class="he-content">משקולת (\(F=mg\))</span>
                                         </p>
                                     </div>
                                 </div>
@@ -167,8 +168,8 @@
                         <div>
                              <h3 class="text-xl font-bold text-center text-[#005082] mb-2" id="hookeChartTitle"></h3>
                              <p class="text-center text-sm text-gray-600 mb-4">
-                                <span class="en-content">By plotting Force vs. Elongation, the slope of the best-fit line gives us the spring constant, $k = \frac{\Delta F}{\Delta (\Delta l)}$.</span>
-                                <span class="he-content">על ידי שרטוט גרף של כוח כנגד התארכות, שיפוע קו המגמה נותן לנו את קבוע הקפיץ, $k = \frac{\Delta F}{\Delta (\Delta l)}$.</span>
+                                <span class="en-content">By plotting Force vs. Elongation, the slope of the best-fit line gives us the spring constant, \(k = \frac{\Delta F}{\Delta (\Delta l)}\).</span>
+                                <span class="he-content">על ידי שרטוט גרף של כוח כנגד התארכות, שיפוע קו המגמה נותן לנו את קבוע הקפיץ, \(k = \frac{\Delta F}{\Delta (\Delta l)}\).</span>
                             </p>
                             <div class="chart-container">
                                 <canvas id="hookesLawChart"></canvas>
@@ -189,8 +190,8 @@
                         <div>
                             <h3 class="text-xl font-bold text-center text-[#005082] mb-2" id="workEnergyChartTitle"></h3>
                             <p class="text-center text-sm text-gray-600 mb-4">
-                                <span class="en-content">Plotting distance vs. elongation squared reveals a linear relationship, whose slope is used to calculate $\mu_k$.</span>
-                                <span class="he-content">שרטוט גרף של מרחק כנגד התארכות בריבוע חושף קשר לינארי, ששיפועו משמש לחישוב $\mu_k$.</span>
+                                <span class="en-content">Plotting distance vs. elongation squared reveals a linear relationship, whose slope is used to calculate \(\mu_k\).</span>
+                                <span class="he-content">שרטוט גרף של מרחק כנגד התארכות בריבוע חושף קשר לינארי, ששיפועו משמש לחישוב \(\mu_k\).</span>
                             </p>
                             <div class="chart-container">
                                 <canvas id="workEnergyChart"></canvas>
@@ -199,13 +200,13 @@
 
                         <div class="prose max-w-none text-gray-700">
                             <p>
-                                <span class="en-content">The second goal is to find the <strong>coefficient of kinetic friction ($\mu_k$)</strong> between a box and a surface. This part uses a more advanced principle:</span>
-                                <span class="he-content">המטרה השנייה היא למצוא את <strong>מקדם החיכוך הקינטי ($\mu_k$)</strong> בין קופסה למשטח. חלק זה משתמש בעקרון מתקדם יותר:</span>
+                                <span class="en-content">The second goal is to find the <strong>coefficient of kinetic friction (\(\mu_k\))</strong> between a box and a surface. This part uses a more advanced principle:</span>
+                                <span class="he-content">המטרה השנייה היא למצוא את <strong>מקדם החיכוך הקינטי (\(\mu_k\))</strong> בין קופסה למשטח. חלק זה משתמש בעקרון מתקדם יותר:</span>
                             </p>
                             <ul>
                                 <li>
-                                    <span class="en-content"><strong>Work-Energy Theorem:</strong> The net work done on an object equals its change in kinetic energy ($W_{net} = \Delta KE$). Since the box starts and ends at rest, its $\Delta KE$ is zero. Therefore, the total work done on it must also be zero.</span>
-                                    <span class="he-content"><strong>משפט עבודה-אנרגיה:</strong> העבודה הכוללת (העבודה נטו) שנעשית על גוף שווה לשינוי באנרגיה הקינטית שלו ($W_{net} = \Delta KE$). כיוון שהקופסה מתחילה ומסיימת במנוחה, השינוי באנרגיה הקינטית שלה הוא אפס. לכן, גם העבודה הכוללת שנעשתה עליה חייבת להיות אפס.</span>
+                                    <span class="en-content"><strong>Work-Energy Theorem:</strong> The net work done on an object equals its change in kinetic energy (\(W_{net} = \Delta KE\)). Since the box starts and ends at rest, its \(\Delta KE\) is zero. Therefore, the total work done on it must also be zero.</span>
+                                    <span class="he-content"><strong>משפט עבודה-אנרגיה:</strong> העבודה הכוללת (העבודה נטו) שנעשית על גוף שווה לשינוי באנרגיה הקינטית שלו (\(W_{net} = \Delta KE\)). כיוון שהקופסה מתחילה ומסיימת במנוחה, השינוי באנרגיה הקינטית שלה הוא אפס. לכן, גם העבודה הכוללת שנעשתה עליה חייבת להיות אפס.</span>
                                 </li>
                             </ul>
                             <p>
@@ -219,11 +220,11 @@
                                 </h4>
                                 <div class="flex items-center justify-around mt-4 text-center font-semibold">
                                     <div class="p-3 bg-[#00A1E4] text-white rounded-lg shadow">
-                                        <span class="en-content">1. Potential Energy</span><span class="he-content">1. אנרגיה פוטנציאלית</span><br><span class="text-xs font-normal">($\frac{1}{2}k(\Delta l)^2$)</span>
+                                        <span class="en-content">1. Potential Energy</span><span class="he-content">1. אנרגיה פוטנציאלית</span><br><span class="text-xs font-normal">(\(\frac{1}{2}k(\Delta l)^2\))</span>
                                     </div>
                                     <div class="text-2xl font-black text-green-600">→</div>
                                     <div class="p-3 bg-yellow-400 text-gray-800 rounded-lg shadow">
-                                        <span class="en-content">2. Kinetic Energy</span><span class="he-content">2. אנרגיה קינטית</span><br><span class="text-xs font-normal">($\frac{1}{2}mv^2$)</span>
+                                        <span class="en-content">2. Kinetic Energy</span><span class="he-content">2. אנרגיה קינטית</span><br><span class="text-xs font-normal">(\(\frac{1}{2}mv^2\))</span>
                                     </div>
                                      <div class="text-2xl font-black text-red-600">→</div>
                                     <div class="p-3 bg-red-500 text-white rounded-lg shadow">
@@ -262,12 +263,12 @@
                                     <span class="en-content">Part I: Statics</span><span class="he-content">חלק א': סטטיקה</span>
                                 </h4>
                                 <p class="text-sm">
-                                    <span class="en-content">Apply Force ($F=mg$),<br>Measure Elongation ($\Delta l$).</span>
-                                    <span class="he-content">הפעלת כוח ($F=mg$),<br>מדידת התארכות ($\Delta l$).</span>
+                                    <span class="en-content">Apply Force (\(F=mg\)),<br>Measure Elongation (\(\Delta l\)).</span>
+                                    <span class="he-content">הפעלת כוח (\(F=mg\)),<br>מדידת התארכות (\(\Delta l\)).</span>
                                 </p>
                                 <div class="text-2xl mt-2">↓</div>
                                 <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">
-                                    <span class="en-content">Graph F vs. $\Delta l$</span><span class="he-content">גרף F כנגד $\Delta l$</span>
+                                    <span class="en-content">Graph F vs. \(\Delta l\)</span><span class="he-content">גרף F כנגד \(\Delta l\)</span>
                                 </p>
                             </div>
                             
@@ -275,9 +276,9 @@
                             
                             <div class="text-center p-4 bg-[#0077C0] text-white rounded-lg shadow-lg">
                                 <h4 class="font-bold">
-                                    <span class="en-content">Key Result: 'k'</span><span class="he-content">תוצאת מפתח: 'k'</span>
+                                    <span class="en-content">Key Result: '\(k\)'</span><span class="he-content">תוצאת מפתח: '\(k\)'</span>
                                 </h4>
-                                <p class="text-2xl font-black">k = <span class="en-content">Slope₁</span><span class="he-content">שיפוע₁</span></p>
+                                <p class="text-2xl font-black">\(k\) = <span class="en-content">Slope₁</span><span class="he-content">שיפוע₁</span></p>
                             </div>
 
                             <div class="text-4xl font-light text-gray-400 transform md:rotate-0 rotate-90">➔</div>
@@ -287,12 +288,12 @@
                                     <span class="en-content">Part II: Dynamics</span><span class="he-content">חלק ב': דינמיקה</span>
                                 </h4>
                                 <p class="text-sm">
-                                    <span class="en-content">Stretch by $\Delta l$,<br>Measure Distance ($x$).</span>
-                                    <span class="he-content">מתיחה ב- $\Delta l$,<br>מדידת מרחק ($x$).</span>
+                                    <span class="en-content">Stretch by \(\Delta l\),<br>Measure Distance (\(x\)).</span>
+                                    <span class="he-content">מתיחה ב-\(\Delta l\),<br>מדידת מרחק (\(x\)).</span>
                                 </p>
                                 <div class="text-2xl mt-2">↓</div>
                                 <p class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">
-                                    <span class="en-content">Graph x vs. $(\Delta l)^2$</span><span class="he-content">גרף x כנגד $(\Delta l)^2$</span>
+                                    <span class="en-content">Graph x vs. \((\Delta l)^2\)</span><span class="he-content">גרף x כנגד \((\Delta l)^2\)</span>
                                 </p>
                             </div>
 
@@ -300,9 +301,9 @@
 
                             <div class="text-center p-4 bg-[#005082] text-white rounded-lg shadow-lg">
                                 <h4 class="font-bold">
-                                    <span class="en-content">Final Result: 'μk'</span><span class="he-content">תוצאה סופית: 'μk'</span>
+                                    <span class="en-content">Final Result: '\(\mu_k\)'</span><span class="he-content">תוצאה סופית: '\(\mu_k\)'</span>
                                 </h4>
-                                 <p class="text-lg font-mono">$\mu_k = \frac{k}{2 \cdot (\text{<span class="en-content">Slope₂</span><span class="he-content">שיפוע₂</span>}) \cdot mg}$</p>
+                                 <p class="text-lg font-mono">\(\mu_k = \frac{k}{2 \cdot \text{Slope}_2 \cdot mg}\)</p>
                             </div>
 
                         </div>
